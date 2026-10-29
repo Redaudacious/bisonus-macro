@@ -1,7 +1,7 @@
 # Maintainer: Rosu Mihai
-# Același fișier construiește pachetul pe laptop, cu packaging/build-arch.sh, și stă în AUR.
-# În depozit, sha256sums e SKIP: build-arch.sh pune lângă el o arhivă a copiei de lucru, cu numele din source=().
-# Copia din AUR primește suma arhivei de pe GitHub de la packaging/aur.sh.
+# The same file builds the package locally, with packaging/build-arch.sh, and is the AUR package.
+# In the source repository, sha256sums is SKIP: build-arch.sh puts an archive of the working copy next to it.
+# packaging/aur.sh writes the checksum of the GitHub tag archive into the AUR copy.
 pkgname=bisonus-macro
 pkgver=0.7.0
 pkgrel=1
