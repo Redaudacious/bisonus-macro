@@ -1,0 +1,123 @@
+<html><body>
+<h1>Scripting language</h1>
+<p>Each macro is a short script. The language looks like AutoHotkey v2. The program checks the script while you type. A macro with an error stays gray in the panel and shows the line of the error.</p>
+<p>Open the script of a macro in two ways:</p>
+<ul>
+<li>In the main window, select the macro and click "Edit...".</li>
+<li>In the panel, click the code button at the right of the row. Click "Save" to keep your changes.</li>
+</ul>
+
+<h2>A first example</h2>
+<pre>key("4")
+wait(2000)
+block {
+    key("/")
+    text("Snow 2")
+    key("Return")
+}</pre>
+<p>The script presses 4 and waits 2 seconds. Then it blocks your keyboard, presses <b>/</b>, types "Snow 2" and presses Enter. Then it unblocks your keyboard.</p>
+
+<h2>Commands</h2>
+<table border="1" cellpadding="4">
+<tr><th>Command</th><th>What it does</th><th>Example</th></tr>
+<tr><td>key("name")</td><td>Presses a key or a combination, then releases it.</td><td>key("Ctrl+F8")</td></tr>
+<tr><td>keydown("name")</td><td>Presses a key and holds it.</td><td>keydown("w")</td></tr>
+<tr><td>keyup("name")</td><td>Releases a key that keydown() holds.</td><td>keyup("w")</td></tr>
+<tr><td>text("…")</td><td>Types the text, letter by letter, on the US layout. At most 1000 characters.</td><td>text("Snow 2")</td></tr>
+<tr><td>wait(ms)</td><td>Waits, in milliseconds, from 0 to 3600000. Inside block { }, at most 10000.</td><td>wait(2000)</td></tr>
+<tr><td>keydelay(ms)</td><td>Sets the pause after each key and each letter, from 0 to 10000. The default is 30.</td><td>keydelay(150)</td></tr>
+<tr><td>random(a, b)</td><td>Gives a whole number from a to b. Use it in an expression.</td><td>x := random(1, 6)</td></tr>
+<tr><td>click()</td><td>Clicks the left button. click("right") and click("middle") click the other buttons. click(x, y) moves the cursor first.</td><td>click(960, 540)</td></tr>
+<tr><td>mousemove(x, y)</td><td>Moves the cursor to the point x, y of the desktop.</td><td>mousemove(100, 200)</td></tr>
+<tr><td>wheel(n)</td><td>Turns the wheel n steps. A positive n turns down, a negative n turns up.</td><td>wheel(-3)</td></tr>
+</table>
+<p>Key names: the letters a to z, the digits 0 to 9, F1 to F12, Return, Space, Tab, Escape, BackSpace, Delete, Insert, Home, End, PgUp, PgDown, Up, Down, Left, Right, and the signs on the US keyboard. Put Ctrl+, Shift+ or Alt+ before a key for a combination.</p>
+
+<h2>Variables and values</h2>
+<p>A variable gets a value with <b>:=</b>. A value is a number or a text. A text is between double quotes.</p>
+<pre>count := 3
+place := "Snow 2"
+count += 1
+place .= " now"</pre>
+<p>A variable without a value is an empty text. In a calculation, an empty text is 0. The names do not care about capital letters: <b>Count</b> and <b>count</b> are the same variable.</p>
+<p>Two variables come from the program:</p>
+<ul>
+<li><b>name</b> is the name of the macro. A shared template writes the name of each macro with text(name).</li>
+<li><b>A_Index</b> counts the passes of the nearest loop, from 1.</li>
+</ul>
+<p>In a text, <b>`n</b> is a new line, <b>`t</b> is a tab, <b>`"</b> is a double quote and <b>``</b> is the sign ` itself.</p>
+
+<h2>Operators</h2>
+<table border="1" cellpadding="4">
+<tr><th>Operator</th><th>Meaning</th></tr>
+<tr><td>+ - * /</td><td>add, subtract, multiply, divide</td></tr>
+<tr><td>//</td><td>divide and round down</td></tr>
+<tr><td>.</td><td>join two texts; put a space on both sides: "a" . "b"</td></tr>
+<tr><td>= !=</td><td>equal and not equal; texts compare without capital letters</td></tr>
+<tr><td>==</td><td>equal, with capital letters</td></tr>
+<tr><td>&lt; &gt; &lt;= &gt;=</td><td>compare</td></tr>
+<tr><td>and or not, &amp;&amp; || !</td><td>logic</td></tr>
+</table>
+<p>Use <b>:=</b> to set a variable. A line like <b>x = 5</b> is an error, because <b>=</b> compares.</p>
+
+<h2>Control</h2>
+<pre>if count = 1 {
+    key("a")
+} else if count = 2 {
+    key("b")
+} else {
+    key("c")
+}
+
+while count &lt; 10 {
+    count += 1
+}
+
+loop 3 {
+    text("pass " . A_Index)
+}
+
+loop {
+    if A_Index &gt; 5 {
+        break
+    }
+}
+
+Again:
+key("a")
+goto Again</pre>
+<ul>
+<li>The braces { } are necessary after if, else, while, loop and block.</li>
+<li><b>break</b> leaves the loop. <b>continue</b> goes to the next pass.</li>
+<li><b>goto</b> jumps to a label. A label is a name with a colon, on its own line, outside all braces.</li>
+<li><b>return</b> ends the script.</li>
+<li>A comment starts with <b>;</b> at the start of a line or after a space. <b>/* … */</b> on its own lines is a comment too.</li>
+</ul>
+
+<h2>Blocking your keyboard</h2>
+<p><b>block { }</b> blocks your keyboards while it runs. Your own keys do not mix with the keys of the macro. At the end of the block, your keyboards work again.</p>
+<p>A block must end soon, so these are errors inside block { }: while, loop, goto, a label, break, continue, return, another block, and a wait() longer than 10000 ms. Put the loop outside, and use one block for each pass.</p>
+<p>Your mouse works inside a block.</p>
+
+<h2>Stopping a macro</h2>
+<p>A macro stops at any time, also in a loop without end. Four ways stop it:</p>
+<ol>
+<li>the "■ Stop" button in the bar of the panel</li>
+<li>"Stop macro" in the menu of the tray icon</li>
+<li>the global key "Stop macro", Pause by default; change it on the page Keys</li>
+<li>the global key of the running macro, pressed a second time</li>
+</ol>
+<p>Inside block { }, only the first two work, because your keyboard is blocked. When a macro stops, it releases the keys that keydown() holds, and it unblocks your keyboard.</p>
+
+<h2>The mouse</h2>
+<p>The coordinates are the coordinates of the desktop, in the units of KDE, from the top left corner of the first screen. AutoHotkey counts from the active window: here the count starts at the desktop. With two screens, the program was tested on one screen only. A point outside the screen stops the macro.</p>
+<p>KDE must give the mouse to the program. If KDE gave only the keyboard, a mouse command stops the macro, and the status line of the panel shows the reason.</p>
+<p>After the update to 0.7.0, KDE asks once more for access, because the program now asks for the mouse too. Accept the window.</p>
+
+<h2>Errors</h2>
+<p>Under the script, a line shows "✓ No errors" or the first error, with its line and column. The line of the error has a wavy underline. "Save" keeps a script with an error too, so you do not lose your work. The macro stays gray until you correct it.</p>
+<p>An error while the macro runs, for example a division by zero, stops the macro. The status line of the panel shows the reason.</p>
+
+<h2>Not in this version</h2>
+<p>Your own functions, lists, WinActivate, KeyWait, ImageSearch, MsgBox and global keys written in the script are not in the language.</p>
+</body></html>

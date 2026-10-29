@@ -1,0 +1,26 @@
+# Maintainer: Rosu Mihai
+# Același fișier construiește pachetul pe laptop, cu packaging/build-arch.sh, și stă în AUR.
+# În depozit, sha256sums e SKIP: build-arch.sh pune lângă el o arhivă a copiei de lucru, cu numele din source=().
+# Copia din AUR primește suma arhivei de pe GitHub de la packaging/aur.sh.
+pkgname=bisonus-macro
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="Keyboard and mouse macros for KDE Plasma 6 on Wayland"
+arch=('x86_64')
+url="https://github.com/Redaudacious/bisonus-macro"
+license=('GPL-3.0-or-later')
+depends=('qt6-base>=6.10.2' 'kglobalaccel' 'kxmlgui' 'kconfig' 'kdbusaddons' 'ki18n' 'kcolorscheme'
+         'kstatusnotifieritem' 'kwidgetsaddons' 'libei' 'xdg-desktop-portal-kde' 'kwin' 'hicolor-icon-theme')
+makedepends=('cmake' 'extra-cmake-modules' 'gettext')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cmake -B build -S "$pkgname-$pkgver" -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TESTING=OFF -Wno-dev
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 "$pkgname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

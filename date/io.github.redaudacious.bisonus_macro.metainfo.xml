@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.redaudacious.bisonus_macro</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>BisonusMacro</name>
+  <summary>Keyboard and mouse macros for KDE Plasma</summary>
+  <summary xml:lang="ro">Macro-uri de tastatură și mouse pentru KDE Plasma</summary>
+  <description>
+    <p>BisonusMacro runs keyboard and mouse macros on Linux, on KDE Plasma 6 with Wayland.</p>
+    <p xml:lang="ro">BisonusMacro rulează macro-uri de tastatură și mouse pe Linux, pe KDE Plasma 6 cu Wayland.</p>
+    <p>A macro is a small script. It presses keys, types text, waits, moves the mouse and clicks. You start it from a click in the panel or from a global key.</p>
+    <p xml:lang="ro">Un macro e un script mic. El apasă taste, scrie text, așteaptă, mișcă mouse-ul și face clic. Îl pornești dintr-un clic în panou sau dintr-o tastă globală.</p>
+  </description>
+  <launchable type="desktop-id">bisonus-macro.desktop</launchable>
+  <developer id="io.github.redaudacious">
+    <name>Rosu Mihai</name>
+  </developer>
+  <url type="homepage">https://github.com/Redaudacious/bisonus-macro</url>
+  <url type="bugtracker">https://github.com/Redaudacious/bisonus-macro/issues</url>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.7.0" date="2026-10-29">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>Each macro is now a short script. The language has variables, loops, if, wait, keydelay and text. The help has a full reference.</li>
+          <li>The script editor colors the words and underlines the line of the first error. Open it with "Edit..." or with the code button in the panel.</li>
+          <li>Macros made of old JSON steps change into scripts on the first start. The program keeps a copy of your old file.</li>
+          <li>Macros can click and move the mouse. The new commands are click, mousemove and wheel. KDE asks you once to allow the keyboard and the mouse.</li>
+          <li>You can stop a running macro in four ways. Click "Stop" in the panel, press Pause, use "Stop macro" in the tray menu, or press the key of the macro again.</li>
+          <li>The package starts with no macros. The example macros are a template. The empty Macros page has three cards: import a file, start from a template or add a macro. You can also drop a file on it.</li>
+          <li>At start, the program tells you what is missing from your session.</li>
+          <li>"bisonus-macro --version" works in a terminal without a desktop.</li>
+          <li>"bisonus-macro --cleanup" removes the KWin rule, the KWin scripts and the global keys. With "--all" it also removes your settings and macros, after a backup. General has a button for the same job.</li>
+          <li>A package for Arch Linux and CachyOS. The installer knows these systems and tells you the AUR and pacman commands.</li>
+          <li>The description of the program shows in the language of your system, in the menu and in the software center. English is the default and Romanian is the translation.</li>
+          <li>The README is in English and says how to install, stop and remove the program.</li>
+          <li>The help shows what is new in each version.</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>The panel keeps its scroll position when you collapse or expand a category. Before, it went back to the top.</li>
+          <li>"Apply" in the settings keeps the scroll position, the selected row and the collapsed branches of the Macros page. Before, it went back to the top.</li>
+          <li>A script with a very deep expression now gives an error. Before, it could freeze the program.</li>
+          <li>A comment that does not end, and "nan" or "inf" as a number, now give an error. Before, a script could wait for nothing.</li>
+          <li>"keydelay" and "wait" need a number, and "true" and "false" cannot get a value.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

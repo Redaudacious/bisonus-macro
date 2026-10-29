@@ -1,0 +1,86 @@
+<html><body>
+<h1>Editing macros</h1>
+<p>You edit the macros in the main window. Click the gear button (⚙) in the toolbar of the panel to open it. Four buttons under the tree change the tree.</p>
+<p><img src="../capturi/fereastra-principala.png"></p>
+
+<h2>The pages</h2>
+<p>The list on the left has four pages. Click a name to open its page. Drag the bar between the list and the page to change the width of the list. The program remembers the width.</p>
+<ul>
+<li><b>Macros.</b> The switch "Macros active", the buttons "Import...", "Export..." and "New from template...", the tree and the four buttons.</li>
+<li><b>Panel.</b> The opacity, "Transparent background", "Panel on top of" and "Bring to front before a macro".</li>
+<li><b>Keys.</b> The global keys, the key that stops the running macro, and "Start pause".</li>
+<li><b>General.</b> The theme, the language, "Notify when activation changes" and "Remove BisonusMacro from KDE...".</li>
+</ul>
+
+<h2>Search</h2>
+<p>Press Ctrl+F in the main window. The focus goes to the search field above the list of pages. The search works on every page:</p>
+<ul>
+<li>On the pages "Panel", "Keys" and "General", it hides the pages with no match and marks the options it finds.</li>
+<li>On the page "Macros", the tree keeps only the macros and categories that have the word in the name or in the description. A category that matches shows all that it holds. The categories above a match stay too.</li>
+</ul>
+<p>Capital letters do not matter. Clear the field to see all the macros again.</p>
+
+<h2>The key of a macro</h2>
+<p>You can set the key of a macro in the tree, in the column "Global key", or in the window of the node. You can also set it in the panel: click the key button of the macro. The page "The panel" shows how.</p>
+<p>The program holds a global key only while it is useful. With "Macros active" off, the program holds no key of a macro or of a category. The key goes to the other programs, and the program keeps it in the settings. The same is true for the keys of the nodes under an inactive category. An inactive category keeps its key while "Macros active" is on and the categories above it are active: the key turns the category on again. An inactive macro holds no key. The keys come back when you turn the switch or the category on again.</p>
+
+<h2>The pause between keys</h2>
+<p>The program waits 30 ms after each key and after each letter of a text. This pause never changes. You do not set it in the settings. "Start pause" is the wait before the first key. It stays on the page "Keys".</p>
+<p>An export file or a settings file from an older version can have a value for the pause between keys. The program ignores this value.</p>
+
+<h2>The four buttons</h2>
+<ol>
+<li><b>Add category.</b> It puts a new category under the selected category. With no selection, the category goes to the first level.</li>
+<li><b>Add macro.</b> It puts a new macro under the selected category. The button is gray when you select no category.</li>
+<li><b>Edit...</b> It opens the window of the selected node. A double click on a row does the same.</li>
+<li><b>Delete.</b> It deletes the selected node. A macro goes without a question. A category with nodes under it asks first, for example "Delete Rift and its 26 nodes?". The settings of the deleted nodes go with them.</li>
+</ol>
+
+<h2>The window of a node</h2>
+<p>The window has these fields:</p>
+<ul>
+<li><b>Name.</b> The name of a macro goes to the chat when the template is "teleport".</li>
+<li><b>Description.</b> The panel shows it under the name.</li>
+<li><b>Color.</b> The box "Inherit from category" is on by default. Clear it to choose a color.</li>
+<li><b>Template.</b> This list is for macros only. "Own script" means that the macro has its own script. A template is a script that many macros share. "teleport" makes the macro type its name in the chat. Under the list, the script shows in an editor. The script of a macro with a template is read only. The button "Edit template (used by N macros)" lets you change the template for all N macros. The button "Copy into this macro" gives the macro its own copy of the script. Then the list shows "Own script".</li>
+<li><b>Global key.</b> The program checks this key as the key in the tree.</li>
+<li><b>Active.</b> It has the same value as the column "Active" in the tree.</li>
+</ul>
+<p>The page "Scripting language" has the full language of the scripts.</p>
+<p>The id of a new node comes from the id of the parent and the name of the node. A new node gets a different id when the id is in use. A change of the name does not change the id, so the keys and the switches stay linked.</p>
+
+<h2>The code window</h2>
+<p>The code button on a row of the panel opens the code window of that macro. You do not need the main window for this.</p>
+<p><img src="../capturi/editorul.png"></p>
+<p>The status line under the editor shows "No errors" or the first error. It gives the line, the column and the reason. A red wavy line marks the error in the text. In this picture, <b>while</b> is not allowed inside a <b>block</b>.</p>
+<p>"Save" writes <b>macros.json</b>, and the program reads it again. "Cancel" drops the changes. A macro with an error does not run. Its row is gray until you correct the script.</p>
+
+<h2>The key that stops a macro</h2>
+<p>The page "Keys" has "Key that stops the running macro". Default: Pause. The key stops the macro that runs. It does not work inside a <b>block</b>, where the keyboard is blocked. The item "Stop macro" in the menu of the tray stops a macro at any time.</p>
+
+<h2>Remove BisonusMacro from KDE</h2>
+<p>The button is on the page "General". It deletes the KWin rules, the KWin scripts and the global keys of the program. Then the program quits. After this, uninstall the package. The box "Also delete my macros" deletes <b>macros.json</b> too. The program keeps a backup.</p>
+
+<h2>A template with another key</h2>
+<p>The key of the jutsu is a step of the template. For another key, write a new template in <b>macros.json</b>.</p>
+<ol>
+<li>Open <b>~/.config/bisonus-macro/macros.json</b>.</li>
+<li>In the list "sabloane", copy the template "teleport" under a new name, for example "teleport-7".</li>
+<li>Write the key 7 in the first step. The whole template is below.</li>
+<li>Save the file. The program reads it again by itself. You do not restart it.</li>
+<li>Open the window of a macro. The list "Template" now has "teleport-7". Choose it.</li>
+</ol>
+<pre>"teleport-7": [ { "tasta": "7" }, { "pauza": 2000 }, { "tasta": "/" }, { "text": "$nume" }, { "tasta": "Return" } ]</pre>
+<p>The code button of the macro now shows the key 7 in the first step.</p>
+
+<h2>Apply</h2>
+<p>The changes of the editor stay in the window until you click "Apply" or "OK". Then the program writes <b>macros.json</b> and after it the settings. "Cancel" drops the changes.</p>
+<ul>
+<li>The write loses the order of the keys and the spaces that you made by hand.</li>
+<li>When the whole file has an error, for example broken JSON, the buttons of the editor are off.</li>
+<li>The program reads <b>macros.json</b> again when you change it with another program. The open window then drops your unsaved changes and says so.</li>
+</ul>
+
+<h2>The tree</h2>
+<p>Each row has five columns: name, active, click, global key and key active. A category has a global key and a key active, but no click. An inactive node is gray, with the reason.</p>
+</body></html>

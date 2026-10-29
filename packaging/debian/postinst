@@ -1,0 +1,6 @@
+#!/bin/sh
+# Debian Policy § 6.3: scriptul pachetului nu întreabă nimic. El spune numai ce cere aplicația.
+set -e
+if [ "$1" = configure ]; then
+    echo "BisonusMacro needs KDE Plasma 6 on Wayland. Start it from the application menu."
+fi

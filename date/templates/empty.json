@@ -1,0 +1,16 @@
+{
+  "format": { "nume": "bisonus-macro", "versiune": 2 },
+  "macros": {
+    "sabloane": {
+      "teleport": [
+        { "tasta": "4" },
+        { "pauza": 2000 },
+        { "tasta": "/" },
+        { "text": "$nume" },
+        { "tasta": "Return" }
+      ]
+    },
+    "arbore": []
+  },
+  "setari": { "general": {}, "noduri": {} }
+}

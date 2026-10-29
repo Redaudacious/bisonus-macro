@@ -1,0 +1,123 @@
+<html><body>
+<h1>Limbajul de scripting</h1>
+<p>Fiecare macro e un script scurt. Limbajul seamănă cu AutoHotkey v2. Programul verifică scriptul cât scrii. Un macro cu o greșeală rămâne gri în panou și arată rândul greșelii.</p>
+<p>Deschide scriptul unui macro în două feluri:</p>
+<ul>
+<li>În fereastra principală, alege macro-ul și fă clic pe „Edit...”.</li>
+<li>În panou, fă clic pe butonul codului, la dreapta rândului. Fă clic pe „Save” ca să păstrezi schimbările.</li>
+</ul>
+
+<h2>Un prim exemplu</h2>
+<pre>key("4")
+wait(2000)
+block {
+    key("/")
+    text("Snow 2")
+    key("Return")
+}</pre>
+<p>Scriptul apasă 4 și așteaptă 2 secunde. Apoi blochează tastatura ta, apasă <b>/</b>, scrie „Snow 2” și apasă Enter. Apoi deblochează tastatura ta.</p>
+
+<h2>Comenzile</h2>
+<table border="1" cellpadding="4">
+<tr><th>Comanda</th><th>Ce face</th><th>Exemplu</th></tr>
+<tr><td>key("nume")</td><td>Apasă o tastă sau o combinație, apoi o eliberează.</td><td>key("Ctrl+F8")</td></tr>
+<tr><td>keydown("nume")</td><td>Apasă o tastă și o ține apăsată.</td><td>keydown("w")</td></tr>
+<tr><td>keyup("nume")</td><td>Eliberează o tastă ținută de keydown().</td><td>keyup("w")</td></tr>
+<tr><td>text("…")</td><td>Scrie textul literă cu literă, pe aranjamentul US. Cel mult 1000 de caractere.</td><td>text("Snow 2")</td></tr>
+<tr><td>wait(ms)</td><td>Așteaptă, în milisecunde, de la 0 la 3600000. În block { }, cel mult 10000.</td><td>wait(2000)</td></tr>
+<tr><td>keydelay(ms)</td><td>Pune pauza de după fiecare tastă și fiecare literă, de la 0 la 10000. Implicit e 30.</td><td>keydelay(150)</td></tr>
+<tr><td>random(a, b)</td><td>Dă un număr întreg de la a la b. Folosește-l într-o expresie.</td><td>x := random(1, 6)</td></tr>
+<tr><td>click()</td><td>Apasă butonul stâng. click("right") și click("middle") apasă celelalte butoane. click(x, y) mută întâi cursorul.</td><td>click(960, 540)</td></tr>
+<tr><td>mousemove(x, y)</td><td>Mută cursorul în punctul x, y al desktopului.</td><td>mousemove(100, 200)</td></tr>
+<tr><td>wheel(n)</td><td>Învârte rotița n pași. Un n pozitiv o învârte în jos, un n negativ în sus.</td><td>wheel(-3)</td></tr>
+</table>
+<p>Numele tastelor: literele a până la z, cifrele 0 până la 9, F1 până la F12, Return, Space, Tab, Escape, BackSpace, Delete, Insert, Home, End, PgUp, PgDown, Up, Down, Left, Right și semnele de pe tastatura US. Pune Ctrl+, Shift+ sau Alt+ înaintea unei taste pentru o combinație.</p>
+
+<h2>Variabilele și valorile</h2>
+<p>O variabilă primește o valoare cu <b>:=</b>. O valoare e un număr sau un text. Un text stă între ghilimele duble.</p>
+<pre>count := 3
+place := "Snow 2"
+count += 1
+place .= " now"</pre>
+<p>O variabilă fără valoare e un text gol. Într-un calcul, un text gol e 0. Numele nu țin cont de literele mari: <b>Count</b> și <b>count</b> sunt aceeași variabilă.</p>
+<p>Două variabile vin de la program:</p>
+<ul>
+<li><b>name</b> e numele macro-ului. Un șablon comun scrie numele fiecărui macro cu text(name).</li>
+<li><b>A_Index</b> numără trecerile celei mai apropiate bucle, de la 1.</li>
+</ul>
+<p>Într-un text, <b>`n</b> e rând nou, <b>`t</b> e tab, <b>`"</b> e ghilimea dublă și <b>``</b> e semnul ` însuși.</p>
+
+<h2>Operatorii</h2>
+<table border="1" cellpadding="4">
+<tr><th>Operatorul</th><th>Înțelesul</th></tr>
+<tr><td>+ - * /</td><td>adună, scade, înmulțește, împarte</td></tr>
+<tr><td>//</td><td>împarte și rotunjește în jos</td></tr>
+<tr><td>.</td><td>lipește două texte. Pune un spațiu de ambele părți: "a" . "b"</td></tr>
+<tr><td>= !=</td><td>egal și diferit. Textele se compară fără litere mari</td></tr>
+<tr><td>==</td><td>egal, cu litere mari</td></tr>
+<tr><td>&lt; &gt; &lt;= &gt;=</td><td>compară</td></tr>
+<tr><td>and or not, &amp;&amp; || !</td><td>logică</td></tr>
+</table>
+<p>Folosește <b>:=</b> ca să pui o variabilă. Un rând ca <b>x = 5</b> e o greșeală, fiindcă <b>=</b> compară.</p>
+
+<h2>Controlul</h2>
+<pre>if count = 1 {
+    key("a")
+} else if count = 2 {
+    key("b")
+} else {
+    key("c")
+}
+
+while count &lt; 10 {
+    count += 1
+}
+
+loop 3 {
+    text("pass " . A_Index)
+}
+
+loop {
+    if A_Index &gt; 5 {
+        break
+    }
+}
+
+Again:
+key("a")
+goto Again</pre>
+<ul>
+<li>Acoladele { } sunt obligatorii după if, else, while, loop și block.</li>
+<li><b>break</b> iese din buclă. <b>continue</b> trece la pasul următor al buclei.</li>
+<li><b>goto</b> sare la o etichetă. O etichetă e un nume cu două puncte, pe rândul ei, în afara oricărei acolade.</li>
+<li><b>return</b> încheie scriptul.</li>
+<li>Un comentariu începe cu <b>;</b> la începutul rândului sau după un spațiu. <b>/* … */</b> pe rânduri separate e tot un comentariu.</li>
+</ul>
+
+<h2>Blocarea tastaturii tale</h2>
+<p><b>block { }</b> blochează tastaturile tale cât rulează. Tastele tale nu se amestecă cu tastele macro-ului. La capătul blocului, tastaturile tale merg din nou.</p>
+<p>Un bloc trebuie să se termine repede. De aceea sunt greșeli în block { }: while, loop, goto, o etichetă, break, continue, return, alt block și un wait() mai lung de 10000 ms. Pune bucla în afară și folosește un bloc pentru fiecare trecere.</p>
+<p>Mouse-ul tău merge și în interiorul unui block.</p>
+
+<h2>Oprirea unui macro</h2>
+<p>Un macro se oprește oricând, și într-o buclă fără capăt. Patru drumuri îl opresc:</p>
+<ol>
+<li>butonul „■ Stop” din bara panoului</li>
+<li>„Stop macro” din meniul iconiței din tavă</li>
+<li>tasta globală „Stop macro”, implicit Pause. O schimbi pe pagina „Keys”</li>
+<li>tasta globală a macro-ului care rulează, apăsată a doua oară</li>
+</ol>
+<p>În block { } merg numai primele două, fiindcă tastatura ta e blocată. Când un macro se oprește, el eliberează tastele ținute de keydown() și deblochează tastatura ta.</p>
+
+<h2>Mouse-ul</h2>
+<p>Coordonatele sunt ale desktopului, în unitățile lui KDE, de la colțul din stânga sus al primului ecran. AutoHotkey numără de la fereastra activă. Aici numărătoarea pornește de la desktop. Cu două ecrane, programul a fost probat numai pe unul. Un punct în afara ecranului oprește macro-ul.</p>
+<p>KDE trebuie să dea mouse-ul programului. Dacă KDE a dat numai tastatura, o comandă de mouse oprește macro-ul, iar bara de stare a panoului arată motivul.</p>
+<p>După actualizarea la 0.7.0, KDE cere încă o dată accesul, fiindcă programul cere acum și mouse-ul. Acceptă fereastra.</p>
+
+<h2>Greșelile</h2>
+<p>Sub script, un rând arată „✓ No errors” sau prima greșeală, cu rândul și coloana ei. Rândul greșelii are o linie ondulată sub el. „Save” păstrează și un script cu greșeală, ca să nu pierzi munca. Macro-ul rămâne gri până îl repari.</p>
+<p>O greșeală cât rulează macro-ul, de pildă o împărțire la zero, oprește macro-ul. Rândul de stare al panoului arată motivul.</p>
+
+<h2>Ce nu e în versiunea asta</h2>
+<p>Funcțiile tale, listele, WinActivate, KeyWait, ImageSearch, MsgBox și tastele globale scrise în script nu sunt în limbaj.</p>
+</body></html>

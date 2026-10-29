@@ -1,0 +1,10 @@
+# Fiecare intrare poartă motivul și calea de recuperare, nu doar calea.
+# Cine clonează și găsește un folder gol află de aici cum îl umple.
+
+# <ce anume, cât de mare> — <cum se reface>
+
+# build/ — tot ce face CMake, câteva sute de MB. Se reface cu `cmake -B build -S . && cmake --build build`.
+build/
+
+# build-pachete/ — pachetele .deb, .rpm și .pkg.tar.zst, câțiva MB. Se refac cu `bash packaging/build-deb.sh`, `bash packaging/build-rpm.sh` și `bash packaging/build-arch.sh`.
+build-pachete/

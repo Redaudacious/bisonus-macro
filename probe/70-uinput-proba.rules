@@ -1,0 +1,3 @@
+# /dev/uinput pentru utilizatorul logat, numai pentru tastatura de probă din teste/proba-panou.sh.
+# Numărul 70 vine înaintea lui 73-seat-late.rules, care aplică eticheta uaccess.
+KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"

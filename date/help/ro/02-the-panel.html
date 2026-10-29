@@ -1,0 +1,79 @@
+<html><body>
+<h1>Panoul</h1>
+<p>Panoul arată macro-urile tale pe categorii. El se arată deasupra jocului și nu ia focusul. </p>
+<p><img src="../capturi/panou.png"></p>
+
+<h2>Rama</h2>
+<p>KDE desenează rama panoului, ca pe rama oricărei ferestre. Ea are iconița programului și titlul „BisonusMacro”. Trage de ramă ca să muți panoul. KDE ține minte locul. </p>
+<p>Rama are trei butoane în dreapta:</p>
+<ul>
+<li><b>Minus.</b> Ascunde panoul în tavă. Programul merge mai departe, iar tastele globale pornesc tot macro-uri. </li>
+<li><b>Pătratul.</b> Mărește panoul. Apasă-l din nou ca să readuci panoul la mărimea de dinainte. </li>
+<li><b>Crucea.</b> Închide BisonusMacro, ca ieșirea din tavă. Un macro care rulează se oprește întâi. Tastatura merge normal după ieșire. </li>
+</ul>
+
+<h2>Bara de unelte</h2>
+<p>Bara de unelte stă sub ramă. În stânga are patru butoane:</p>
+<ul>
+<li><b>Butonul de strângere (▾).</b> Strânge panoul la ramă și la bara de unelte. Apasă-l din nou ca să desfaci panoul. </li>
+<li><b>Butonul de pornire (⏻).</b> E comutatorul pentru toate macro-urile. Cât e oprit, toate rândurile sunt gri și niciun macro nu pornește. Programul lasă și tastele globale ale macro-urilor și ale categoriilor, ca celelalte programe să le primească. </li>
+<li><b>Butonul cu piuneză (📌).</b> Ține panoul deasupra oricărei ferestre. Iconița e o piuneză înfiptă sau scoasă. </li>
+<li><b>Butonul cu roata (⚙).</b> Deschide fereastra principală. El rămâne în bara de unelte și când strângi panoul. </li>
+</ul>
+<p>Câmpul „Search macros…” stă în dreapta. Vezi „Căutarea” mai jos. Cât rulează un macro, butonul „■ Stop” cu numele macro-ului ia locul câmpului. Apasă-l ca să oprești macro-ul. </p>
+<p>Tasta F12 strânge și desface panoul. O schimbi în fereastra principală, la „Tasta care arată și ascunde panoul”. </p>
+
+<h2>Mărimea</h2>
+<p>Trage de o margine sau de un colț al ramei. KDE schimbă mărimea, iar programul o ține minte. Lățimea implicită e 448 px. Lista derulează când nu încape. O descriere lungă se termină cu „…”, iar sfatul rândului o arată întreagă. </p>
+
+<h2>Categoriile și rândurile</h2>
+<p>Fiecare categorie are un punct colorat. Fă clic pe titlu ca să strângi sau să desfaci categoria. Programul ține minte starea fiecărei categorii. </p>
+<p>Un rând are o bandă colorată, numele, descrierea și butonul tastei. Butonul codului stă în dreapta rândului. El arată pașii macro-ului într-o fereastră fără scriere. Merge și pe un macro gri. Pentru un macro care apasă 6, el arată aceste rânduri:</p>
+<ul>
+<li><b>key 6</b></li>
+<li><b>wait 2000</b></li>
+<li><b>key /</b></li>
+<li><b>text Snow 2</b></li>
+<li><b>key Return</b></li>
+</ul>
+<p>Un macro cu greșeală arată motivul în locul descrierii. </p>
+<p>Un semn de avertizare lângă două macro-uri înseamnă aceeași tastă. Panoul arată numele celuilalt macro. </p>
+
+<h2>Schimbarea tastei în panou</h2>
+<p>Butonul tastei stă lângă rând. Un clic pe el nu pregătește macro-ul. Un macro fără tastă are butonul ⌨, cu marginea punctată. Un buton al tastei gri înseamnă că tasta e oprită. Butonul merge și pe un rând gri. </p>
+<p><img src="../capturi/fereastra-tastei.png"></p>
+<ol>
+<li>Apasă butonul tastei macro-ului. Se deschide o fereastră cu numele macro-ului, în mijlocul panoului. </li>
+<li>Apasă tasta nouă. Fereastra o așteaptă deja. Nu faci clic pe câmp. </li>
+<li>Debifează caseta „Key active” ca să păstrezi tasta, dar oprită. </li>
+<li>Apasă „OK”. Apasă „No key” ca să ștergi tasta. Apasă „Cancel” ca să închizi fereastra fără nicio schimbare. </li>
+</ol>
+<p>Fereastra pune aceleași întrebări ca pagina „Macros” a ferestrei principale, de pildă când alt macro are tasta. O categorie nu are buton al tastei în panou. Schimbă tasta unei categorii în fereastra principală. </p>
+<p>Dacă fereastra principală are schimbări nescrise, ea se reface după schimbarea tastei. Ea pierde schimbările și spune asta. </p>
+
+<h2>Căutarea</h2>
+<p>Panoul nu ia focusul, deci Ctrl+F nu merge în el. Fă clic pe câmpul „Search macros…” din bara de unelte. </p>
+<ol>
+<li>Se deschide o fereastră mică, „Search macros”. Scrie un cuvânt. Panoul arată numai macro-urile și categoriile cu cuvântul în nume sau în descriere. O categorie găsită arată toate macro-urile ei. Categoriile de deasupra unui rezultat rămân și ele. Literele mari nu contează. Categoriile se desfac cât cuvântul stă în câmp. </li>
+<li>Apasă Enter ca să închizi fereastra. Panoul păstrează filtrul. Câmpul din bara de unelte arată atunci cuvântul. Crucea (✕) de lângă câmp șterge filtrul. </li>
+<li>Apasă Esc ca să ștergi filtrul și să închizi fereastra. </li>
+</ol>
+
+<h2>Panoul peste alte ferestre</h2>
+<p>Fără piuneză, panoul e o fereastră obișnuită. Un clic pe el îl aduce peste celelalte ferestre. Clicul nu-i dă tastatura. Un clic pe altă fereastră o pune pe ea peste panou. Panoul nu dispare. </p>
+<p>Ferestrele din lista „Panoul stă peste”, de pe pagina „Panou”, nu pot acoperi panoul. Asta ține și pe ecran complet. Implicit: Sober. </p>
+<p>Cu piuneza, nicio fereastră nu acoperă panoul. Sfatul butonului spune „Fixat” sau „Nefixat”. Programul ține minte alegerea. Pui o tastă pentru piuneză în fereastra principală, la „Tasta pentru 📌”. </p>
+
+<h2>Bara de stare</h2>
+<p>Rândul de jos al panoului arată numai starea: „Ready · 5 macros active” sau „Running: Snow 2”. Numărul cuprinde macro-urile care pot porni acum. Rândul nu arată nicio tastă. </p>
+
+<h2>Transparența</h2>
+<p>Fundalul panoului e translucid. Textul, benzile și tastele rămân opace. Alegi opacitatea în fereastra principală, la „Opacitatea fundalului panoului”. Implicit: 60%. Caseta „Fundal transparent” și tasta ei comută între opacitatea aleasă și un fundal opac. </p>
+
+<h2>Tava</h2>
+<p>Iconița din tavă are culoare când macro-urile sunt pornite. Ea e gri când macro-urile sunt oprite. Clicul stâng arată un panou ascuns și îl aduce deasupra celorlalte ferestre. Face la fel cu un panou acoperit de alte ferestre. Clicul stâng nu ascunde niciodată panoul: pentru asta folosește butonul minus. Jocul își ține tastatura. Meniul are „Macro-uri active”, „Deschide BisonusMacro”, „Ajutor” și comanda de ieșire. Sfatul iconiței arată tastele globale ca arbore. Fiecare tastă are starea ei, de pildă <i>Snow 2 - F2 - oprit, Rift e oprit</i>. </p>
+<p>Comanda de ieșire din tavă și crucea din ramă sunt singurele locuri care opresc programul. </p>
+
+<h2>Dacă scriptul KWin pică</h2>
+<p>Panoul stă deasupra tuturor ferestrelor. Rândul de stare spune „Scriptul KWin n-a pornit: panoul stă deasupra”. </p>
+</body></html>

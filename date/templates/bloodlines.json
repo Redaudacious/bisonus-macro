@@ -1,0 +1,546 @@
+{
+  "format": {
+    "nume": "bisonus-macro",
+    "versiune": 2
+  },
+  "macros": {
+    "sabloane": {
+      "teleport": "key(\"4\")\nwait(2000)\nblock {\n    key(\"/\")\n    text(name)\n    key(\"Return\")\n}\n"
+    },
+    "arbore": [
+      {
+        "categorie": "Bloodlines",
+        "id": "bloodlines",
+        "activ": true,
+        "copii": [
+          {
+            "categorie": "Rift",
+            "id": "rift",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Sorythia",
+                "id": "rift-sorythia",
+                "culoare": "#639922",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Sorythia 1",
+                    "id": "rift-sorythia-1",
+                    "descriere": "ontop of Sorythia Village",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Sorythia 2",
+                    "id": "rift-sorythia-2",
+                    "descriere": "Hyuga Residence",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Durana",
+                "id": "rift-durana",
+                "culoare": "#B8913F",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Durana 1",
+                    "id": "rift-durana-1",
+                    "descriere": "close to the Passageway crystal",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Durana 2",
+                    "id": "rift-durana-2",
+                    "descriere": "in the small pit outside of Durana Village",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Durana 3",
+                    "id": "rift-durana-3",
+                    "descriere": "in the middle of The Desolated Dunes",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Durana 4",
+                    "id": "rift-durana-4",
+                    "descriere": "inside of Foot of the Serpent's Cove",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Expanse",
+                "id": "rift-expanse",
+                "culoare": "#7F5BD6",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Expanse 1",
+                    "id": "rift-expanse-1",
+                    "descriere": "next to Expanse crystal",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Expanse 2",
+                    "id": "rift-expanse-2",
+                    "descriere": "outside of Combat Hall",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Training",
+                "id": "rift-training",
+                "culoare": "#B5562F",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Training 1",
+                    "id": "rift-training-1",
+                    "descriere": "in between of Cratos boss and Windy 2 crystal",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Training 2",
+                    "id": "rift-training-2",
+                    "descriere": "in between Training Grounds crystal and Orochi's Hideout void",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Snow",
+                "id": "rift-snow",
+                "culoare": "#378ADD",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Snow 1",
+                    "id": "rift-snow-1",
+                    "descriere": "in the middle of Permafrost Valley",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Snow 2",
+                    "id": "rift-snow-2",
+                    "descriere": "outside of Snow Village",
+                    "sablon": "teleport",
+                    "activ": true
+                  },
+                  {
+                    "macro": "Snow 3",
+                    "id": "rift-snow-3",
+                    "descriere": "infront of The Ascent",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Rain",
+                "id": "rift-rain",
+                "culoare": "#1D9E75",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Rain",
+                    "id": "rift-rain-1",
+                    "descriere": "ontop of Rain Village",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Mello",
+                "id": "rift-mello",
+                "culoare": "#D23C3C",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Mello",
+                    "id": "rift-mello-1",
+                    "descriere": "outside of Fort Mello",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Rose",
+                "id": "rift-rose",
+                "culoare": "#D9669B",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Rose",
+                    "id": "rift-rose-1",
+                    "descriere": "side of the bridge at Rose Bay",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              },
+              {
+                "categorie": "Chakra",
+                "id": "rift-chakra",
+                "culoare": "#8F8378",
+                "activ": true,
+                "copii": [
+                  {
+                    "macro": "Chakra",
+                    "id": "rift-chakra-1",
+                    "descriere": "infront of Chakra Knight's gate",
+                    "sablon": "teleport",
+                    "activ": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "categorie": "Combos",
+            "id": "combos",
+            "activ": true,
+            "copii": []
+          },
+          {
+            "categorie": "Clans",
+            "id": "clans",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Otsutsuki",
+                "id": "clans-otsutsuki",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Uchiha",
+                "id": "clans-uchiha",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Hyuga",
+                "id": "clans-hyuga",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Lee",
+                "id": "clans-lee",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Chinoike",
+                "id": "clans-chinoike",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Uzumaki",
+                "id": "clans-uzumaki",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Aburame",
+                "id": "clans-aburame",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Zetsu",
+                "id": "clans-zetsu",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Hoshigaki",
+                "id": "clans-hoshigaki",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Haruno",
+                "id": "clans-haruno",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Ayrui",
+                "id": "clans-ayrui",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Akimichi",
+                "id": "clans-akimichi",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Kaguya",
+                "id": "clans-kaguya",
+                "activ": true,
+                "copii": []
+              }
+            ]
+          },
+          {
+            "categorie": "Modes",
+            "id": "modes",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Sharingan",
+                "id": "modes-sharingan",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Byakugan",
+                "id": "modes-byakugan",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Ketsuryugan",
+                "id": "modes-ketsuryugan",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Mangekyo",
+                "id": "modes-mangekyo",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Rinnegan",
+                "id": "modes-rinnegan",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Hundred Healings",
+                "id": "modes-hundred-healings",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Green Gates",
+                "id": "modes-green-gates",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Cloak of Lightning",
+                "id": "modes-cloak-of-lightning",
+                "activ": true,
+                "copii": []
+              }
+            ]
+          },
+          {
+            "categorie": "Tailed Beasts",
+            "id": "tailed-beasts",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Jinchuriki",
+                "id": "tailed-beasts-jinchuriki",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Shukaku",
+                "id": "tailed-beasts-shukaku",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Matatabi",
+                "id": "tailed-beasts-matatabi",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Isobu",
+                "id": "tailed-beasts-isobu",
+                "activ": true,
+                "copii": []
+              }
+            ]
+          },
+          {
+            "categorie": "Taijutsu",
+            "id": "taijutsu",
+            "activ": true,
+            "copii": []
+          },
+          {
+            "categorie": "Weapons",
+            "id": "weapons",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Sword",
+                "id": "weapons-sword",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Kunai",
+                "id": "weapons-kunai",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Asumai",
+                "id": "weapons-asumai",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Spear",
+                "id": "weapons-spear",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Greatsword",
+                "id": "weapons-greatsword",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Bow",
+                "id": "weapons-bow",
+                "activ": true,
+                "copii": []
+              }
+            ]
+          },
+          {
+            "categorie": "Elements",
+            "id": "elements",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Fire",
+                "id": "elements-fire",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Earth",
+                "id": "elements-earth",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Water",
+                "id": "elements-water",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Lightning",
+                "id": "elements-lightning",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Wind",
+                "id": "elements-wind",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Wood",
+                "id": "elements-wood",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Ice",
+                "id": "elements-ice",
+                "activ": true,
+                "copii": []
+              }
+            ]
+          },
+          {
+            "categorie": "Ninjutsu",
+            "id": "ninjutsu",
+            "activ": true,
+            "copii": [
+              {
+                "categorie": "Sealing",
+                "id": "ninjutsu-sealing",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Chakra",
+                "id": "ninjutsu-chakra",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Healing",
+                "id": "ninjutsu-healing",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Clone",
+                "id": "ninjutsu-clone",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Summoning",
+                "id": "ninjutsu-summoning",
+                "activ": true,
+                "copii": []
+              },
+              {
+                "categorie": "Genjutsu",
+                "id": "ninjutsu-genjutsu",
+                "activ": true,
+                "copii": []
+              }
+            ]
+          },
+          {
+            "categorie": "Base",
+            "id": "base",
+            "activ": true,
+            "copii": []
+          }
+        ]
+      }
+    ]
+  },
+  "setari": {
+    "general": {},
+    "noduri": {}
+  }
+}

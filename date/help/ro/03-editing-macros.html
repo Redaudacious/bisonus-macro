@@ -1,0 +1,86 @@
+<html><body>
+<h1>Schimbarea macro-urilor</h1>
+<p>Schimbi macro-urile în fereastra principală. Apasă butonul cu roata (⚙) din bara de unelte a panoului ca s-o deschizi. Patru butoane de sub arbore schimbă arborele. </p>
+<p><img src="../capturi/fereastra-principala.png"></p>
+
+<h2>Paginile</h2>
+<p>Lista din stânga are patru pagini. Apasă un nume ca să deschizi pagina. Trage bara dintre listă și pagină ca să schimbi lățimea listei. Programul ține minte lățimea. </p>
+<ul>
+<li><b>Macros.</b> Comutatorul „Macros active”, butoanele „Import...”, „Export...” și „New from template...”, arborele și cele patru butoane. </li>
+<li><b>Panel.</b> Opacitatea, „Transparent background”, „Panel on top of” și „Bring to front before a macro”. </li>
+<li><b>Keys.</b> Tastele globale, tasta care oprește macro-ul care rulează și „Start pause”. </li>
+<li><b>General.</b> Tema, limba, „Notifică la schimbarea activării” și „Scoate BisonusMacro din KDE…”. </li>
+</ul>
+
+<h2>Căutarea</h2>
+<p>Apasă Ctrl+F în fereastra principală. Focusul trece în câmpul de căutare de deasupra listei paginilor. Căutarea merge pe fiecare pagină:</p>
+<ul>
+<li>Pe paginile „Panel”, „Keys” și „General”, ea ascunde paginile fără potrivire și marchează opțiunile găsite. </li>
+<li>Pe pagina „Macros”, arborele păstrează numai macro-urile și categoriile cu cuvântul în nume sau în descriere. O categorie găsită arată tot ce ține de ea. Categoriile de deasupra unui rezultat rămân și ele. </li>
+</ul>
+<p>Literele mari nu contează. Șterge câmpul ca să vezi din nou toate macro-urile. </p>
+
+<h2>Tasta unui macro</h2>
+<p>Pui tasta unui macro în arbore, în coloana „Tasta globală”, sau în fereastra nodului. O poți pune și în panou: fă clic pe butonul tastei macro-ului. Pagina „Panoul” arată cum. </p>
+<p>Programul ține o tastă globală numai cât e de folos. Cu „Macros active” oprit, programul nu ține nicio tastă de macro sau de categorie. Tasta merge la celelalte programe, iar programul o păstrează în setări. La fel se întâmplă cu tastele nodurilor de sub o categorie inactivă. O categorie inactivă își ține tasta cât „Macros active” e pornit și categoriile de deasupra ei sunt active: tasta pornește categoria la loc. Un macro inactiv nu ține nicio tastă. Tastele revin când pornești comutatorul sau categoria. </p>
+
+<h2>Pauza dintre taste</h2>
+<p>Programul așteaptă 30 ms după fiecare tastă și după fiecare literă a unui text. Pauza asta nu se schimbă. Nu o setezi în setări. „Start pause” e așteptarea dinaintea primei taste. Ea rămâne pe pagina „Keys”. </p>
+<p>Un fișier de export sau de setări de la o versiune mai veche poate avea o valoare pentru pauza dintre taste. Programul ignoră valoarea asta. </p>
+
+<h2>Cele patru butoane</h2>
+<ol>
+<li><b>Adaugă o categorie.</b> Pune o categorie nouă sub categoria aleasă. Fără nicio alegere, categoria intră pe primul nivel. </li>
+<li><b>Adaugă un macro.</b> Pune un macro nou sub categoria aleasă. Butonul e gri când nu alegi nicio categorie. </li>
+<li><b>Schimbă…</b> Deschide fereastra nodului ales. Un dublu clic pe rând face același lucru. </li>
+<li><b>Șterge.</b> Șterge nodul ales. Un macro se șterge fără întrebare. O categorie cu noduri sub ea întreabă întâi, de pildă „Ștergi Rift și cele 26 noduri de sub el?”. Setările nodurilor șterse pleacă odată cu ele. </li>
+</ol>
+
+<h2>Fereastra unui nod</h2>
+<p>Fereastra are aceste câmpuri.</p>
+<ul>
+<li><b>Nume.</b> Numele unui macro ajunge în chat când șablonul e „teleport”. </li>
+<li><b>Descriere.</b> Panoul o arată sub nume. </li>
+<li><b>Culoare.</b> Caseta „Ia culoarea categoriei” e bifată implicit. Debifează-o ca să alegi o culoare. </li>
+<li><b>Șablon.</b> Lista e numai pentru macro-uri. „Script propriu” înseamnă că macro-ul are scriptul lui. Un șablon e un script pe care îl folosesc mai multe macro-uri. „teleport” face macro-ul să scrie în chat numele lui. Sub listă, scriptul se vede într-un editor. Scriptul unui macro cu șablon e numai de citit. Butonul „Schimbă șablonul (folosit de N macro-uri)” schimbă șablonul pentru toate cele N macro-uri. Butonul „Copiază în acest macro” dă macro-ului o copie a scriptului. Apoi lista arată „Script propriu”. </li>
+<li><b>Tasta globală.</b> Programul verifică tasta ca pe cea din arbore. </li>
+<li><b>Activ.</b> Are aceeași valoare ca „Activ” din arbore. </li>
+</ul>
+<p>Pagina „Limbajul de scripting” are limbajul scripturilor, întreg. </p>
+<p>Id-ul unui nod nou vine din id-ul părintelui și din numele nodului. Un nod nou primește alt id când id-ul e luat. O schimbare de nume nu schimbă id-ul, deci tastele și comutatoarele rămân legate. </p>
+
+<h2>Fereastra codului</h2>
+<p>Butonul codului de pe un rând al panoului deschide fereastra codului acelui macro. Nu ai nevoie de fereastra principală pentru asta. </p>
+<p><img src="../capturi/editorul.png"></p>
+<p>Linia de stare de sub editor arată „Fără greșeli” sau prima greșeală. Ea dă rândul, coloana și motivul. O linie roșie ondulată marchează greșeala în text. În imagine, <b>while</b> nu are voie într-un <b>block</b>. </p>
+<p>„Save” scrie <b>macros.json</b>, iar programul îl recitește. „Renunță” aruncă schimbările. Un macro cu greșeală nu rulează. Rândul lui e gri până corectezi scriptul. </p>
+
+<h2>Tasta care oprește un macro</h2>
+<p>Pagina „Keys” are „Tasta care oprește macro-ul care rulează”. Implicit: Pause. Tasta oprește macro-ul care rulează. Ea nu merge într-un <b>block</b>, unde tastatura e blocată. Intrarea „Oprește macro-ul” din meniul tăvii oprește un macro oricând. </p>
+
+<h2>Scoate BisonusMacro din KDE</h2>
+<p>Butonul e pe pagina „General”. El scoate regulile KWin, scripturile KWin și tastele globale ale programului. Apoi programul iese. După asta, dezinstalează pachetul. Caseta „Șterge și macro-urile mele” șterge și <b>macros.json</b>. Programul păstrează o copie de siguranță. </p>
+
+<h2>Un șablon cu altă tastă</h2>
+<p>Tasta care pornește jutsu-ul e un pas al șablonului. Pentru altă tastă, scrie un șablon nou în <b>macros.json</b>. </p>
+<ol>
+<li>Deschide <b>~/.config/bisonus-macro/macros.json</b>. </li>
+<li>În lista „sabloane”, copiază șablonul „teleport” sub alt nume, de pildă „teleport-7”. </li>
+<li>Scrie tasta 7 în primul pas. Șablonul întreg e mai jos. </li>
+<li>Salvează fișierul. Programul îl recitește singur. Nu-l reporni. </li>
+<li>Deschide fereastra unui macro. Lista „Șablon” are acum „teleport-7”. Alege-l. </li>
+</ol>
+<pre>"teleport-7": [ { "tasta": "7" }, { "pauza": 2000 }, { "tasta": "/" }, { "text": "$nume" }, { "tasta": "Return" } ]</pre>
+<p>Butonul codului macro-ului arată acum tasta 7 în primul pas. </p>
+
+<h2>Apply</h2>
+<p>Schimbările din editor rămân în fereastră până apeși „Apply” sau „OK”. Atunci programul scrie <b>macros.json</b>, apoi setările. „Cancel” aruncă schimbările. </p>
+<ul>
+<li>Scrierea pierde ordinea cheilor și spațiile pe care le-ai făcut de mână. </li>
+<li>Când tot fișierul are o greșeală, de pildă un JSON stricat, butoanele editorului sunt oprite. </li>
+<li>Programul recitește <b>macros.json</b> când îl schimbi cu alt program. Fereastra deschisă își pierde atunci schimbările nescrise și spune asta. </li>
+</ul>
+
+<h2>Arborele</h2>
+<p>Fiecare rând are cinci coloane: nume, activ, clic, tasta globală și tasta activă. O categorie are tastă globală și tastă activă, dar nu are clic. Un nod inactiv e gri, cu motivul. </p>
+</body></html>

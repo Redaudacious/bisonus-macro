@@ -1,0 +1,1094 @@
+# Traducerea română a lui BisonusMacro. Fiecare msgid e un text din src/, literă cu literă.
+msgid ""
+msgstr ""
+"Project-Id-Version: bisonus-macro 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 09:46+0200\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);\n"
+
+#: src/activare.cpp:46
+msgid "inactive"
+msgstr "inactiv"
+
+#: src/activare.cpp:55
+msgid "inactive via %1"
+msgstr "inactiv prin %1"
+
+#: src/activare.cpp:128
+msgid "All macros: on"
+msgstr "Toate macro-urile: pornite"
+
+#: src/activare.cpp:128
+msgid "All macros: off"
+msgstr "Toate macro-urile: oprite"
+
+#: src/activare.cpp:131
+msgid "%1: on"
+msgstr "%1: pornit"
+
+#: src/activare.cpp:131
+msgid "%1: off"
+msgstr "%1: oprit"
+
+#: src/activare.cpp:139
+msgid "BisonusMacro: macros on"
+msgstr "BisonusMacro: macro-urile sunt pornite"
+
+#: src/activare.cpp:139
+msgid "BisonusMacro: macros off"
+msgstr "BisonusMacro: macro-urile sunt oprite"
+
+#: src/activare.cpp:141
+msgid "BisonusMacro: macros on (%1)"
+msgstr "BisonusMacro: macro-urile sunt pornite (%1)"
+
+#: src/activare.cpp:141
+msgid "BisonusMacro: macros off (%1)"
+msgstr "BisonusMacro: macro-urile sunt oprite (%1)"
+
+#: src/activare.cpp:158
+msgid "off"
+msgstr "oprit"
+
+#: src/activare.cpp:161
+msgid "off, %1 is off"
+msgstr "oprit, %1 e oprit"
+
+#: src/activare.cpp:162
+msgid "on"
+msgstr "pornit"
+
+#: src/activare.cpp:193 src/panou.cpp:410 src/setari.cpp:150
+msgid "All macros"
+msgstr "Toate macro-urile"
+
+#: src/activare.cpp:195 src/panou.cpp:412 src/setari.cpp:151
+msgid "Panel on top"
+msgstr "Panoul deasupra"
+
+#: src/activare.cpp:197 src/panou.cpp:414 src/setari.cpp:152 src/setari.cpp:606
+msgid "Transparent background"
+msgstr "Fundal transparent"
+
+#: src/activare.cpp:222
+msgid "the key %1 is sent by '%2': refused"
+msgstr "tasta %1 e trimisă de „%2”: refuzată"
+
+#: src/activare.cpp:226
+msgid "the key %1 no longer reaches the game"
+msgstr "tasta %1 nu mai ajunge în joc"
+
+#: src/activare.cpp:236
+msgid "same key as %1"
+msgstr "aceeași tastă cu %1"
+
+#: src/activare.cpp:248
+msgid "another node in the category has the same name"
+msgstr "alt nod din categorie are același nume"
+
+#: src/ajutor.cpp:21
+msgid "Getting started"
+msgstr "Primii pași"
+
+#: src/ajutor.cpp:23
+msgid "The panel"
+msgstr "Panoul"
+
+#: src/ajutor.cpp:25
+msgid "Editing macros"
+msgstr "Schimbarea macro-urilor"
+
+#: src/ajutor.cpp:27
+msgid "Import and export"
+msgstr "Importul și exportul"
+
+#: src/ajutor.cpp:29
+msgid "Templates"
+msgstr "Template-urile"
+
+#: src/ajutor.cpp:31
+msgid "Scripting language"
+msgstr "Limbajul de scripting"
+
+msgid "What's new"
+msgstr "Noutăți"
+
+msgid "What's new in BisonusMacro %1"
+msgstr "Noutăți în BisonusMacro %1"
+
+#: src/ajutor.cpp:57
+msgid "BisonusMacro Help"
+msgstr "Ajutorul BisonusMacro"
+
+#: src/ajutor.cpp:60
+msgid "Search the help"
+msgstr "Caută în help"
+
+#: src/ajutor.cpp:92
+msgid "The help pages are missing: install the package again."
+msgstr "Paginile ajutorului lipsesc: instalează pachetul din nou."
+
+#: src/editorscript.cpp:153
+msgid "✓ No errors"
+msgstr "✓ Fără greșeli"
+
+#: src/editorscript.cpp:153
+msgid "Line %1, column %2: %3"
+msgstr "Rândul %1, coloana %2: %3"
+
+#: src/editorscript.cpp:166
+msgid "Copy into this macro"
+msgstr "Copiază în acest macro"
+
+#: src/editorscript.cpp:195
+msgid "Edit template (used by %1 macros)"
+msgstr "Schimbă șablonul (folosit de %1 macro-uri)"
+
+#: src/editorscript.cpp:238
+msgid "%1 — code"
+msgstr "%1 — cod"
+
+#: src/export.cpp:137
+msgid "the file is not valid JSON: %1"
+msgstr "fișierul nu e un JSON valid: %1"
+
+#: src/export.cpp:139
+msgid "the file is not a BisonusMacro export"
+msgstr "fișierul nu e un export BisonusMacro"
+
+#: src/export.cpp:141
+msgid "the file comes from a newer BisonusMacro version"
+msgstr "fișierul vine de la o versiune BisonusMacro mai nouă"
+
+#: src/export.cpp:143 src/macrouri.cpp:101
+msgid "the file has no 'arbore' list"
+msgstr "fișierul nu are lista „arbore”"
+
+#: src/export.cpp:235 src/main.cpp:80 src/setari.cpp:684 src/setari.cpp:705
+#: src/setari.cpp:1299
+msgid "%1 does not open"
+msgstr "%1 nu se deschide"
+
+#: src/export.cpp:246
+msgid "the backup was not written"
+msgstr "copia de siguranță nu s-a scris"
+
+#: src/export.cpp:248 src/main.cpp:610 src/main.cpp:627 src/main.cpp:752
+#: src/setari.cpp:1066
+msgid "%1 was not written"
+msgstr "%1 nu s-a scris"
+
+#: src/limbaj.cpp:67
+msgid "the comment /* has no closing */"
+msgstr "comentariul /* nu are */ la capăt"
+
+#: src/limbaj.cpp:79
+msgid "put a space before ; to start a comment"
+msgstr "pune un spațiu înaintea lui ; ca să începi un comentariu"
+
+#: src/limbaj.cpp:95
+msgid "a name cannot start with a digit"
+msgstr "un nume nu poate începe cu o cifră"
+
+#: src/limbaj.cpp:113
+msgid "the text has no closing \""
+msgstr "textul nu are ghilimeaua de închidere \""
+
+#: src/limbaj.cpp:139
+msgid "put a space on both sides of . to join texts"
+msgstr "pune câte un spațiu de o parte și de alta a lui . ca să lipești texte"
+
+#: src/limbaj.cpp:149
+msgid "the character '%1' is not part of the language"
+msgstr "caracterul „%1” nu face parte din limbaj"
+
+#: src/limbaj.cpp:177
+msgid "} has no matching {"
+msgstr "} nu are { pereche"
+
+#: src/limbaj.cpp:185
+msgid "the label %1 does not exist"
+msgstr "eticheta %1 nu există"
+
+#: src/limbaj.cpp:212 src/limbaj.cpp:523
+msgid "the expression is too deep"
+msgstr "expresia are prea multe niveluri"
+
+#: src/limbaj.cpp:235
+msgid "expected the end of the line"
+msgstr "se aștepta sfârșitul rândului"
+
+#: src/limbaj.cpp:249
+msgid ""
+"%1 cannot be inside block { }, because your keyboard would stay blocked. Put "
+"the loop outside and use one block for each pass."
+msgstr ""
+"%1 nu poate sta în block { }, fiindcă tastatura ta ar rămâne blocată. Pune "
+"bucla în afară și folosește un block pentru fiecare trecere."
+
+#: src/limbaj.cpp:251
+msgid ""
+"%1 cannot be inside block { }, because the block would not end and your "
+"keyboard would stay blocked. Put it outside the block."
+msgstr ""
+"%1 nu poate sta în block { }, fiindcă blocul nu s-ar termina, iar tastatura "
+"ta ar rămâne blocată. Pune-l în afara blocului."
+
+#: src/limbaj.cpp:259
+msgid "expected {"
+msgstr "se aștepta {"
+
+#: src/limbaj.cpp:264
+msgid "{ has no matching }"
+msgstr "{ nu are } pereche"
+
+#: src/limbaj.cpp:276
+msgid "expected a command, an assignment or a control word"
+msgstr "se aștepta o comandă, o atribuire sau un cuvânt de control"
+
+#: src/limbaj.cpp:280
+msgid ""
+"a label cannot be inside block { }, because your keyboard would stay "
+"blocked. Put the label outside the block."
+msgstr ""
+"o etichetă nu poate sta în block { }, fiindcă tastatura ta ar rămâne "
+"blocată. Pune eticheta în afara blocului."
+
+#: src/limbaj.cpp:283
+msgid ""
+"a label must be outside of { }. Put it on its own line at the top level of "
+"the script."
+msgstr ""
+"o etichetă trebuie să stea în afara lui { }. Pune-o pe rândul ei, la nivelul "
+"de sus al scriptului."
+
+#: src/limbaj.cpp:285
+msgid "the label %1 is already defined"
+msgstr "eticheta %1 e deja definită"
+
+#: src/limbaj.cpp:297
+msgid "else has no matching if"
+msgstr "else nu are if pereche"
+
+#: src/limbaj.cpp:316
+msgid "%1 must be inside a loop"
+msgstr "%1 trebuie să stea într-o buclă"
+
+#: src/limbaj.cpp:330
+msgid "goto needs the name of a label"
+msgstr "goto cere numele unei etichete"
+
+#: src/limbaj.cpp:345
+msgid "block { } cannot be inside another block { }. Use one block."
+msgstr "block { } nu poate sta în alt block { }. Folosește un singur bloc."
+
+#: src/limbaj.cpp:358
+msgid "use := to put a value in a variable: %1 := …"
+msgstr "folosește := ca să pui o valoare într-o variabilă: %1 := …"
+
+#: src/limbaj.cpp:361
+msgid "%1 is a word of the language, not a variable"
+msgstr "%1 e un cuvânt al limbajului, nu o variabilă"
+
+#: src/limbaj.cpp:381
+msgid "unknown word '%1'"
+msgstr "cuvânt necunoscut „%1”"
+
+#: src/limbaj.cpp:447
+msgid "expected ) after the values of %1()"
+msgstr "se aștepta ) după valorile lui %1()"
+
+#: src/limbaj.cpp:457
+msgid ""
+"random() gives a number: use it in an expression, like x := random(1, 6)"
+msgstr ""
+"random() dă un număr: folosește-l într-o expresie, ca în x := random(1, 6)"
+
+#: src/limbaj.cpp:460
+msgid "unknown command '%1'"
+msgstr "comandă necunoscută „%1”"
+
+#: src/limbaj.cpp:463
+msgid ""
+"click() needs no value, a button like click(\"right\"), or a point like "
+"click(x, y)"
+msgstr ""
+"click() nu cere nicio valoare, un buton ca click(\"right\") sau un punct ca "
+"click(x, y)"
+
+#: src/limbaj.cpp:464
+msgid "mousemove() needs two values: mousemove(x, y)"
+msgstr "mousemove() cere două valori: mousemove(x, y)"
+
+#: src/limbaj.cpp:465
+msgid "%1() needs exactly one value"
+msgstr "%1() cere exact o valoare"
+
+#: src/limbaj.cpp:475 src/motor.cpp:267
+msgid "click() knows the buttons \"left\", \"right\" and \"middle\", not '%1'"
+msgstr "click() cunoaște butoanele \"left\", \"right\" și \"middle\", nu „%1”"
+
+#: src/limbaj.cpp:478
+msgid "unknown key '%1'. Help → Scripting language lists the key names."
+msgstr ""
+"tasta „%1” nu e cunoscută. Help → Scripting language arată numele tastelor."
+
+#: src/limbaj.cpp:481 src/motor.cpp:194
+msgid "text() can type at most 1000 characters"
+msgstr "text() poate scrie cel mult 1000 de caractere"
+
+#: src/limbaj.cpp:484 src/motor.cpp:201
+msgid "the character '%1' cannot be typed with the us layout"
+msgstr "caracterul „%1” nu se poate scrie cu aranjamentul us"
+
+#: src/limbaj.cpp:492 src/limbaj.cpp:497
+msgid "%1() needs a number from 0 to %2"
+msgstr "%1() cere un număr de la 0 la %2"
+
+#: src/limbaj.cpp:499
+msgid ""
+"wait(%1) is too long inside block { }: a block can wait at most 10000 ms, "
+"because your keyboard is blocked. Put the long wait outside the block."
+msgstr ""
+"wait(%1) e prea lung în block { }: un bloc poate aștepta cel mult 10000 ms, "
+"fiindcă tastatura ta e blocată. Pune așteptarea lungă în afara blocului."
+
+#: src/limbaj.cpp:642
+msgid "expected )"
+msgstr "se aștepta )"
+
+#: src/limbaj.cpp:648
+msgid "expected a value, not %1"
+msgstr "se aștepta o valoare, nu %1"
+
+#: src/limbaj.cpp:660
+msgid "unknown function '%1'. Only random() gives a value."
+msgstr "funcție necunoscută „%1”. Numai random() dă o valoare."
+
+#: src/limbaj.cpp:665
+msgid "random() needs two values: random(1, 6)"
+msgstr "random() cere două valori: random(1, 6)"
+
+#: src/limbaj.cpp:667
+msgid "expected ) after the values of random()"
+msgstr "se aștepta ) după valorile lui random()"
+
+#: src/limbaj.cpp:674
+msgid "expected a value"
+msgstr "se aștepta o valoare"
+
+#: src/limbaj.cpp:751
+msgid "random() needs two numbers"
+msgstr "random() cere două numere"
+
+#: src/limbaj.cpp:770 src/limbaj.cpp:816 src/motor.cpp:247
+msgid "'%1' is not a number"
+msgstr "„%1” nu e un număr"
+
+#: src/limbaj.cpp:820
+msgid "division by zero"
+msgstr "împărțire la zero"
+
+#: src/macrouri.cpp:53
+msgid "the node must have exactly one of the keys categorie, macro"
+msgstr "nodul trebuie să aibă exact una din cheile categorie, macro"
+
+#: src/macrouri.cpp:55
+msgid "the node has no name"
+msgstr "nodul nu are nume"
+
+#: src/macrouri.cpp:57
+msgid "the node has no id"
+msgstr "nodul nu are id"
+
+#: src/macrouri.cpp:59
+msgid "the color '%1' is not in the form #RRGGBB"
+msgstr "culoarea „%1” nu e de forma #RRGGBB"
+
+#: src/macrouri.cpp:70
+msgid "the template '%1' is missing"
+msgstr "șablonul „%1” lipsește"
+
+#: src/macrouri.cpp:72
+msgid "the script is empty"
+msgstr "scriptul e gol"
+
+#: src/macrouri.cpp:74 src/motor.cpp:78
+msgid "line %1: %2"
+msgstr "rândul %1: %2"
+
+#: src/macrouri.cpp:96
+msgid "the file is not valid JSON: %1, line %2"
+msgstr "fișierul nu e JSON valid: %1, rândul %2"
+
+#: src/macrouri.cpp:112
+msgid "the id '%1' is repeated"
+msgstr "id-ul „%1” se repetă"
+
+#: src/main.cpp:72
+msgid "%1 is missing and the package file was not copied"
+msgstr "lipsește %1, iar fișierul pachetului nu s-a copiat"
+
+#: src/main.cpp:171
+msgid ""
+"BisonusMacro is running. Quit it from the tray, then run the command again."
+msgstr ""
+"BisonusMacro rulează. Închide-l din tavă, apoi rulează comanda din nou."
+
+#: src/main.cpp:185
+msgid ""
+"%1 is damaged, so no backup can be made. Copy it yourself, then run the "
+"command again."
+msgstr ""
+"%1 e stricat, deci nu se poate face o copie de siguranță. Copiază-l de mână, "
+"apoi rulează comanda din nou."
+
+#: src/main.cpp:198
+msgid "%1 was not written: nothing was deleted"
+msgstr "%1 nu s-a scris: nu s-a șters nimic"
+
+#: src/main.cpp:201
+msgid "Backup of your macros and settings: %1. Import it to get them back."
+msgstr ""
+"Copia macro-urilor și a setărilor tale: %1. Importă-o ca să le primești "
+"înapoi."
+
+#: src/main.cpp:205
+msgid "Removed the KWin rules of the panel"
+msgstr "Regulile KWin ale panoului au fost scoase"
+
+#: src/main.cpp:211
+msgid "Unloaded the KWin scripts and deleted their files"
+msgstr "Scripturile KWin au fost descărcate, iar fișierele lor șterse"
+
+#: src/main.cpp:213
+msgid "Removed the global keys"
+msgstr "Tastele globale au fost scoase"
+
+#: src/main.cpp:217
+msgid "Deleted %1 and %2. The backups made at import stay in %3."
+msgstr "S-au șters %1 și %2. Copiile făcute la import rămân în %3."
+
+#: src/main.cpp:219
+msgid "Your macros and settings stay in %1 and %2"
+msgstr "Macro-urile și setările tale rămân în %1 și %2"
+
+#: src/main.cpp:223
+msgid "BisonusMacro was removed from KDE"
+msgstr "BisonusMacro a fost scos din KDE"
+
+#: src/main.cpp:250
+msgid ""
+"Remove the KWin rules, the KWin scripts and the global keys of BisonusMacro, "
+"then quit."
+msgstr ""
+"Scoate regulile KWin, scripturile KWin și tastele globale ale BisonusMacro, "
+"apoi iese."
+
+#: src/main.cpp:252
+msgid ""
+"With --cleanup, also delete your settings and macros, after a backup in your "
+"home folder."
+msgstr ""
+"Cu --cleanup, șterge și setările și macro-urile, după o copie în folderul "
+"tău acasă."
+
+#: src/main.cpp:258
+msgid "--all works only together with --cleanup"
+msgstr "--all merge numai împreună cu --cleanup"
+
+#: src/main.cpp:266
+msgid "BisonusMacro cannot start"
+msgstr "BisonusMacro nu poate porni"
+
+#: src/main.cpp:346 src/panou.cpp:177 src/setari.cpp:502
+msgid "Macros active"
+msgstr "Macro-uri active"
+
+#: src/main.cpp:348
+msgid "Open BisonusMacro"
+msgstr "Deschide BisonusMacro"
+
+#: src/main.cpp:349 src/main.cpp:467
+msgid "Stop macro"
+msgstr "Oprește macro-ul"
+
+#: src/main.cpp:351
+msgid "Help"
+msgstr "Ajutor"
+
+#: src/main.cpp:401
+msgid "%1 is not open"
+msgstr "%1 nu e deschis"
+
+#: src/main.cpp:413
+msgid "KWin did not answer: %1 did not start"
+msgstr "KWin n-a răspuns: %1 n-a pornit"
+
+#: src/main.cpp:442
+msgid "Same key on two macros"
+msgstr "Aceeași tastă pe două macro-uri"
+
+#: src/main.cpp:455
+msgid "the key %1 is taken by %2"
+msgstr "tasta %1 e luată de %2"
+
+#: src/main.cpp:461
+msgid "Collapse or expand the panel"
+msgstr "Strânge sau desface panoul"
+
+#: src/main.cpp:474
+msgid "Turn all macros on or off"
+msgstr "Pornește sau oprește toate macro-urile"
+
+#: src/main.cpp:477
+msgid "Keep the panel on top or not"
+msgstr "Ține panoul deasupra sau nu"
+
+#: src/main.cpp:480
+msgid "Turn the transparent background on or off"
+msgstr "Pornește sau oprește fundalul transparent"
+
+#: src/main.cpp:490
+msgid "Turn %1 on or off"
+msgstr "Pornește sau oprește %1"
+
+#: src/main.cpp:526
+msgid "KWin script failed: panel stays on top"
+msgstr "Scriptul KWin n-a pornit: panoul stă deasupra"
+
+#: src/main.cpp:547
+msgid "Activation changed"
+msgstr "Activarea s-a schimbat"
+
+#: src/main.cpp:560
+msgid "settings changed outside this window: unsaved changes were discarded"
+msgstr ""
+"setările s-au schimbat în afara ferestrei: schimbările nescrise s-au pierdut"
+
+#: src/main.cpp:622
+msgid "The backup was not written: nothing was imported"
+msgstr "Copia de siguranță nu s-a scris: nu s-a importat nimic"
+
+#: src/main.cpp:637
+msgid "import done"
+msgstr "importul s-a făcut"
+
+#: src/main.cpp:675 src/main.cpp:757
+msgid "macros.json changed: unsaved changes were discarded"
+msgstr "macros.json s-a schimbat: schimbările nescrise s-au pierdut"
+
+#: src/main.cpp:688
+msgid "KWin closed the connection"
+msgstr "KWin a închis legătura"
+
+#: src/main.cpp:783
+msgid "Running: %1"
+msgstr "Rulează: %1"
+
+#: src/main.cpp:790 src/main.cpp:801
+msgid "stopped: %1"
+msgstr "oprit: %1"
+
+#: src/motor.cpp:129
+msgid "loop needs a number of passes, not '%1'"
+msgstr "loop cere un număr de treceri, nu „%1”"
+
+#: src/motor.cpp:182
+msgid "%1() needs a number from 0 to %2, not '%3'"
+msgstr "%1() cere un număr de la 0 la %2, nu „%3”"
+
+#: src/motor.cpp:212
+msgid "unknown key '%1'"
+msgstr "tasta „%1” nu e cunoscută"
+
+#: src/motor.cpp:251 src/tastatura.cpp:258
+msgid "the mouse is not available: KDE gave BisonusMacro only the keyboard"
+msgstr "mouse-ul nu e disponibil: KDE a dat lui BisonusMacro numai tastatura"
+
+#: src/panou.cpp:82
+msgid "Search macros"
+msgstr "Caută macro-uri"
+
+#: src/panou.cpp:86
+msgid "Name or description"
+msgstr "Nume sau descriere"
+
+#: src/panou.cpp:176 src/panou.cpp:599
+msgid "Collapse"
+msgstr "Strânge"
+
+#: src/panou.cpp:202 src/panou.cpp:448
+msgid "Search macros…"
+msgstr "Caută macro-uri…"
+
+#: src/panou.cpp:208
+msgid "Clear the search"
+msgstr "Golește căutarea"
+
+#: src/panou.cpp:294 src/panou.cpp:548
+msgid "Ready · %1 macros active"
+msgstr "Gata · %1 macro-uri active"
+
+#: src/panou.cpp:363
+msgid "Set a key"
+msgstr "Pune o tastă"
+
+#: src/panou.cpp:368
+msgid "Change the key"
+msgstr "Schimbă tasta"
+
+#: src/panou.cpp:380
+msgid "Show the steps"
+msgstr "Arată pașii"
+
+#: src/panou.cpp:418
+msgid "no access to the keyboard: %1"
+msgstr "fără acces la tastatură: %1"
+
+#: src/panou.cpp:419
+msgid "Ask again"
+msgstr "Cere din nou"
+
+#: src/panou.cpp:498
+msgid "Pinned: the panel stays above all windows"
+msgstr "Fixat: panoul stă peste toate ferestrele"
+
+#: src/panou.cpp:499
+msgid "Not pinned: the panel stays above the chosen windows"
+msgstr "Nefixat: panoul stă peste ferestrele alese"
+
+#: src/panou.cpp:558
+msgid "■ Stop %1"
+msgstr "■ Oprește %1"
+
+#: src/panou.cpp:599
+msgid "Expand"
+msgstr "Desface"
+
+#: src/pornire.cpp:32
+msgid ""
+"BisonusMacro needs a Plasma session on Wayland, and this session is %1. Log "
+"out, choose “Plasma (Wayland)” on the login screen, and log in again."
+msgstr ""
+"BisonusMacro cere o sesiune Plasma pe Wayland, iar sesiunea asta e %1. "
+"Închide sesiunea, alege „Plasma (Wayland)” pe ecranul de autentificare și "
+"autentifică-te din nou."
+
+#: src/pornire.cpp:35
+msgid ""
+"BisonusMacro needs the KDE Plasma desktop, and XDG_CURRENT_DESKTOP is “%1”."
+msgstr ""
+"BisonusMacro cere desktopul KDE Plasma, iar XDG_CURRENT_DESKTOP este „%1”."
+
+#: src/pornire.cpp:37
+msgid ""
+"KWin does not answer on D-Bus. Log out and log in again to restart Plasma."
+msgstr ""
+"KWin nu răspunde pe D-Bus. Închide sesiunea și autentifică-te din nou ca să "
+"repornești Plasma."
+
+#: src/pornire.cpp:39
+msgid ""
+"The KDE RemoteDesktop portal is missing or too old: version %1, and "
+"BisonusMacro needs 2. Install it with “sudo apt install xdg-desktop-portal-"
+"kde” or “sudo dnf install xdg-desktop-portal-kde”, then log out and log in "
+"again."
+msgstr ""
+"Portalul KDE RemoteDesktop lipsește sau e prea vechi: versiunea %1, iar "
+"BisonusMacro cere 2. Instalează-l cu „sudo apt install xdg-desktop-portal-"
+"kde” sau „sudo dnf install xdg-desktop-portal-kde”, apoi închide sesiunea și "
+"autentifică-te din nou."
+
+#: src/scrieresigura.cpp:64
+msgid "KWin does not re-enable event%1: %2"
+msgstr "KWin nu reactivează event%1: %2"
+
+#: src/scrieresigura.cpp:65
+msgid "KWin does not disable event%1: %2"
+msgstr "KWin nu dezactivează event%1: %2"
+
+#: src/scrieresigura.cpp:122
+msgid "waking KWin failed: %1"
+msgstr "trezirea lui KWin a picat: %1"
+
+#: src/scrieresigura.cpp:131
+msgid ""
+"event%1 has no vendor, product and name in sysfs: the safety net would not "
+"find it"
+msgstr "event%1 n-are vendor, product și nume în sysfs: plasa nu l-ar găsi"
+
+#: src/scrieresigura.cpp:134
+msgid ""
+"flushing needs a connected mouse: release Shift, Ctrl, Alt and Super, then "
+"press the macro key again"
+msgstr ""
+"golirea cere un mouse conectat: eliberează Shift, Ctrl, Alt și Super, apoi "
+"apasă din nou tasta macro-ului"
+
+#: src/scrieresigura.cpp:146
+msgid "%1: restart the application so the safety net re-enables it"
+msgstr "%1: repornește aplicația, ca plasa să-l reactiveze"
+
+#: src/scrieresigura.cpp:194
+msgid "%1 does not open: %2"
+msgstr "%1 nu se deschide: %2"
+
+#: src/scrieresigura.cpp:227
+msgid "event%1 cannot be grabbed: %2"
+msgstr "event%1 nu se blochează: %2"
+
+#: src/setari.cpp:154 src/setari.cpp:166
+msgid "Key taken"
+msgstr "Tastă luată"
+
+#: src/setari.cpp:154
+msgid "%1 is used by %2"
+msgstr "%1 e la %2"
+
+#: src/setari.cpp:156
+msgid "Move it here"
+msgstr "Mut-o aici"
+
+#: src/setari.cpp:157 src/setari.cpp:1044
+msgid "Cancel"
+msgstr "Renunță"
+
+#: src/setari.cpp:167
+msgid ""
+"%1 is used by %2 (%3). The key does not reach the macro while %2 keeps it."
+msgstr "%1 e folosită de %2 (%3). Tasta nu ajunge la macro cât o ține %2."
+
+#: src/setari.cpp:279
+msgid "Edit category"
+msgstr "Schimbă categoria"
+
+#: src/setari.cpp:279
+msgid "Edit macro"
+msgstr "Schimbă macro-ul"
+
+#: src/setari.cpp:282
+msgid "Inherit from category"
+msgstr "Moștenește de la categorie"
+
+#: src/setari.cpp:286 src/setari.cpp:292 src/setari.cpp:308
+msgid "Color"
+msgstr "Culoare"
+
+#: src/setari.cpp:302 src/setari.cpp:716
+msgid "Active"
+msgstr "Activ"
+
+#: src/setari.cpp:306 src/setari.cpp:716
+msgid "Name"
+msgstr "Nume"
+
+#: src/setari.cpp:307
+msgid "Description"
+msgstr "Descriere"
+
+#: src/setari.cpp:314
+msgid "Own script"
+msgstr "Script propriu"
+
+#: src/setari.cpp:318 src/setari.cpp:700
+msgid "Template"
+msgstr "Șablon"
+
+#: src/setari.cpp:330 src/setari.cpp:716
+msgid "Global key"
+msgstr "Tasta globală"
+
+#: src/setari.cpp:378
+msgid "Macro settings"
+msgstr "Setările macro-ului"
+
+#: src/setari.cpp:382 src/setari.cpp:684 src/setari.cpp:705 src/setari.cpp:1037
+#: src/setari.cpp:1040 src/setari.cpp:1299
+msgid "Import"
+msgstr "Import"
+
+#: src/setari.cpp:427
+msgid "Apply or Cancel first"
+msgstr "Apasă întâi Apply sau Cancel"
+
+#: src/setari.cpp:432
+msgid "Nothing to export yet"
+msgstr "Încă nu e nimic de exportat"
+
+#: src/setari.cpp:509
+msgid "Notify when activation changes"
+msgstr "Notifică la schimbarea activării"
+
+#: src/setari.cpp:519 src/setari.cpp:531
+msgid "System"
+msgstr "Sistem"
+
+#: src/setari.cpp:553
+msgid "Add window…"
+msgstr "Adaugă o fereastră…"
+
+#: src/setari.cpp:563
+msgid "Remove"
+msgstr "Scoate"
+
+#: src/setari.cpp:576 src/setari.cpp:595
+msgid "None"
+msgstr "Niciuna"
+
+#: src/setari.cpp:579
+msgid "Pick window…"
+msgstr "Alege fereastra…"
+
+#: src/setari.cpp:584 src/setari.cpp:639
+msgid "Bring to front before a macro"
+msgstr "Adu în față înaintea unui macro"
+
+#: src/setari.cpp:585
+msgid "Pick a window of another program"
+msgstr "Alege fereastra altui program"
+
+#: src/setari.cpp:635
+msgid "Panel background opacity"
+msgstr "Opacitatea fundalului panoului"
+
+#: src/setari.cpp:637
+msgid "Panel on top of"
+msgstr "Panoul stă peste"
+
+#: src/setari.cpp:641
+msgid "Key for all macros"
+msgstr "Tasta pentru toate macro-urile"
+
+#: src/setari.cpp:642
+msgid "Key that shows and hides the panel"
+msgstr "Tasta care arată și ascunde panoul"
+
+#: src/setari.cpp:643
+msgid "Key that stops the running macro"
+msgstr "Tasta care oprește macro-ul care rulează"
+
+#: src/setari.cpp:644
+msgid "Key for 📌"
+msgstr "Tasta pentru 📌"
+
+#: src/setari.cpp:645
+msgid "Key for the transparent background"
+msgstr "Tasta fundalului transparent"
+
+#: src/setari.cpp:646
+msgid "Start pause"
+msgstr "Pauza de la pornire"
+
+#: src/setari.cpp:648
+msgid "Theme"
+msgstr "Temă"
+
+#: src/setari.cpp:649
+msgid "Language"
+msgstr "Limbă"
+
+#: src/setari.cpp:650
+msgid "Applies at the next start"
+msgstr "Se aplică la pornirea următoare"
+
+#: src/setari.cpp:653
+msgid "Remove BisonusMacro from KDE…"
+msgstr "Scoate BisonusMacro din KDE…"
+
+#: src/setari.cpp:656
+msgid "Remove BisonusMacro from KDE"
+msgstr "Scoate BisonusMacro din KDE"
+
+#: src/setari.cpp:657
+msgid ""
+"BisonusMacro removes its KWin rules, its KWin scripts and its global keys, "
+"then quits. After this, uninstall the package."
+msgstr ""
+"BisonusMacro își scoate regulile KWin, scripturile KWin și tastele globale, "
+"apoi se închide. După asta, dezinstalează pachetul."
+
+#: src/setari.cpp:660
+msgid "Also delete my macros (a backup is kept)"
+msgstr "Șterge și macro-urile mele (o copie de siguranță rămâne)"
+
+#: src/setari.cpp:662
+msgid "Remove and quit"
+msgstr "Scoate și închide"
+
+#: src/setari.cpp:672
+msgid "Import…"
+msgstr "Importă…"
+
+#: src/setari.cpp:674
+msgid "Export…"
+msgstr "Exportă…"
+
+#: src/setari.cpp:676 src/setari.cpp:698 src/setari.cpp:700
+msgid "New from template…"
+msgstr "Nou dintr-un template…"
+
+#: src/setari.cpp:698 src/setari.cpp:1251
+msgid "No templates found"
+msgstr "Niciun template găsit"
+
+#: src/setari.cpp:716
+msgid "Click"
+msgstr "Clic"
+
+#: src/setari.cpp:716 src/setari.cpp:1176
+msgid "Key active"
+msgstr "Tasta activă"
+
+#: src/setari.cpp:753
+msgid "Add category"
+msgstr "Adaugă o categorie"
+
+#: src/setari.cpp:755
+msgid "Add macro"
+msgstr "Adaugă un macro"
+
+#: src/setari.cpp:757
+msgid "Edit…"
+msgstr "Schimbă…"
+
+#: src/setari.cpp:759 src/setari.cpp:784
+msgid "Delete"
+msgstr "Șterge"
+
+#: src/setari.cpp:785
+msgid "Delete %1 and its %2 nodes?"
+msgstr "Ștergi %1 și cele %2 noduri de sub el?"
+
+#: src/setari.cpp:826
+msgid "Macros"
+msgstr "Macro-uri"
+
+#: src/setari.cpp:827
+msgid "Panel"
+msgstr "Panou"
+
+#: src/setari.cpp:828
+msgid "Keys"
+msgstr "Taste"
+
+#: src/setari.cpp:829
+msgid "General"
+msgstr "General"
+
+#: src/setari.cpp:1037
+msgid "The file was not imported: %1"
+msgstr "Fișierul nu s-a importat: %1"
+
+#: src/setari.cpp:1041
+msgid "Replace everything with the file, or add its categories after yours?"
+msgstr ""
+"Înlocuiești totul cu fișierul, sau îi adaugi categoriile după ale tale?"
+
+#: src/setari.cpp:1042
+msgid "Replace all"
+msgstr "Înlocuiește tot"
+
+#: src/setari.cpp:1043
+msgid "Add"
+msgstr "Adaugă"
+
+#: src/setari.cpp:1060 src/setari.cpp:1066
+msgid "Export"
+msgstr "Export"
+
+#: src/setari.cpp:1168
+msgid "Press the new key for %1."
+msgstr "Apasă tasta nouă pentru %1."
+
+#: src/setari.cpp:1181
+msgid "No key"
+msgstr "Fără tastă"
+
+#: src/setari.cpp:1236
+msgid "No macros yet"
+msgstr "Niciun macro încă"
+
+#: src/setari.cpp:1241
+msgid ""
+"Load the Bloodlines teleports, import a file, or write your first macro."
+msgstr ""
+"Încarcă teleporturile Bloodlines, importă un fișier sau scrie primul tău "
+"macro."
+
+#: src/setari.cpp:1244 src/setari.cpp:1251
+msgid "Bloodlines"
+msgstr "Bloodlines"
+
+#: src/setari.cpp:1244
+msgid "Rift teleports: 17 locations, ready to use."
+msgstr "Teleporturi Rift: 17 locuri, gata de folosit."
+
+#: src/setari.cpp:1245
+msgid "Import a file…"
+msgstr "Importă un fișier…"
+
+#: src/setari.cpp:1245
+msgid "Or drop a .json file on this page."
+msgstr "Sau trage un fișier .json peste pagina asta."
+
+#: src/setari.cpp:1246
+msgid "Create a macro"
+msgstr "Creează un macro"
+
+#: src/setari.cpp:1246
+msgid "Start from a short example."
+msgstr "Pornește de la un exemplu scurt."
+
+#: src/setari.cpp:1258
+msgid "My macros"
+msgstr "Macro-urile mele"
+
+#: src/setari.cpp:1260
+msgid "My first macro"
+msgstr "Primul meu macro"
+
+#: src/setari.cpp:1268
+msgid "How do macros work? (Help)"
+msgstr "Cum merg macro-urile? (Ajutor)"
+
+#: src/tastatura.cpp:81
+msgid "the portal refuses %1: %2"
+msgstr "portalul refuză %1: %2"
+
+#: src/tastatura.cpp:85
+msgid "the keyboard permission was refused"
+msgstr "acordul pentru tastatură a fost refuzat"
+
+#: src/tastatura.cpp:87
+msgid "the portal did not answer %1"
+msgstr "portalul n-a răspuns la %1"
+
+#: src/tastatura.cpp:135
+msgid "the permission does not include the keyboard"
+msgstr "acordul nu cuprinde tastatura"
+
+#: src/tastatura.cpp:147
+msgid "the portal does not give the EIS keyboard: %1"
+msgstr "portalul nu dă tastatura EIS: %1"
+
+#: src/tastatura.cpp:154
+msgid "libei does not connect to KWin"
+msgstr "libei nu se leagă de KWin"
+
+#: src/tastatura.cpp:164
+msgid "KWin did not give the EIS keyboard"
+msgstr "KWin n-a dat tastatura EIS"
+
+#: src/tastatura.cpp:264
+msgid "KWin does not give the mouse right now"
+msgstr "KWin nu dă mouse-ul acum"
+
+#: src/tastatura.cpp:277
+msgid "the point %1, %2 is outside the screen"
+msgstr "punctul %1, %2 e în afara ecranului"

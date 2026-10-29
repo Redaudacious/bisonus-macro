@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=BisonusMacro
+GenericName=Macro tool
+GenericName[ro]=Unealtă de macro-uri
+Comment=Keyboard and mouse macros, from a click or a key
+Comment[ro]=Macro-uri de tastatură și mouse, dintr-un clic sau dintr-o tastă
+Exec=bisonus-macro
+Icon=bisonus-macro
+Categories=Utility;
+Terminal=false

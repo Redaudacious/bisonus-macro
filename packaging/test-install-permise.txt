@@ -1,0 +1,293 @@
+# Căile pe care proba instalării le iartă după scoaterea pachetului, câte una pe rând, fără „< ” sau „> ”.
+# O cale intră aici numai după reparația condițională 1 a planului 1: nu conține „bisonus”, nu e în
+# `dpkg -L` sau în `rpm -ql` al pachetului și e făcută de un declanșator al unei dependențe.
+# Deasupra fiecărui grup de căi stă un comentariu cu pachetul care le face. Căile sunt de pe fedora:44, măsurate pe 29 octombrie 2026.
+# Un pachet nou în dependențe, sau o versiune nouă a unuia, poate cere căi noi aici.
+# xml-common și sgml-common: scoaterea lor scrie fișierele .rpmsave și lasă dosare de catalog
+/etc/sgml
+/etc/sgml/catalog
+/etc/sgml/docbook
+/etc/sgml/docbook/xmlcatalog.rpmsave
+/etc/xml
+/etc/xml/catalog.rpmsave
+# fontconfig: declanșatorul fc-cache scrie cache-ul de fonturi
+/usr/lib/fontconfig
+/usr/lib/fontconfig/cache
+/usr/lib/fontconfig/cache/18f520a508f13854f77176faf7889ae9-le64.cache-9
+/usr/lib/fontconfig/cache/3830d5c3ddfd5cd38a049b759396e72e-le64.cache-9
+/usr/lib/fontconfig/cache/CACHEDIR.TAG
+/usr/lib/fontconfig/cache/d63f98f14a274bd69a5425fc33aaac6b-le64.cache-9
+# dosar neposedat de niciun pachet, sub un dosar al lui filesystem
+/usr/lib/modprobe.d
+/usr/lib64/bfd-plugins
+/usr/lib64/gbm
+/usr/lib64/gnome-settings-daemon-3.0
+/usr/lib64/pipewire-0.3
+/usr/share/icewm
+/usr/share/icons/breeze
+/usr/share/icons/breeze-dark
+/usr/share/krunner
+/usr/share/kwin
+/usr/share/pipewire
+# qt6-filesystem: dosar al pachetului, rămas după scoatere
+/usr/lib/qt6
+/usr/lib/qt6/qml
+/usr/lib64/qt6
+/usr/lib64/qt6/plugins
+/usr/lib64/qt6/qml
+/usr/share/qt6
+# dosar neposedat de niciun pachet, sub un dosar al lui qt6-filesystem
+/usr/lib/qt6/qml/org
+/usr/lib64/qt6/plugins/kiconthemes6
+/usr/lib64/qt6/plugins/org.kde.kdecoration3
+/usr/lib64/qt6/plugins/org.kde.kdecoration3.kcm
+/usr/lib64/qt6/plugins/plasma
+/usr/lib64/qt6/qml/Qt5Compat
+/usr/lib64/qt6/sbom
+/usr/share/qt6/wayland
+# dosar neposedat de niciun pachet, lăsat de dependențe (pipewire, KWin, Qt, icewm)
+/usr/lib/udev/hwdb.d
+/usr/lib64/gnome-settings-daemon-3.0/gtk-modules
+/usr/lib64/qt6/plugins/kiconthemes6/iconengines
+/usr/lib64/qt6/plugins/plasma/kcms
+/usr/lib64/qt6/plugins/plasma/kcms/systemsettings
+/usr/lib64/qt6/plugins/plasma/kcms/systemsettings_qwidgets
+/usr/lib64/qt6/qml/Qt5Compat/GraphicalEffects
+/usr/lib64/qt6/qml/org/kde/kwin/decorations/plastik
+/usr/share/icewm/themes
+/usr/share/icewm/themes/clearlooks
+/usr/share/icewm/themes/clearlooks-2px
+/usr/share/icewm/themes/clearlooks-2px/taskbar
+/usr/share/icewm/themes/clearlooks/taskbar
+/usr/share/krunner/dbusplugins
+/usr/share/kwin/decorations
+/usr/share/pipewire/client.conf.avail
+# python3-libs: dosar al pachetului, rămas după scoatere
+/usr/lib64/python3.14
+/usr/lib64/python3.14/site-packages
+# dosar neposedat de niciun pachet, sub un dosar al lui python3-libs
+/usr/lib64/python3.14/site-packages/gi
+# at-spi2-core: dosar al pachetului, rămas după scoatere
+/usr/lib64/python3.14/site-packages/gi/overrides
+# dosar neposedat de niciun pachet, sub un dosar al lui at-spi2-core
+/usr/lib64/python3.14/site-packages/gi/overrides/__pycache__
+# kf6-kdeclarative: dosar al pachetului, rămas după scoatere
+/usr/lib64/qt6/qml/org
+# kf6-filesystem: dosar al pachetului, rămas după scoatere
+/usr/lib64/qt6/qml/org/kde
+/usr/share/kf6
+# dosar neposedat de niciun pachet, sub un dosar al lui kf6-filesystem
+/usr/lib64/qt6/qml/org/kde/config
+/usr/lib64/qt6/qml/org/kde/coreaddons
+/usr/lib64/qt6/qml/org/kde/i18n
+/usr/lib64/qt6/qml/org/kde/layershell
+/usr/lib64/qt6/qml/org/kde/notification
+/usr/share/kf6/jsonschema
+/usr/share/kf6/searchproviders
+# kf6-kirigami: dosar al pachetului, rămas după scoatere
+/usr/lib64/qt6/qml/org/kde/kirigami
+/usr/lib64/qt6/qml/org/kde/kirigami/styles
+# dosar neposedat de niciun pachet, sub un dosar al lui kf6-kirigami
+/usr/lib64/qt6/qml/org/kde/kirigami/styles/Plasma
+# kwin-common: dosar al pachetului, rămas după scoatere
+/usr/lib64/qt6/qml/org/kde/kwin
+# dosar neposedat de niciun pachet, sub un dosar al lui kwin-common
+/usr/lib64/qt6/qml/org/kde/kwin/decoration
+/usr/lib64/qt6/qml/org/kde/kwin/decorations
+# libplasma: dosar al pachetului, rămas după scoatere
+/usr/lib64/qt6/qml/org/kde/private
+# pipewire-libs: dosar al pachetului, rămas după scoatere
+/usr/lib64/spa-0.2
+/usr/share/spa-0.2
+# dosar neposedat de niciun pachet, sub un dosar al lui pipewire-libs
+/usr/lib64/spa-0.2/filter-graph
+/usr/share/spa-0.2/bluez5
+# libglvnd: dosar al pachetului, rămas după scoatere
+/usr/share/glvnd
+# libglvnd-egl: dosar al pachetului, rămas după scoatere
+/usr/share/glvnd/egl_vendor.d
+# adwaita-cursor-theme: dosar al pachetului, rămas după scoatere
+/usr/share/icons/Adwaita
+# dosar neposedat de niciun pachet, sub un dosar al lui adwaita-cursor-theme
+/usr/share/icons/Adwaita/icon-theme.cache
+# adwaita-icon-theme-legacy: dosar al pachetului, rămas după scoatere
+/usr/share/icons/AdwaitaLegacy
+# dosar neposedat de niciun pachet, sub un dosar al lui adwaita-icon-theme-legacy
+/usr/share/icons/AdwaitaLegacy/icon-theme.cache
+# fedora-logos: dosar al pachetului, rămas după scoatere
+/usr/share/icons/hicolor
+/usr/share/plymouth
+# hicolor-icon-theme: dosar al pachetului, rămas după scoatere
+/usr/share/icons/hicolor/symbolic
+/usr/share/icons/hicolor/symbolic/apps
+# shared-mime-info: declanșatorul update-mime-database scrie fișierele XML de tipuri MIME ale dependențelor
+/usr/share/mime/application
+/usr/share/mime/application/relaxng.xml
+/usr/share/mime/application/vnd.kde.fontspackage.xml
+/usr/share/mime/application/vnd.kde.kcfg.xml
+/usr/share/mime/application/vnd.kde.kcfgc.xml
+/usr/share/mime/application/vnd.kde.knotificationrc.xml
+/usr/share/mime/application/vnd.kde.kphotoalbum-import.xml
+/usr/share/mime/application/vnd.kde.kxmlguirc.xml
+/usr/share/mime/application/vnd.kde.okular-archive.xml
+/usr/share/mime/application/x-cabri.xml
+/usr/share/mime/application/x-cda.xml
+/usr/share/mime/application/x-drgeo.xml
+/usr/share/mime/application/x-font-snf.xml
+/usr/share/mime/application/x-icq.xml
+/usr/share/mime/application/x-java-applet.xml
+/usr/share/mime/application/x-kcachegrind.xml
+/usr/share/mime/application/x-kcsrc.xml
+/usr/share/mime/application/x-kgeo.xml
+/usr/share/mime/application/x-kgetlist.xml
+/usr/share/mime/application/x-kig.xml
+/usr/share/mime/application/x-kmplot.xml
+/usr/share/mime/application/x-kns.xml
+/usr/share/mime/application/x-kolf.xml
+/usr/share/mime/application/x-kommander.xml
+/usr/share/mime/application/x-kopete-emoticons.xml
+/usr/share/mime/application/x-kourse.xml
+/usr/share/mime/application/x-kseg.xml
+/usr/share/mime/application/x-ksysguard.xml
+/usr/share/mime/application/x-ktheme.xml
+/usr/share/mime/application/x-kvtml.xml
+/usr/share/mime/application/x-kwallet.xml
+/usr/share/mime/application/x-kwordquiz.xml
+/usr/share/mime/application/x-plasma.xml
+/usr/share/mime/application/x-quanta.xml
+/usr/share/mime/application/x-smb-server.xml
+/usr/share/mime/application/x-smb-workgroup.xml
+/usr/share/mime/application/x-superkaramba.xml
+/usr/share/mime/application/x-tuberling.xml
+/usr/share/mime/application/x-turtle.xml
+/usr/share/mime/application/x-uml.xml
+/usr/share/mime/application/x-vnd.kde.kplato.work.xml
+/usr/share/mime/application/x-vnd.kde.kplato.xml
+/usr/share/mime/application/x-vnd.kde.kugar.mixed.xml
+/usr/share/mime/application/x-vnd.kde.plan.work.xml
+/usr/share/mime/application/x-vnd.kde.plan.xml
+/usr/share/mime/application/x-webarchive.xml
+/usr/share/mime/application/x.systemd-catalog.xml
+/usr/share/mime/application/x.systemd-confext.xml
+/usr/share/mime/application/x.systemd-credential.xml
+/usr/share/mime/application/x.systemd-home.xml
+/usr/share/mime/application/x.systemd-hwdb.xml
+/usr/share/mime/application/x.systemd-journal.xml
+/usr/share/mime/application/x.systemd-sysext.xml
+/usr/share/mime/application/xsd.xml
+/usr/share/mime/image
+/usr/share/mime/image/x-hdr.xml
+/usr/share/mime/image/x-kde-raw.xml
+/usr/share/mime/image/x-pic.xml
+/usr/share/mime/text
+/usr/share/mime/text/vnd.abc.xml
+/usr/share/mime/text/vnd.kde.kcrash-report.xml
+/usr/share/mime/text/x-hex.xml
+/usr/share/mime/text/x-katefilelist.xml
+/usr/share/mime/video
+/usr/share/mime/video/x-ms-wmp.xml
+# dosar neposedat de niciun pachet, sub un dosar al lui fedora-logos
+/usr/share/plymouth/themes
+# cachyos: dosare ale unor pachete rămase instalate (glibc, gcc, filesystem, glib2, util-linux), fără fișierele lor în imaginea CachyOS. Instalarea dependențelor le recreează, iar scoaterea nu le șterge, fiindcă alt pachet le posedă. Nu le face niciun hook. Căi măsurate pe 29 octombrie 2026.
+/usr/share/gtk-doc/html
+/usr/share/info
+/usr/share/locale/ab
+/usr/share/locale/ab/LC_MESSAGES
+/usr/share/locale/am
+/usr/share/locale/am/LC_MESSAGES
+/usr/share/locale/an
+/usr/share/locale/an/LC_MESSAGES
+/usr/share/locale/bn
+/usr/share/locale/bn/LC_MESSAGES
+/usr/share/locale/bs
+/usr/share/locale/bs/LC_MESSAGES
+/usr/share/locale/ckb
+/usr/share/locale/ckb/LC_MESSAGES
+/usr/share/locale/de_CH
+/usr/share/locale/de_CH/LC_MESSAGES
+/usr/share/locale/dz
+/usr/share/locale/dz/LC_MESSAGES
+/usr/share/locale/gd
+/usr/share/locale/gd/LC_MESSAGES
+/usr/share/locale/hy
+/usr/share/locale/hy/LC_MESSAGES
+/usr/share/locale/ie
+/usr/share/locale/ie/LC_MESSAGES
+/usr/share/locale/km
+/usr/share/locale/km/LC_MESSAGES
+/usr/share/locale/ku
+/usr/share/locale/ku/LC_MESSAGES
+/usr/share/locale/kw
+/usr/share/locale/kw/LC_MESSAGES
+/usr/share/locale/lg
+/usr/share/locale/lg/LC_MESSAGES
+/usr/share/locale/lo
+/usr/share/locale/lo/LC_MESSAGES
+/usr/share/locale/mai
+/usr/share/locale/mai/LC_MESSAGES
+/usr/share/locale/mk
+/usr/share/locale/mk/LC_MESSAGES
+/usr/share/locale/mn
+/usr/share/locale/mn/LC_MESSAGES
+/usr/share/locale/my
+/usr/share/locale/my/LC_MESSAGES
+/usr/share/locale/nb_NO
+/usr/share/locale/nb_NO/LC_MESSAGES
+/usr/share/locale/nds
+/usr/share/locale/nds/LC_MESSAGES
+/usr/share/locale/ne
+/usr/share/locale/ne/LC_MESSAGES
+/usr/share/locale/ps
+/usr/share/locale/ps/LC_MESSAGES
+/usr/share/locale/pt_PT
+/usr/share/locale/pt_PT/LC_MESSAGES
+/usr/share/locale/sat
+/usr/share/locale/sat/LC_MESSAGES
+/usr/share/locale/sr@ije
+/usr/share/locale/sr@ije/LC_MESSAGES
+/usr/share/locale/tg
+/usr/share/locale/tg/LC_MESSAGES
+/usr/share/locale/tl
+/usr/share/locale/tl/LC_MESSAGES
+/usr/share/locale/tt
+/usr/share/locale/tt/LC_MESSAGES
+/usr/share/locale/ug
+/usr/share/locale/ug/LC_MESSAGES
+/usr/share/locale/ur
+/usr/share/locale/ur/LC_MESSAGES
+/usr/share/locale/uz
+/usr/share/locale/uz/LC_MESSAGES
+/usr/share/locale/xh
+/usr/share/locale/xh/LC_MESSAGES
+/usr/share/locale/yi
+/usr/share/locale/yi/LC_MESSAGES
+/usr/share/locale/yo
+/usr/share/locale/yo/LC_MESSAGES
+/usr/share/locale/zh_Hant
+/usr/share/locale/zh_Hant/LC_MESSAGES
+/usr/share/locale/zu
+/usr/share/locale/zu/LC_MESSAGES
+/usr/share/man/de/man8
+/usr/share/man/es
+/usr/share/man/es/man1
+/usr/share/man/es/man8
+/usr/share/man/fr/man8
+/usr/share/man/hu
+/usr/share/man/hu/man1
+/usr/share/man/id
+/usr/share/man/it/man8
+/usr/share/man/man2
+/usr/share/man/man4
+/usr/share/man/man7
+/usr/share/man/nl
+/usr/share/man/nl/man1
+/usr/share/man/pt
+/usr/share/man/pt_BR/man8
+/usr/share/man/pt/man1
+/usr/share/man/ru
+/usr/share/man/ru/man1
+/usr/share/man/ru/man8
+/usr/share/man/tr
+/usr/share/man/tr/man1
+/usr/share/man/tr/man8
+/usr/share/man/uk/man8

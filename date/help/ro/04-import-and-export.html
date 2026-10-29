@@ -1,0 +1,29 @@
+<html><body>
+<h1>Importul și exportul</h1>
+<p>Poți salva macro-urile și setările într-un singur fișier și le poți încărca din nou mai târziu. Poți da fișierul și altor jucători. </p>
+<p>Butoanele „Importă…”, „Exportă…” și „Nou dintr-un template…” stau deasupra arborelui, în fereastra principală. Ele sunt gri cât fereastra ține schimbări nescrise. Sfatul spune „Apasă întâi Apply sau Cancel”. Apasă „Apply” sau „Cancel”, iar butoanele merg din nou. </p>
+<p>Pe pagina „Macros” goală, „Importă…” și „Nou dintr-un template…” merg de la început. „Exportă…” rămâne gri acolo, fiindcă nu e nimic de salvat. Sfatul spune „Încă nu e nimic de exportat”. </p>
+
+<h2>Exportul</h2>
+<ol>
+<li>Apasă „Exportă…”. </li>
+<li>Alege locul. Numele implicit e <b>bisonus-macro-AAAA-LL-ZZ.json</b>. </li>
+</ol>
+<p>Fișierul are macro-urile tale, setările tale și setările fiecărui nod. Fișierul <b>nu</b> are ce ține de calculator. Asta înseamnă tokenul de acces, lista tastelor închise, mărimea și locul panoului. Tokenul merge numai pe calculatorul tău. </p>
+
+<h2>Importul</h2>
+<ol>
+<li>Apasă „Importă…” și alege un fișier. </li>
+<li>Programul întreabă: „Înlocuiește tot”, „Adaugă” sau „Renunță”. Când arborele e gol, programul nu întreabă nimic și încarcă fișierul. </li>
+</ol>
+<p>Programul refuză trei feluri de fișiere. Primul nu e JSON. Al doilea nu e un export BisonusMacro. Al treilea vine de la o versiune mai nouă. Programul spune de ce, iar nimic nu se schimbă. Un macro cu greșeală nu face fișierul refuzat. El intră gri. </p>
+<ul>
+<li><b>Înlocuiește tot.</b> Fișierul înlocuiește arborele, setările nodurilor și setările generale. Mărimea și locul panoului rămân. O setare pe care fișierul n-o are își păstrează valoarea. </li>
+<li><b>Adaugă.</b> Categoriile fișierului vin după ale tale. Setările generale nu se schimbă. Un id care se repetă primește un id nou, iar setările lui îl urmează. Un șablon cu același nume și alți pași primește un nume nou, de pildă <b>teleport-2</b>. O tastă deja luată arată un semn de avertizare pe ambele noduri. </li>
+</ul>
+
+<h2>Copia de siguranță</h2>
+<p>Înaintea fiecărui import, programul salvează starea de acum. Fișierul stă în <b>~/.local/share/bisonus-macro/copii</b>. Numele e <b>inainte-de-import-AAAA-LL-ZZ-HHMMSS.json</b>. Programul păstrează ultimele 10 copii și șterge pe cea mai veche. </p>
+<p>Ca să desfaci un import, apasă „Importă…”, alege copia și apasă „Înlocuiește tot”. </p>
+<p>Dacă programul nu poate scrie copia, nu importă nimic și spune asta în rândul de stare. </p>
+</body></html>

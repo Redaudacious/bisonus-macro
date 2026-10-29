@@ -1,0 +1,34 @@
+#!/bin/bash
+# test — construiește, rulează testele QtTest, apoi proba de pe desktop. Proba cere sesiunea KDE.
+# La capăt compară tastele omului din kglobalshortcutsrc cu cele de la început: o diferență face scriptul să iasă cu 1.
+set -euo pipefail
+cd "$(dirname "$0")"
+cmake -B build -S . >/dev/null
+cmake --build build >/dev/null
+ctest --test-dir build --output-on-failure
+bash teste/proba-taste-om.sh
+bash teste/proba-pid.sh
+# tastele omului din kglobalshortcutsrc: aceleași înainte și după. KGlobalAccel scrie fișierul cu întârziere, deci comparația așteaptă.
+bash teste/taste-om.sh salveaza build/taste-om.salvat
+la_iesire() {
+    local cod=$?
+    sleep 3
+    bash teste/taste-om.sh compara build/taste-om.salvat || cod=1
+    exit "$cod"
+}
+trap la_iesire EXIT
+bash teste/proba-panou.sh
+bash teste/proba-panou.sh --tine-w
+bash teste/proba-panou.sh --tine-shift
+bash teste/proba-clic-iesire.sh
+bash teste/proba-plasa.sh
+bash teste/proba-componenta-veche.sh
+bash teste/proba-o-copie.sh
+bash teste/proba-urmarire.sh
+bash teste/proba-rama.sh
+bash teste/proba-peste-ferestre.sh
+bash teste/proba-aducere.sh
+bash teste/proba-taste-eliberate.sh
+bash teste/proba-oprire.sh
+bash teste/proba-curatare.sh
+bash teste/proba-mouse.sh

@@ -1,0 +1,71 @@
+<html><body>
+<h1>The panel</h1>
+<p>The panel shows your macros in categories. It shows above the game and does not take the focus.</p>
+<p><img src="../capturi/panou.png"></p>
+
+<h2>The frame</h2>
+<p>KDE draws the frame of the panel, like the frame of any other window. It has the icon of the program and the title "BisonusMacro". Drag the frame to move the panel. KDE remembers the place.</p>
+<p>The frame has three buttons on the right:</p>
+<ul>
+<li><b>Minus.</b> It hides the panel in the tray. The program continues, and the global keys still start macros.</li>
+<li><b>Square.</b> It makes the panel bigger. Click it again to return to the old size.</li>
+<li><b>Cross.</b> It stops BisonusMacro, like "Quit" in the tray. A macro that runs stops first. The keyboard works after the exit.</li>
+</ul>
+
+<h2>The toolbar</h2>
+<p>The toolbar is under the frame. On the left are four buttons:</p>
+<ul>
+<li><b>Fold button (▾).</b> It folds the panel to the frame and the toolbar. Click it again to unfold the panel.</li>
+<li><b>Power button (⏻).</b> It is the switch for all macros. When it is off, all rows are gray and no macro starts. The program also lets go of the global keys of the macros and categories, so the other programs get them.</li>
+<li><b>Pin button (📌).</b> It keeps the panel above every window. The icon shows a pin in or a pin out.</li>
+<li><b>Gear button (⚙).</b> It opens the main window. It stays in the toolbar when you fold the panel.</li>
+</ul>
+<p>The field "Search macros..." is on the right. See "Search" below. While a macro runs, the button "■ Stop" and the name of the macro take the place of the field. Click it to stop the macro.</p>
+<p>The key F12 folds and unfolds the panel. You can change it in the main window, at "Key that shows and hides the panel".</p>
+
+<h2>Size</h2>
+<p>Drag an edge or a corner of the frame. KDE changes the size and the program remembers it. The default width is 448 px. The list scrolls when it does not fit. A long description ends with "...", and the tooltip of the row shows it in full.</p>
+
+<h2>Categories and rows</h2>
+<p>Each category has a colored dot. Click the title to fold the category or unfold it. The program remembers the state of each category.</p>
+<p>A row has a colored band, the name, the description and the key button. The code button is at the right of the row. It shows the steps of the macro in a read-only window. It works on a gray macro too. For a macro that presses 6, it shows <b>key 6</b>, <b>wait 2000</b>, <b>key /</b>, <b>text Snow 2</b> and <b>key Return</b>. A macro with an error shows the reason in place of the description.</p>
+<p>A warning sign near two macros means that they have the same key. The panel shows the name of the other macro.</p>
+
+<h2>Change a key in the panel</h2>
+<p>The key button is next to the row. A click on it does not prepare the macro. A macro with no key has the button ⌨ with a dotted border. A gray key button means that the key is off. The button works on a gray row too.</p>
+<p><img src="../capturi/fereastra-tastei.png"></p>
+<ol>
+<li>Click the key button of the macro. A window with the name of the macro opens, in the middle of the panel.</li>
+<li>Press the new key. The window already waits for it. You do not click the field.</li>
+<li>Clear the box "Key active" to keep the key but turn it off.</li>
+<li>Click "OK". Click "No key" to remove the key. Click "Cancel" to close the window with no change.</li>
+</ol>
+<p>The window asks the same questions as the page "Macros" of the main window, for example when another macro has the key. A category has no key button in the panel. Change the key of a category in the main window.</p>
+<p>If the main window has changes you did not save, it loads the file again after a key change. It drops these changes and says so.</p>
+
+<h2>Search</h2>
+<p>The panel does not take the focus, so Ctrl+F does not work in it. Click the field "Search macros..." in the toolbar.</p>
+<ol>
+<li>A small window "Search macros" opens. Write a word. The panel shows only the macros and categories that have the word in the name or in the description. A category that matches shows all the macros it holds. The categories above a match stay too. Capital letters do not matter. Categories open while the word is in the field.</li>
+<li>Press Enter to close the window. The panel keeps the filter. The field in the toolbar then shows the word. The cross (✕) near the field removes the filter.</li>
+<li>Press Esc to clear the filter and close the window.</li>
+</ol>
+
+<h2>The panel above other windows</h2>
+<p>Without the pin, the panel is an ordinary window. A click on it brings it above the other windows. The click does not give it the keyboard. A click on another window puts that window above the panel. The panel does not disappear.</p>
+<p>The windows in the list "Panel on top of", on the page "Panel", cannot cover the panel. This is true in full screen too. Default: Sober.</p>
+<p>With the pin, no window covers the panel. The tooltip of the button says "Pinned" or "Not pinned". The program remembers your choice. You can set a key for the pin in the main window, at "Key for 📌".</p>
+
+<h2>The status bar</h2>
+<p>The bottom line of the panel shows only the state: "Ready · 5 macros active" or "Running: Snow 2". The number counts the macros that can start now. The line does not show a key.</p>
+
+<h2>Transparency</h2>
+<p>The background of the panel is translucent. The text, the bands and the keys stay opaque. Set the opacity in the main window, at "Panel background opacity". Default: 60%. The box "Transparent background" and its key switch between the chosen opacity and an opaque background.</p>
+
+<h2>The tray</h2>
+<p>The icon in the tray has color when macros are on. It is gray when macros are off. A left click shows a hidden panel and brings it above the other windows. It does the same for a panel that other windows cover. A left click never hides the panel: use the minus button for that. The game keeps the keyboard. The menu has "Macros active", "Open BisonusMacro", "Help" and "Quit". The tooltip shows the global keys as a tree. Each key has its state, for example <i>Snow 2 - F2 - off, Rift is off</i>.</p>
+<p>"Quit" in the tray and the cross of the frame are the only places that stop the program.</p>
+
+<h2>If the KWin script fails</h2>
+<p>The panel stays above all windows. The status line says "KWin script failed: panel stays on top".</p>
+</body></html>

@@ -1,0 +1,29 @@
+<html><body>
+<h1>Import and export</h1>
+<p>You can save your macros and settings in one file and load them again later. You can also share the file with other players.</p>
+<p>The buttons "Import...", "Export..." and "New from template..." are above the tree in the main window. They are gray while the window holds unsaved changes. The tooltip says "Apply or Cancel first". Click "Apply" or "Cancel", and the buttons work again.</p>
+<p>On the empty page "Macros", "Import..." and "New from template..." work at once. "Export..." stays gray there, because there is nothing to save. The tooltip says "Nothing to export yet".</p>
+
+<h2>Export</h2>
+<ol>
+<li>Click "Export...".</li>
+<li>Choose the place. The default name is <b>bisonus-macro-YYYY-MM-DD.json</b>.</li>
+</ol>
+<p>The file has your macros, your settings and the settings of each node. The file does <b>not</b> have what belongs to the computer. This means the access token, the list of closed keys, and the size and place of the panel. The token works only on your computer.</p>
+
+<h2>Import</h2>
+<ol>
+<li>Click "Import..." and choose a file.</li>
+<li>The program asks: "Replace all", "Add" or "Cancel". When the tree is empty, it asks nothing and loads the file.</li>
+</ol>
+<p>The program refuses a file that is not JSON, a file that is not a BisonusMacro export, and a file from a newer version. Then it says why, and nothing changes. A macro with an error does not refuse the file. It comes in gray.</p>
+<ul>
+<li><b>Replace all.</b> The file replaces the tree, the settings of the nodes and the general settings. The size and the place of the panel stay. A setting that the file does not have keeps its value.</li>
+<li><b>Add.</b> The categories of the file come after yours. The general settings do not change. A repeated id gets a new id, and its settings follow it. A template with the same name and other steps gets a new name, for example <b>teleport-2</b>. A key that is already in use shows a warning sign on both nodes.</li>
+</ul>
+
+<h2>The backup</h2>
+<p>Before each import, the program saves your present state. The file is in <b>~/.local/share/bisonus-macro/copii</b>. The name is <b>inainte-de-import-YYYY-MM-DD-HHMMSS.json</b>. The program keeps the last 10 backups and deletes the oldest.</p>
+<p>To undo an import, click "Import...", choose the backup and click "Replace all".</p>
+<p>If the program cannot write the backup, it imports nothing and says so in the status line.</p>
+</body></html>
