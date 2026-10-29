@@ -120,6 +120,8 @@
 # hicolor-icon-theme: dosar al pachetului, rămas după scoatere
 /usr/share/icons/hicolor/symbolic
 /usr/share/icons/hicolor/symbolic/apps
+# systemd, pe Arch: hook-ul systemd-hwdb scrie baza hardware când dependențele aduc fișiere hwdb.d, iar scoaterea lor o lasă
+/usr/lib/udev/hwdb.bin
 # shared-mime-info: declanșatorul update-mime-database scrie fișierele XML de tipuri MIME ale dependențelor
 /usr/share/mime/application
 /usr/share/mime/application/relaxng.xml

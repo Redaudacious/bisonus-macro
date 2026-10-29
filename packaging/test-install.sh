@@ -59,6 +59,9 @@ case $fam in
     # fontconfig (scriptul de instalare scrie /etc/fonts/conf.d), shared-mime-info (hook-ul update-mime-database scrie XML-uri în /usr/share/mime)
     # și vapoursynth (scriptul de instalare face libvsscript.so) lasă fișiere pe care scoaterea nu le șterge. Le aducem înaintea listei, ca la systemd-sysv pe .deb.
     ex 'pacman -S --needed --noconfirm fontconfig shared-mime-info vapoursynth >/dev/null'
+    # Hook-ul systemd-tmpfiles rulează când o dependență aduce un fișier tmpfiles.d. El face atunci și dosarele cerute de pachetele
+    # de bază (/etc/audit/rules.d, /root/.ssh), pe care imaginea din 27 octombrie 2026 nu le mai are. Le facem înaintea listei.
+    ex 'systemd-tmpfiles --create >/dev/null 2>&1 || true'
     ;;
 esac
 ex "$LISTA" > "$t/inainte"
