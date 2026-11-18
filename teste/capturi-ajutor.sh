@@ -1,6 +1,6 @@
 #!/bin/bash
 # capturi-ajutor.sh [tot|noi] — capturile paginilor de help, din aplicația de pe ramură, cu arborele adus de pachet, în
-# engleză: date/help/capturi/panou.png, fereastra-tastei.png și fereastra-principala.png, apoi pagina-goala.png (fereastra
+# engleză: date/help/capturi/panou.png, fereastra-tastei.png și fereastra-principala.png, bara.png (bara tastelor cu patru sloturi), apoi pagina-goala.png (fereastra
 # principală cu arborele gol) și editorul.png (fereastra codului unui macro cu o greșeală). `noi` face numai ultimele două
 # și nu cere tastatura EIS: aplicația pornește după cele 120 s ale ferestrei de acord a lui KDE, cu macro-urile gri, iar
 # scriptul mută din calea capturilor fereastra de acord rămasă pe ecran. `tot` cere tastatura EIS. Categoriile Rift sunt strânse,
@@ -89,6 +89,7 @@ seteaza() { busctl --user set-property org.kde.KWin "$CALE" org.kde.KWin.InputDe
 PLAT=$(proprietate pointerAccelerationProfileFlat)
 ADAPTIV=$(proprietate pointerAccelerationProfileAdaptive)
 LOC=$(kreadconfig6 --file "$REGULI" --group bisonus-macro --key position)
+LOCB=$(kreadconfig6 --file "$REGULI" --group bisonus-macro-bara --key position)
 curata() {
     [ "$PLAT" = true ] && seteaza pointerAccelerationProfileFlat true
     [ "$ADAPTIV" = true ] && seteaza pointerAccelerationProfileAdaptive true
@@ -104,12 +105,18 @@ curata() {
     else
         kwriteconfig6 --file "$REGULI" --group bisonus-macro --key position --delete
     fi
+    if [ -n "$LOCB" ]; then
+        kwriteconfig6 --file "$REGULI" --group bisonus-macro-bara --key position "$LOCB"
+    else
+        kwriteconfig6 --file "$REGULI" --group bisonus-macro-bara --key position --delete
+    fi
     qdbus6 org.kde.KWin /KWin reconfigure
     true
 }
 trap curata EXIT
 seteaza pointerAccelerationProfileFlat true
 kwriteconfig6 --file "$REGULI" --group bisonus-macro --key position 40,40
+kwriteconfig6 --file "$REGULI" --group bisonus-macro-bara --key position 560,40
 qdbus6 org.kde.KWin /KWin reconfigure
 sleep 1
 
@@ -150,7 +157,16 @@ sleep 1.5
 
 read -r EW EH <<< "$(intreaba ecran "$PANOU_JS raport(\"ecran \" + workspace.virtualScreenSize.width + \" \" + workspace.virtualScreenSize.height);")"
 [ -n "${EH:-}" ] || { echo "✗ KWin nu dă mărimea ecranului"; exit 1; }
-du() { ydotool mousemove --absolute -x 0 -y 0; sleep 0.5; ydotool mousemove -x "$1" -y "$2"; sleep 0.5; }
+# du <x> <y>: cursorul la x,y. Mișcarea absolută a lui ydotool cade pe ecranul unde stă cursorul, deci pe al doilea monitor,
+# după `departe`, 0,0 ar fi 1920,0. De aceea cursorul merge întâi în colțul 0,0 al desktopului, prin mișcări relative. KWin ține
+# o mișcare care iese din desktop pe ecranul curent, deci fiecare pas de 1000 px cade pe un ecran: la margine rămâne la 0.
+du() {
+    for _ in 1 2 3 4 5; do ydotool mousemove -x -1000 -y 0; sleep 0.1; done
+    ydotool mousemove -x 0 -y -2000; sleep 0.1
+    sleep 0.5
+    ydotool mousemove -x "$1" -y "$2"
+    sleep 0.5
+}
 departe() { du $((EW - 5)) $((EH / 2)); sleep 1; } # marginea din dreapta: în afara ferestrelor
 
 # decupeaza <fișier> <uuid>…: o captură a ecranului, tăiată pe locul ferestrelor date, cu tot cu rama lor; ce nu e fereastră
@@ -194,6 +210,14 @@ du $((PX + 4 + 3 * 34 + 16)) $((PY + 19))
 ydotool click 0xC0
 sleep 2
 decupeaza fereastra-principala.png "$(uuid bisonus-macro "$TITLU_SETARI")"
+# bara.png: bara tastelor cu patru sloturi, la 560,40, lângă panou. Tastele intră în setări, iar aplicația le recitește
+# singură. Fundalul barei e opac la captură, ca desktopul omului să nu intre în ea.
+kwriteconfig6 --file "$PWD/$D/config/bisonus-macrorc" --group General --key opacitateBara 100
+for n in 1 2 3 4; do
+    kwriteconfig6 --file "$PWD/$D/config/bisonus-macrorc" --group Nod --group "rift-durana-$n" --key tasta "Ctrl+Alt+$n"
+done
+sleep 3
+decupeaza bara.png "$(uuid bisonus-macro 'Keys · BisonusMacro')"
 fi
 
 # Arborele se schimbă în fișier, iar aplicația îl recitește singură (urmărirea fișierelor). Ferestrele deschise se închid

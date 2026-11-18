@@ -318,6 +318,23 @@ private slots:
         QVERIFY(w.nelegate.contains(idDeasupra));
     }
 
+    // Bara tastelor: tasta ei și tasta editării sunt taste fixe, deci intră în conflicte ca 📌.
+    void tasteleBarei()
+    {
+        const Fisier f = citesteMacrouri(arbore, {});
+        QHash<QString, SetariNod> s;
+        s[QStringLiteral("snow-2")] = cuTasta(QStringLiteral("F6"));
+        const TasteFixe fixe({}, {}, {}, QStringLiteral("F6"), QStringLiteral("F7"));
+        const Verificare v = verifica(f, s, fixe);
+        QVERIFY(v.nelegate.contains(idBara)); // aceeași tastă cu Snow 2
+        QVERIFY(v.avertismente.value(idBara).contains(QStringLiteral("Snow 2")));
+        QVERIFY(!v.nelegate.contains(idBaraEditare));
+        QCOMPARE(luataDe(f, s, QStringLiteral("rain"), QStringLiteral("F6"), fixe), indiceBara);
+        QCOMPARE(luataDe(f, s, QStringLiteral("rain"), QStringLiteral("F7"), fixe), indiceBaraEditare);
+        QCOMPARE(luataDe(f, s, idBara, QStringLiteral("F7"), fixe), indiceBaraEditare);
+        QCOMPARE(luataDe(f, s, idBaraEditare, QStringLiteral("F7"), fixe), qsizetype(-1)); // nu ea însăși
+    }
+
     // C44: căutarea găsește și categoriile, după nume și descriere, și le arată cu tot ce au sub ele.
     void cautareaPeCategorii()
     {

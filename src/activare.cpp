@@ -119,6 +119,10 @@ qsizetype luataDe(const Fisier &f, const QHash<QString, SetariNod> &s, const QSt
         return indiceDeasupra;
     if (id != idTransparenta && tasta == fixe.transparenta)
         return indiceTransparenta;
+    if (id != idBara && tasta == fixe.bara)
+        return indiceBara;
+    if (id != idBaraEditare && tasta == fixe.baraEditare)
+        return indiceBaraEditare;
     for (qsizetype i = 0; i < f.noduri.size(); ++i) {
         const Nod &n = f.noduri[i];
         const SetariNod sn = s.value(n.id);
@@ -213,6 +217,10 @@ Verificare verifica(const Fisier &f, const QHash<QString, SetariNod> &s, const T
         legari.append({idDeasupra, i18n("Panel on top"), fixe.deasupra});
     if (!fixe.transparenta.isEmpty())
         legari.append({idTransparenta, i18n("Transparent background"), fixe.transparenta});
+    if (!fixe.bara.isEmpty())
+        legari.append({idBara, i18n("Key bar"), fixe.bara});
+    if (!fixe.baraEditare.isEmpty())
+        legari.append({idBaraEditare, i18n("Edit key bar"), fixe.baraEditare});
     QHash<QList<int>, QString> trimise; // combinațiile apăsate de macro-urile care lucrează, cu primul macro
     for (qsizetype i = 0; i < f.noduri.size(); ++i) {
         const Nod &n = f.noduri[i];

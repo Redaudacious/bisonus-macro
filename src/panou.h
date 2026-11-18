@@ -28,6 +28,7 @@ public:
     void strange(bool da); // lasă numai barele de sus; la desfacere revine mărimea de dinainte
     bool strans() const;
     void deasupra(bool da); // starea lui 📌: bifa, iconița și tooltip-ul butonului
+    void editareBara(bool da); // starea lui ✎: apăsat cât ține editarea barei tastelor
     // `main` cere stratul „Popup”: panoul pune titlul al doilea cât se vede. Ascuns sau abia arătat, el poartă
     // titlul întâi, iar titlul al doilea vine la 100 ms după arătare.
     void stratPopup(bool da);
@@ -41,6 +42,7 @@ signals:
     void oprireCeruta();           // „■ Stop”
     void comutatorCerut();         // comutatorul general din bară
     void deasupraCeruta(bool da);  // butonul 📌
+    void editareBaraCeruta();      // butonul ✎
     void marimeSchimbata(QSize m); // omul a redimensionat panoul
     void iesireCeruta();              // ✕: aplicația se oprește, după capătul macro-ului care rulează
     void codCerut(const QString &id); // butonul codului din rândul unui macro
@@ -68,6 +70,7 @@ private:
     QAbstractButton *m_comutator;
     QAbstractButton *m_deasupra;
     QAbstractButton *m_setari;
+    QAbstractButton *m_editareBara;
     QPushButton *m_oprire;
     QWidget *m_cautare;                  // căsuța căutării din bara de unelte
     QPushButton *m_campCautare;          // arată ca un câmp și deschide fereastra căutării

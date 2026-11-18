@@ -49,6 +49,14 @@ private slots:
         QVERIFY(s.tastaTransparenta.isEmpty());
         QVERIFY(s.tastaDeasupra.isEmpty());
         QVERIFY(s.noduri.isEmpty());
+        QVERIFY(s.baraVizibila); // bara tastelor e pornită implicit
+        QVERIFY(s.tastaBara.isEmpty());
+        QVERIFY(s.tastaBaraEditare.isEmpty());
+        QCOMPARE(s.opacitateBara, 0); // fundalul barei nu se vede
+        QVERIFY(s.baraOrdine.isEmpty());
+        QVERIFY(s.baraAscunse.isEmpty());
+        QVERIFY(!s.baraX.has_value());
+        QVERIFY(!s.baraY.has_value());
     }
     // Hotărârea 67: „Pause between keys” pleacă din pagina Keys și din [General]. O cheie rămasă se ignoră, iar prima
     // scriere o șterge. „Start pause” rămâne.
@@ -96,6 +104,14 @@ private slots:
         s.transparent = false;
         s.tastaTransparenta = QStringLiteral("Ctrl+F7");
         s.tastaDeasupra = QStringLiteral("Ctrl+F8");
+        s.baraVizibila = false;
+        s.tastaBara = QStringLiteral("Ctrl+F10");
+        s.tastaBaraEditare = QStringLiteral("Ctrl+F11");
+        s.opacitateBara = 25;
+        s.baraOrdine = {QStringLiteral("rain"), QStringLiteral("rift-snow-2")};
+        s.baraAscunse = {QStringLiteral("rain")};
+        s.baraX = 640;
+        s.baraY = 1000;
         s.noduri.insert(QStringLiteral("rift-snow-2"), {std::nullopt, false, QStringLiteral("Ctrl+Alt+2"), false});
         s.noduri.insert(QStringLiteral("rift"), {false, true, QString(), true});
         s.noduri[QStringLiteral("rift")].strans = true;
@@ -120,6 +136,14 @@ private slots:
         QCOMPARE(c.transparent, false);
         QCOMPARE(c.tastaTransparenta, QStringLiteral("Ctrl+F7"));
         QCOMPARE(c.tastaDeasupra, QStringLiteral("Ctrl+F8"));
+        QCOMPARE(c.baraVizibila, false);
+        QCOMPARE(c.tastaBara, QStringLiteral("Ctrl+F10"));
+        QCOMPARE(c.tastaBaraEditare, QStringLiteral("Ctrl+F11"));
+        QCOMPARE(c.opacitateBara, 25);
+        QCOMPARE(c.baraOrdine, s.baraOrdine);
+        QCOMPARE(c.baraAscunse, s.baraAscunse);
+        QCOMPARE(c.baraX, std::optional<int>(640));
+        QCOMPARE(c.baraY, std::optional<int>(1000));
         QVERIFY(c == s); // urmărirea din main.cpp compară așa setările de pe disc cu cele din memorie
         Setari d = c;
         d.noduri[QStringLiteral("rift-snow-2")].tasta = QStringLiteral("F2");
@@ -138,6 +162,17 @@ private slots:
                      + QStringLiteral("/bisonus-macrorc"));
         QVERIFY(fisier.open(QIODevice::ReadOnly));
         QVERIFY(fisier.readAll().contains("[Nod][rift-snow-2]"));
+    }
+    // Bara tastelor: listele goale și locul nepus se citesc înapoi la fel, deci urmărirea nu vede o schimbare.
+    void baraGoala()
+    {
+        Setari s;
+        s.scrie();
+        const Setari c = Setari::citeste();
+        QVERIFY(c.baraOrdine.isEmpty());
+        QVERIFY(c.baraAscunse.isEmpty());
+        QVERIFY(!c.baraX.has_value());
+        QVERIFY(c == s);
     }
     // 0.4.0 scria deasupra=true, cu sensul „regula ține panoul deasupra”. Fără lista ferestrelor, valoarea nu trece la 📌.
     void deasupraVeche()

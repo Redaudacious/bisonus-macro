@@ -3,6 +3,7 @@
 // ridicarea panoului, aducerea ferestrei țintă, o singură copie, tema, limba, tastele globale și tava.
 #include "activare.h"
 #include "ajutor.h"
+#include "bara.h"
 #include "editor.h"
 #include "editorscript.h"
 #include "export.h"
@@ -55,6 +56,10 @@ QString dosarulMacrourilor()
 {
     return QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QStringLiteral("/bisonus-macro");
 }
+
+// Rezerva necunoscutei 2 a specului: dacă KWin nu ține locul barei după o comutare, loc-bara.js o pune la locul din
+// setări de fiecare dată când apare. Sarcina 5 a planului pune true numai dacă proba C4.5 pică.
+constexpr bool rezervaLocBara = false;
 
 QString caleaMacrourilor()
 {
@@ -308,6 +313,7 @@ int main(int argc, char **argv)
         return eroare;
     });
     Panou panou;
+    Bara bara;
     Setari setari;
     Fisier fisier;
     Verificare verificare;
@@ -333,6 +339,8 @@ int main(int argc, char **argv)
     std::function<void(const QString &)> comutaCategoria; // tasta unei categorii; se dă mai jos
     std::function<void()> comutaDeasupra;     // tasta lui 📌; se dă mai jos
     std::function<void()> comutaTransparenta; // tasta transparenței; se dă mai jos
+    std::function<void()> comutaBara;        // tasta barei tastelor și bifa din tavă; se dă mai jos
+    std::function<void()> comutaEditareBara; // tasta editării, ✎ și rândul din tavă; se dă mai jos
 
     // Urmărirea: macros.json, dosarul lui și bisonus-macrorc. Un editor înlocuiește fișierul la salvare, iar
     // urmărirea fișierului vechi se pierde: urmareste() pune la loc căile care lipsesc din listă.
@@ -357,6 +365,10 @@ int main(int argc, char **argv)
     tava.setTitle(QStringLiteral("BisonusMacro"));
     QAction *tavaActive = tava.contextMenu()->addAction(i18n("Macros active"));
     tavaActive->setCheckable(true);
+    QAction *tavaBara = tava.contextMenu()->addAction(i18n("Key bar"));
+    tavaBara->setCheckable(true);
+    QAction *tavaEditareBara = tava.contextMenu()->addAction(i18n("Edit key bar"));
+    tavaEditareBara->setCheckable(true); // bifat cât ține editarea
     QAction *tavaDeschide = tava.contextMenu()->addAction(i18n("Open BisonusMacro"));
     QAction *tavaOprire = tava.contextMenu()->addAction(i18n("Stop macro")); // merge și în block { }, cu mouse-ul
     tavaOprire->setEnabled(false);
@@ -368,6 +380,7 @@ int main(int argc, char **argv)
         const QString text = textTava(fisier, setari.noduri, setari.activ, setari.tastaToate);
         tava.setToolTip(iconita, text.section(QLatin1Char('\n'), 0, 0), text.section(QLatin1Char('\n'), 1));
         tavaActive->setChecked(setari.activ);
+        tavaBara->setChecked(setari.baraVizibila);
     };
 
     auto indice = [&](const QString &id) -> qsizetype {
@@ -429,13 +442,13 @@ int main(int argc, char **argv)
         QString eroare;
         jsonCitit = fisierulDeMacrouri(eroare);
         fisier = eroare.isEmpty() ? citesteMacrouri(jsonCitit, setari.parametri) : Fisier{{}, eroare};
-        verificare = verifica(fisier, setari.noduri, {setari.tastaToate, setari.tastaDeasupra, setari.tastaTransparenta});
+        verificare = verifica(fisier, setari.noduri, setari.fixe());
 
         // Prima citire, înainte de prima legare: acțiunile componentei cu nume pe care aplicația nu-l mai leagă,
         // de pildă `macro: Snow 1` din 0.2.0, își pierd tasta. Cele pe care le leagă rămân, cu tastele omului.
         // Un fișier stricat nu scoate nimic: lista de nume ar fi goală.
         if (primaCitire && fisier.eroare.isEmpty()) {
-            QSet<QString> legate{QStringLiteral("panou"), QStringLiteral("toate"), QStringLiteral("deasupra"), QStringLiteral("transparenta"), QStringLiteral("oprire")};
+            QSet<QString> legate{QStringLiteral("panou"), QStringLiteral("toate"), QStringLiteral("deasupra"), QStringLiteral("transparenta"), QStringLiteral("bara"), QStringLiteral("bara-editare"), QStringLiteral("oprire")};
             for (const Nod &n : std::as_const(fisier.noduri))
                 legate.insert((n.categorie ? QStringLiteral("categorie: ") : QStringLiteral("macro: ")) + n.id);
             scoateActiuni(componentaAplicatiei(), legate, false);
@@ -493,6 +506,13 @@ int main(int argc, char **argv)
         leaga(transparentaActiune, idTransparenta, setari.tastaTransparenta, !verificare.nelegate.contains(idTransparenta));
         QObject::connect(transparentaActiune, &QAction::triggered, &app, [&comutaTransparenta] { comutaTransparenta(); },
                          Qt::QueuedConnection);
+        auto *baraActiune = actiuneGlobala(&app, i18n("Show or hide the key bar"), QStringLiteral("bara"));
+        leaga(baraActiune, idBara, setari.tastaBara, !verificare.nelegate.contains(idBara));
+        QObject::connect(baraActiune, &QAction::triggered, &app, [&comutaBara] { comutaBara(); }, Qt::QueuedConnection);
+        auto *editareActiune = actiuneGlobala(&app, i18n("Edit the key bar"), QStringLiteral("bara-editare"));
+        leaga(editareActiune, idBaraEditare, setari.tastaBaraEditare, !verificare.nelegate.contains(idBaraEditare));
+        QObject::connect(editareActiune, &QAction::triggered, &app, [&comutaEditareBara] { comutaEditareBara(); },
+                         Qt::QueuedConnection);
         for (qsizetype i = 0; i < fisier.noduri.size(); ++i) {
             const Nod &n = fisier.noduri[i];
             const SetariNod sn = setari.noduri.value(n.id);
@@ -510,6 +530,7 @@ int main(int argc, char **argv)
             QObject::connect(a, &QAction::triggered, &app, [&porneste, id = n.id] { porneste(id); });
         }
         panou.arata(fisier, setari, verificare, eroareTastatura); // după legare: cazul 5 aduce ⚠
+        bara.arata(fisier, setari, verificare); // după legare: cazul 5 scoate și slotul tastei luate de alt program
         actualizeazaTava();
         urmareste(); // bisonus-macrorc poate apărea abia la prima scriere
         if (fereastra && !motivFereastra.isEmpty())
@@ -597,6 +618,47 @@ int main(int argc, char **argv)
         schimba(s, true);
         refaFereastra();
     };
+    // Bara tastelor: comutatorul, ordinea, ascunsele și locul se scriu pe loc, fără reîncărcare, ca 📌.
+    auto puneBara = [&] {
+        setari.scrie();
+        bara.arata(fisier, setari, verificare);
+        actualizeazaTava();
+    };
+    comutaBara = [&] {
+        setari.baraVizibila = !setari.baraVizibila;
+        puneBara();
+    };
+    // loc-bara.js: un nume nou la fiecare cerere ocolește necunoscuta 28, ca la ridicare.js
+    int cereriLocBara = 0;
+    auto numeLocBara = [](int n) { return QStringLiteral("bisonus-macro-bara-%1").arg(n); };
+    auto scriptLocBara = [&](bool muta) {
+        if (cereriLocBara > 0)
+            descarcaScript(numeLocBara(cereriLocBara));
+        ++cereriLocBara;
+        const QString cale = dosarScripturi + QStringLiteral("/loc-bara.js");
+        if (scrieScript(cale, textLocBara(muta, setari.baraX.value_or(0), setari.baraY.value_or(0))))
+            incarcaScript(cale, numeLocBara(cereriLocBara));
+    };
+    auto puneEditareBara = [&](bool da) {
+        if (da && !setari.baraVizibila) {
+            setari.baraVizibila = true; // intrarea în editare pornește comutatorul barei
+            puneBara();
+        }
+        if (!da && bara.inEditare())
+            scriptLocBara(false); // locul se cere înaintea comutării: rezerva lui setWindowFlags ar muta bara
+        bara.editare(da);
+        panou.editareBara(da);
+        tavaEditareBara->setChecked(da);
+    };
+    comutaEditareBara = [&] { puneEditareBara(!bara.inEditare()); };
+    // Ce schimbă bara pe loc nu stă în fereastra principală: o fereastră deschisă de dinainte nu-l calcă.
+    auto pastreazaBara = [&](Setari &s) {
+        s.baraVizibila = setari.baraVizibila;
+        s.baraOrdine = setari.baraOrdine;
+        s.baraAscunse = setari.baraAscunse;
+        s.baraX = setari.baraX;
+        s.baraY = setari.baraY;
+    };
     // Help-ul: o singură fereastră deschisă odată; a doua cerere o arată din nou, ca s-o prindă scriptul KWin
     QPointer<QWidget> ajutor;
     auto deschideAjutor = [&] {
@@ -646,6 +708,7 @@ int main(int argc, char **argv)
                 s.latimePanou = setari.latimePanou; // mărimea panoului e a mașinii
                 s.latimeListaPagini = setari.latimeListaPagini; // la fel lățimea listei de pagini
                 s.inaltimePanou = setari.inaltimePanou;
+                pastreazaBara(s);
                 motivFereastra = i18n("import done"); // fereastra se reface din fișierul nou
                 schimba(s, true);
             });
@@ -656,6 +719,7 @@ int main(int argc, char **argv)
                 s.latimePanou = setari.latimePanou; // mărimea și 📌 sunt ale panoului: fereastra nu le arată
                 s.inaltimePanou = setari.inaltimePanou;
                 s.deasupra = setari.deasupra;
+                pastreazaBara(s);
                 schimba(s, true);
             });
             QObject::connect(fereastra, &FereastraSetari::ajutorCerut, &app, deschideAjutor);
@@ -724,6 +788,30 @@ int main(int argc, char **argv)
     QObject::connect(tavaDeschide, &QAction::triggered, &app, deschideSetari);
     QObject::connect(tavaOprire, &QAction::triggered, &motor, &Motor::opreste);
     QObject::connect(tavaAjutor, &QAction::triggered, &app, deschideAjutor);
+    QObject::connect(tavaBara, &QAction::triggered, &app, [&] { comutaBara(); });
+    QObject::connect(tavaEditareBara, &QAction::triggered, &app, [&] { comutaEditareBara(); });
+    QObject::connect(&panou, &Panou::editareBaraCeruta, &app, [&] { comutaEditareBara(); });
+    QObject::connect(&bara, &Bara::ordineSchimbata, &app, [&](const QStringList &ordine) {
+        setari.baraOrdine = ordine;
+        puneBara();
+    });
+    QObject::connect(&bara, &Bara::ascunseSchimbate, &app, [&](const QStringList &ascunse) {
+        setari.baraAscunse = ascunse;
+        puneBara();
+    });
+    QObject::connect(&obiect, &ObiectAplicatie::locBara, &app, [&](int x, int y) {
+        qInfo() << "bara: loc" << x << y; // teste/proba-bara.sh caută rândul
+        if (setari.baraX == x && setari.baraY == y)
+            return;
+        setari.baraX = x;
+        setari.baraY = y;
+        setari.scrie();
+    });
+    // ponytail: 300 ms ca baraLoc de la ieșirea din editare să ajungă înaintea mutării
+    QObject::connect(&bara, &Bara::aparuta, &app, [&] {
+        if (rezervaLocBara && setari.baraX)
+            QTimer::singleShot(300, &bara, [&] { scriptLocBara(true); });
+    });
     QObject::connect(&obiect, &ObiectAplicatie::deasupra, &app, [&](bool da) {
         qInfo() << "peste-ferestre: deasupra" << da;
         pesteLista = da;
@@ -792,12 +880,14 @@ int main(int argc, char **argv)
     });
     QObject::connect(&motor, &Motor::pornit, &app, [&](const QString &nume) {
         curent = nume;
+        bara.evidentiaza(curentId); // slotul macro-ului care rulează
         panou.stare(i18n("Running: %1", nume), curentId);
         panou.oprire(nume, true); // „■ Stop” merge oricând, și în bloc
         tavaOprire->setEnabled(true);
     });
     QObject::connect(&motor, &Motor::terminat, &app, [&](const QString &nume, bool oprit) {
         panou.oprire(QString(), false);
+        bara.evidentiaza(QString());
         tavaOprire->setEnabled(false);
         panou.stare(oprit ? i18n("stopped: %1", nume) : QString(), QString()); // textul gol: „Ready · <N> macros active”
         if (reincarcareAmanata) {
@@ -817,6 +907,8 @@ int main(int argc, char **argv)
         descarcaScript(QStringLiteral("bisonus-macro"));
         if (ridicari > 0)
             descarcaScript(numeRidicare(ridicari));
+        if (cereriLocBara > 0)
+            descarcaScript(numeLocBara(cereriLocBara));
     });
     // Mutarea la pornire (hotărârile 56 și 59 ale lucrării vechi, „Mutarea pașilor JSON” a lucrării noi): pașii primesc
     // tasta, apoi devin scripturi. Înaintea scrierii, copia fișierului vechi stă în copii/, ca la import. Valorile din
@@ -848,6 +940,7 @@ int main(int argc, char **argv)
     // necunoscuta 29: reconfigure poate descărca un script încărcat înaintea lui; scriptul vine după el, cu panoul
     QTimer::singleShot(regulaNoua ? 500 : 0, &panou, [&] {
         panou.show();
+        bara.regulaGata(); // bara apare după regulă, ca panoul
         actualizeazaStratul(); // 📌 ținut minte, înaintea primului răspuns al scriptului
         incarcaPeste();
     });

@@ -19,25 +19,34 @@ struct SetariNod {
 
 // Tastele aplicației din afara arborelui. Ele se leagă mereu, deci intră mereu în căutarea conflictelor.
 struct TasteFixe {
-    TasteFixe(const QString &toate = {}, const QString &deasupra = {}, const QString &transparenta = {})
+    TasteFixe(const QString &toate = {}, const QString &deasupra = {}, const QString &transparenta = {},
+              const QString &bara = {}, const QString &baraEditare = {})
         : toate(toate)
         , deasupra(deasupra)
         , transparenta(transparenta)
+        , bara(bara)
+        , baraEditare(baraEditare)
     {
     }
     QString toate;        // comutatorul general
     QString deasupra;     // 📌
     QString transparenta; // fundalul translucid sau opac
+    QString bara;         // arată sau ascunde bara tastelor
+    QString baraEditare;  // modul de editare al barei tastelor
 };
 
 // Id-urile tastelor fixe în Verificare și în luataDe. Id-ul gol rămâne tasta pentru toate.
 inline const QString idDeasupra = QStringLiteral("@deasupra");
 inline const QString idTransparenta = QStringLiteral("@transparenta");
+inline const QString idBara = QStringLiteral("@bara");
+inline const QString idBaraEditare = QStringLiteral("@bara-editare");
 
 // Valorile lui luataDe când tasta e a unei taste fixe.
 constexpr qsizetype indiceToate = -2;
 constexpr qsizetype indiceDeasupra = -3;
 constexpr qsizetype indiceTransparenta = -4;
+constexpr qsizetype indiceBara = -5;
+constexpr qsizetype indiceBaraEditare = -6;
 
 // Gol când nodul e activ și toate categoriile de deasupra sunt active și fără greșeală. Altfel
 // motivul: „inactiv” sau „inactiv prin <categoria>”. Greșeala nodului însuși stă în Nod::eroare.
@@ -52,8 +61,9 @@ bool areMacroCareLucreaza(const Fisier &f, const QHash<QString, SetariNod> &s, q
 // textul, fără să țină cont de literele mari. O categorie rămâne când are dedesubt un macro care rămâne.
 bool seVedeLaCautare(const Fisier &f, qsizetype i, const QString &text);
 // Cazul 3: indicele altui nod care ține `tasta` activă: un macro care lucrează sau o categorie, chiar oprită.
-// indiceToate, indiceDeasupra sau indiceTransparenta când e o tastă fixă, -1 când n-o ține nimeni. `id` e cel
-// care cere tasta: id-ul unui nod, gol pentru tasta pentru toate, idDeasupra sau idTransparenta.
+// indiceToate, indiceDeasupra, indiceTransparenta, indiceBara sau indiceBaraEditare când e o tastă fixă, -1 când n-o
+// ține nimeni. `id` e cel care cere tasta: id-ul unui nod, gol pentru tasta pentru toate, idDeasupra,
+// idTransparenta, idBara sau idBaraEditare.
 qsizetype luataDe(const Fisier &f, const QHash<QString, SetariNod> &s, const QString &id, const QString &tasta,
                   const TasteFixe &fixe = {});
 // Întoarce starea „activ” a nodului `id`. Nodurile de dedesubt își păstrează starea salvată.

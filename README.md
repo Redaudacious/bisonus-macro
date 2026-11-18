@@ -124,6 +124,10 @@ If the program does not start, open the on-screen keyboard of Plasma with the mo
 for p in $(busctl --user tree org.kde.KWin | grep -o '/org/kde/KWin/InputDevice/event[0-9]*'); do busctl --user set-property org.kde.KWin $p org.kde.KWin.InputDevice enabled b true; done
 ```
 
+## The key bar
+
+A small bar above the game shows the key and the name of each macro that answers to its key now. Clicks go through the bar to the game. Turn it on or off with "Key bar" in the tray menu. To move it, change the order or hide a slot, click the edit button (✎) in the panel. The help page "The panel" has the details.
+
 ## Uninstall
 
 Remove the settings that BisonusMacro wrote in KDE first. Then remove the package.

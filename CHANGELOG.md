@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.2
+
+New:
+
+- The key bar shows the key and the name of each active macro above the game. Clicks go through it. In the edit mode you move it, change the order and hide slots, on the game.
+
 ## 0.7.1
 
 New:

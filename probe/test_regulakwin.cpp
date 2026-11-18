@@ -16,7 +16,7 @@ void scrieFisier(const QString &cale, const QByteArray &continut)
     f.write(continut);
 }
 
-const QStringList ambele{QStringLiteral("bisonus-macro"), QStringLiteral("bisonus-macro-deasupra")};
+const QStringList toate{QStringLiteral("bisonus-macro"), QStringLiteral("bisonus-macro-deasupra"), QStringLiteral("bisonus-macro-bara")};
 }
 
 class TestRegulaKWin : public QObject
@@ -37,6 +37,7 @@ private slots:
         KConfig k(cale, KConfig::SimpleConfig);
         QVERIFY(!k.hasGroup(QStringLiteral("bisonus-macro")));
         QVERIFY(!k.hasGroup(QStringLiteral("bisonus-macro-deasupra")));
+        QVERIFY(!k.hasGroup(QStringLiteral("bisonus-macro-bara")));
         QCOMPARE(k.group(QStringLiteral("1")).readEntry("Description"), QStringLiteral("alt program"));
         QCOMPARE(k.group(QStringLiteral("General")).readEntry("rules", QStringList()), QStringList{QStringLiteral("1")});
         QCOMPARE(k.group(QStringLiteral("General")).readEntry("count", 0), 1);
@@ -77,8 +78,8 @@ private slots:
         }
         QCOMPARE(c.group(QStringLiteral("altul")).readEntry("Description"), QStringLiteral("a omului"));
         const KConfigGroup general = c.group(QStringLiteral("General"));
-        QCOMPARE(general.readEntry("rules", QStringList()), QStringList{QStringLiteral("altul")} + ambele);
-        QCOMPARE(general.readEntry("count", 0), 3);
+        QCOMPARE(general.readEntry("rules", QStringList()), QStringList{QStringLiteral("altul")} + toate);
+        QCOMPARE(general.readEntry("count", 0), 4);
 
         QVERIFY(!scrieRegula(cale)); // a doua oară fișierul nu se schimbă
     }
@@ -90,8 +91,8 @@ private slots:
         scrieFisier(cale, "[General]\nrules=\n");
         QVERIFY(scrieRegula(cale));
         KConfig c(cale, KConfig::SimpleConfig);
-        QCOMPARE(c.group(QStringLiteral("General")).readEntry("rules", QStringList()), ambele);
-        QCOMPARE(c.group(QStringLiteral("General")).readEntry("count", 0), 2);
+        QCOMPARE(c.group(QStringLiteral("General")).readEntry("rules", QStringList()), toate);
+        QCOMPARE(c.group(QStringLiteral("General")).readEntry("count", 0), 3);
     }
     void dinVersiuniVechi()
     {
@@ -105,8 +106,41 @@ private slots:
         for (const char *cheie : {"layer", "layerrule", "above", "aboverule"})
             QVERIFY2(!jos.hasKey(cheie), cheie);
         QCOMPARE(c.group(QStringLiteral("bisonus-macro-deasupra")).readEntry("layer", 0), 6);
-        QCOMPARE(c.group(QStringLiteral("General")).readEntry("count", 0), 2);
+        QCOMPARE(c.group(QStringLiteral("General")).readEntry("count", 0), 3);
         QVERIFY(!scrieRegula(cale)); // a doua oară fișierul nu se schimbă
+    }
+    // Bara tastelor (C2): al treilea grup, cu stratul „Popup”, fără focus, fără bara de activități și cu locul ținut
+    // minte. stergeRegula îl scoate și lasă regulile altor programe.
+    void grupulBarei()
+    {
+        QTemporaryDir dosar;
+        const QString cale = dosar.filePath(QStringLiteral("kwinrulesrc"));
+        scrieFisier(cale, "[General]\ncount=1\nrules=altul\n\n[altul]\nDescription=a omului\n");
+        QVERIFY(scrieRegula(cale));
+        {
+            KConfig c(cale, KConfig::SimpleConfig);
+            const KConfigGroup g = c.group(QStringLiteral("bisonus-macro-bara"));
+            QCOMPARE(titluBara, QStringLiteral("Keys · BisonusMacro"));
+            QCOMPARE(g.readEntry("title"), titluBara);
+            QCOMPARE(g.readEntry("titlematch", 0), 1); // exactă
+            QCOMPARE(g.readEntry("wmclass"), QStringLiteral("bisonus-macro"));
+            QCOMPARE(g.readEntry("wmclassmatch", 0), 1);
+            QCOMPARE(g.readEntry("layer", 0), 6);     // „Popup”: peste jocul pe ecran complet
+            QCOMPARE(g.readEntry("layerrule", 0), 2); // forțează
+            QCOMPARE(g.readEntry("acceptfocus", true), false);
+            QCOMPARE(g.readEntry("acceptfocusrule", 0), 2);
+            for (const char *cheie : {"skiptaskbar", "skipswitcher", "skippager"}) {
+                QCOMPARE(g.readEntry(cheie, false), true);
+                QCOMPARE(g.readEntry((QByteArray(cheie) + "rule").constData(), 0), 2);
+            }
+            QCOMPARE(g.readEntry("positionrule", 0), 4); // KWin ține minte locul
+            QCOMPARE(c.group(QStringLiteral("General")).readEntry("rules", QStringList()), QStringList{QStringLiteral("altul")} + toate);
+        }
+        QVERIFY(::stergeRegula(cale));
+        KConfig d(cale, KConfig::SimpleConfig);
+        QVERIFY(!d.hasGroup(QStringLiteral("bisonus-macro-bara")));
+        QCOMPARE(d.group(QStringLiteral("altul")).readEntry("Description"), QStringLiteral("a omului"));
+        QCOMPARE(d.group(QStringLiteral("General")).readEntry("rules", QStringList()), QStringList{QStringLiteral("altul")});
     }
 };
 

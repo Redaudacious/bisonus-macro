@@ -255,6 +255,46 @@ private slots:
         QCOMPARE(tastaRandului(w.findChild<QTreeWidget *>(), 0)->keySequence().toString(QKeySequence::PortableText), QString());
         QCOMPARE(transparenta->keySequence().toString(QKeySequence::PortableText), tasta);
     }
+    // Bara tastelor, C3: „Key bar background opacity” stă sub „Panel background opacity”, iar tasta barei intră în
+    // conflicte: „Move it here” o ia de la Snow 2. „Apply” trimite ambele valori.
+    void campurileBarei()
+    {
+        Setari s;
+        s.opacitateBara = 35;
+        s.noduri[QStringLiteral("snow-2")].tasta = tasta;
+        FereastraSetari w(s, citesteMacrouri(arbore, s.parametri));
+        w.altaAplicatie = [](const QKeySequence &) { return std::nullopt; };
+        auto *op = w.findChild<QSpinBox *>(QStringLiteral("opacitateBara"));
+        QVERIFY(op);
+        QCOMPARE(op->value(), 35);
+        QCOMPARE(op->minimum(), 0);
+        QCOMPARE(op->maximum(), 100);
+        auto *forma = op->parentWidget()->findChild<QFormLayout *>();
+        QVERIFY(forma);
+        QStringList etichete;
+        for (int r = 0; r < forma->rowCount(); ++r) {
+            QLayoutItem *e = forma->itemAt(r, QFormLayout::LabelRole);
+            auto *l = e ? qobject_cast<QLabel *>(e->widget()) : nullptr;
+            etichete << (l ? l->text() : QString());
+        }
+        const qsizetype panou = etichete.indexOf(QStringLiteral("Panel background opacity"));
+        QVERIFY(panou >= 0);
+        QCOMPARE(etichete.value(panou + 1), QStringLiteral("Key bar background opacity"));
+
+        Raspunde raspunde(QStringLiteral("Move it here"), false, false);
+        auto *bara = w.findChild<KKeySequenceWidget *>(QStringLiteral("tastaBara"));
+        QVERIFY(bara);
+        QVERIFY(w.findChild<KKeySequenceWidget *>(QStringLiteral("tastaBaraEditare")));
+        bara->setKeySequence(QKeySequence::fromString(tasta, QKeySequence::PortableText));
+        QCOMPARE(raspunde.intrebari, 1);
+        QCOMPARE(tastaRandului(w.findChild<QTreeWidget *>(), 0)->keySequence().toString(QKeySequence::PortableText), QString());
+        QSignalSpy aplicate(&w, &FereastraSetari::aplicate);
+        apasaApply(w);
+        QCOMPARE(aplicate.count(), 1);
+        const Setari a = aplicate.takeFirst().at(0).value<Setari>();
+        QCOMPARE(a.tastaBara, tasta);
+        QCOMPARE(a.opacitateBara, 35);
+    }
     // „Add window…” și „Pick window…” iau clasa și titlul de la KWin. O fereastră a aplicației nu poate fi țintă.
     void ferestreleAlese()
     {

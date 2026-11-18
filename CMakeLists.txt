@@ -144,7 +144,14 @@ if(BUILD_TESTING)
   set_tests_properties(test_ajutor PROPERTIES ENVIRONMENT QT_QPA_PLATFORM=offscreen)
 endif()
 
-target_sources(interfata PRIVATE src/panou.cpp src/ajutor.cpp src/editorscript.cpp src/pornire.cpp src/noutati.cpp)
+target_sources(interfata PRIVATE src/panou.cpp src/bara.cpp src/ajutor.cpp src/editorscript.cpp src/pornire.cpp src/noutati.cpp)
+
+if(BUILD_TESTING)
+  add_executable(test_bara probe/test_bara.cpp)
+  target_link_libraries(test_bara PRIVATE interfata Qt6::Test)
+  add_test(NAME test_bara COMMAND test_bara)
+  set_tests_properties(test_bara PROPERTIES ENVIRONMENT QT_QPA_PLATFORM=offscreen)
+endif()
 
 add_executable(bisonus-macro src/main.cpp src/tastatura.cpp src/scrieresigura.cpp)
 target_link_libraries(bisonus-macro PRIVATE interfata Qt6::DBus PkgConfig::LIBEI)

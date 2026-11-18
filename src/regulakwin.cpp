@@ -1,4 +1,4 @@
-// regulakwin.cpp — grupurile [bisonus-macro] și [bisonus-macro-deasupra] din kwinrulesrc și cererea de recitire către KWin.
+// regulakwin.cpp — grupurile [bisonus-macro], [bisonus-macro-deasupra] și [bisonus-macro-bara] din kwinrulesrc și cererea de recitire către KWin.
 #include "regulakwin.h"
 #include <KConfig>
 #include <KConfigGroup>
@@ -10,6 +10,7 @@
 namespace {
 const QString grup = QStringLiteral("bisonus-macro");                   // titlul întâi: fereastră obișnuită
 const QString grupDeasupra = QStringLiteral("bisonus-macro-deasupra"); // titlul al doilea: stratul „Popup”
+const QString grupBara = QStringLiteral("bisonus-macro-bara");         // bara tastelor
 
 QByteArray continut(const QString &cale)
 {
@@ -55,10 +56,16 @@ bool scrieRegula(const QString &cale)
         sus.writeEntry("layerrule", 2);
         sus.deleteEntry("positionrule"); // un singur loc ținut minte, în primul grup (necunoscuta 42)
         sus.deleteEntry("position");
+        // Bara tastelor: stratul „Popup”, ca panoul cu titlul al doilea, fără focus și cu locul ținut minte (necunoscuta 2)
+        KConfigGroup bara = fisier.group(grupBara);
+        comun(bara, QStringLiteral("BisonusMacro key bar"), titluBara);
+        bara.writeEntry("layer", 6);
+        bara.writeEntry("layerrule", 2);
+        bara.writeEntry("positionrule", 4); // 4 ține minte; `position` o scrie KWin
         KConfigGroup general = fisier.group(QStringLiteral("General"));
         QStringList reguli = general.readEntry("rules", QStringList());
         reguli.removeAll(QString()); // „rules=” gol
-        for (const QString &g : {grup, grupDeasupra})
+        for (const QString &g : {grup, grupDeasupra, grupBara})
             if (!reguli.contains(g))
                 reguli << g;
         general.writeEntry("rules", reguli);
@@ -77,12 +84,15 @@ bool stergeRegula(const QString &cale)
         KConfig fisier(cale, KConfig::SimpleConfig);
         KConfigGroup general = fisier.group(QStringLiteral("General"));
         QStringList reguli = general.readEntry("rules", QStringList());
-        if (!fisier.hasGroup(grup) && !fisier.hasGroup(grupDeasupra) && !reguli.contains(grup) && !reguli.contains(grupDeasupra))
+        bool are = false;
+        for (const QString &g : {grup, grupDeasupra, grupBara})
+            are = are || fisier.hasGroup(g) || reguli.contains(g);
+        if (!are)
             return false;
-        fisier.deleteGroup(grup);
-        fisier.deleteGroup(grupDeasupra);
-        reguli.removeAll(grup);
-        reguli.removeAll(grupDeasupra);
+        for (const QString &g : {grup, grupDeasupra, grupBara}) {
+            fisier.deleteGroup(g);
+            reguli.removeAll(g);
+        }
         reguli.removeAll(QString());
         general.writeEntry("rules", reguli);
         general.writeEntry("count", int(reguli.size()));

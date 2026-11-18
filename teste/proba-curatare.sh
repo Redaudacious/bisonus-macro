@@ -70,6 +70,7 @@ grep -q 'tastatura EIS: gata' "$D/aplicatia.log" || { echo "✗ aplicația n-a p
 for _ in $(seq 100); do are_componenta && break; sleep 0.1; done # KGlobalAccel scrie cu întârziere
 are_componenta || { echo "✗ componenta proba-curatare nu apare în kglobalshortcutsrc"; exit 1; }
 grep -q '^\[bisonus-macro\]' "$ACASA/.config/kwinrulesrc" || { echo "✗ aplicația n-a scris regula în $ACASA/.config/kwinrulesrc"; exit 1; }
+grep -q '^\[bisonus-macro-bara\]' "$ACASA/.config/kwinrulesrc" || { echo "✗ aplicația n-a scris grupul barei în $ACASA/.config/kwinrulesrc"; exit 1; }
 for _ in $(seq 100); do incarcat && break; sleep 0.1; done # aplicația îl încarcă după tastatură
 incarcat || { echo "✗ scriptul bisonus-macro nu e încărcat în KWin"; exit 1; }
 ls "$ACASA/.local/share/bisonus-macro/"*.js >/dev/null 2>&1 || { echo "✗ lipsesc scripturile din $ACASA/.local/share/bisonus-macro"; exit 1; }
@@ -84,7 +85,7 @@ kill "$APP"
 wait "$APP" 2>/dev/null
 APP=""
 ruleaza --cleanup > "$D/curatare.log" 2>&1 || { echo "✗ --cleanup a ieșit cu eroare: $D/curatare.log"; exit 1; }
-grep -q '^\[bisonus-macro' "$ACASA/.config/kwinrulesrc" && { echo "✗ regula a rămas în kwinrulesrc"; exit 1; }
+grep -q '^\[bisonus-macro' "$ACASA/.config/kwinrulesrc" && { echo "✗ regula sau grupul barei a rămas în kwinrulesrc"; exit 1; }
 incarcat && { echo "✗ scriptul a rămas încărcat în KWin"; exit 1; }
 ls "$ACASA/.local/share/bisonus-macro/"*.js >/dev/null 2>&1 && { echo "✗ au rămas fișiere .js"; exit 1; }
 for _ in $(seq 100); do are_componenta || break; sleep 0.1; done

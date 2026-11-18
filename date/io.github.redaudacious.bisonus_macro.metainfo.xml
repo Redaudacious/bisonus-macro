@@ -26,6 +26,7 @@
         <ul>
           <li>The command mousemoverel(dx, dy) moves the cursor from where it is. A game that holds the cursor in the middle of the screen gets the movement and can free the cursor.</li>
           <li>key, keydown and keyup accept a modifier alone: Shift, Ctrl, Alt and Win, and LShift, RShift, LCtrl, RCtrl, LAlt, RAlt, LWin and RWin for one side.</li>
+          <li>The key bar shows the key and the name of each active macro above the game. Clicks go through it. In the edit mode you move it, change the order and hide slots, on the game.</li>
         </ul>
       </description>
     </release>

@@ -44,6 +44,7 @@ QString textPesteFerestre(const QStringList &ferestre)
     return QStringLiteral(R"js(// peste-ferestre.js — scris de BisonusMacro la fiecare pornire și la fiecare schimbare a listei
 const ferestre = %1;
 const titluri = %2; // titlurile panoului, exacte
+const titluBara = %3; // bara tastelor nu ia focusul la apariție
 let ultima = false; // ultima valoare a lui deasupra
 function estePanou(w) {
     return w.resourceClass === "bisonus-macro" && titluri.includes(w.caption);
@@ -77,14 +78,15 @@ workspace.windowActivated.connect(potriveste);
 workspace.windowAdded.connect(w => {
     if (estePanou(w))
         urmareste(w);
-    else if (w.resourceClass === "bisonus-macro" && (w.normalWindow || w.dialog))
+    else if (w.resourceClass === "bisonus-macro" && w.caption !== titluBara && (w.normalWindow || w.dialog))
         workspace.activeWindow = w;
 });
 workspace.windowList().forEach(urmareste);
 potriveste(workspace.activeWindow);
 )js")
         .arg(json(QJsonArray::fromStringList(ferestre)),
-             QLatin1Char('[') + literal(titluPanou) + QStringLiteral(", ") + literal(titluDeasupra) + QLatin1Char(']'));
+             QLatin1Char('[') + literal(titluPanou) + QStringLiteral(", ") + literal(titluDeasupra) + QLatin1Char(']'),
+             literal(titluBara));
 }
 
 QString textAducere(const QString &clasa, int cerere)
@@ -110,6 +112,22 @@ for (const w of workspace.windowList())
     if (w.resourceClass === "bisonus-macro" && w.caption === "BisonusMacro")
         workspace.raiseWindow(w);
 )js");
+}
+
+QString textLocBara(bool muta, int x, int y)
+{
+    return QStringLiteral(R"js(// loc-bara.js — scris de BisonusMacro: trimite locul barei tastelor; cu `muta`, întâi o pune la locul din setări
+const titlu = %1;
+const muta = %2;
+for (const w of workspace.windowList())
+    if (w.resourceClass === "bisonus-macro" && w.caption === titlu) {
+        if (muta)
+            w.frameGeometry = {x: %3, y: %4, width: w.frameGeometry.width, height: w.frameGeometry.height};
+        callDBus("win.bisonus.bisonus-macro", "/BisonusMacro", "win.bisonus.BisonusMacro", "baraLoc",
+                 Math.round(w.frameGeometry.x), Math.round(w.frameGeometry.y));
+    }
+)js")
+        .arg(literal(titluBara), muta ? QStringLiteral("true") : QStringLiteral("false"), QString::number(x), QString::number(y));
 }
 
 bool scrieScript(const QString &cale, const QString &text)

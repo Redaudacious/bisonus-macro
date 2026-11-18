@@ -13,12 +13,13 @@
 </ul>
 
 <h2>The toolbar</h2>
-<p>The toolbar is under the frame. On the left are four buttons:</p>
+<p>The toolbar is under the frame. On the left are five buttons:</p>
 <ul>
 <li><b>Fold button (▾).</b> It folds the panel to the frame and the toolbar. Click it again to unfold the panel.</li>
 <li><b>Power button (⏻).</b> It is the switch for all macros. When it is off, all rows are gray and no macro starts. The program also lets go of the global keys of the macros and categories, so the other programs get them.</li>
 <li><b>Pin button (📌).</b> It keeps the panel above every window. The icon shows a pin in or a pin out.</li>
 <li><b>Gear button (⚙).</b> It opens the main window. It stays in the toolbar when you fold the panel.</li>
+<li><b>Edit button (✎).</b> It starts and stops the edit mode of the key bar. See "The key bar" below.</li>
 </ul>
 <p>The field "Search macros..." is on the right. See "Search" below. While a macro runs, the button "■ Stop" and the name of the macro take the place of the field. Click it to stop the macro.</p>
 <p>The key F12 folds and unfolds the panel. You can change it in the main window, at "Key that shows and hides the panel".</p>
@@ -62,8 +63,24 @@
 <h2>Transparency</h2>
 <p>The background of the panel is translucent. The text, the bands and the keys stay opaque. Set the opacity in the main window, at "Panel background opacity". Default: 60%. The box "Transparent background" and its key switch between the chosen opacity and an opaque background.</p>
 
+<h2>The key bar</h2>
+<p><img src="../capturi/bara.png"></p>
+<p>The key bar is a small strip above the game. It shows the key and the name of each macro that answers to its key now. When you turn a category on or off, the bar changes. A click on the bar goes through it to the game, and the game keeps the keyboard.</p>
+<ul>
+<li><b>Show or hide it.</b> Use "Key bar" in the tray menu, or set a key at "Key that shows and hides the key bar". The program remembers your choice. The bar also hides when the power button (⏻) is off or when no macro has a key.</li>
+<li><b>Background.</b> The background of the bar is invisible by default. Each slot keeps its dark background. Set the opacity at "Key bar background opacity", on the page "Panel" of the main window.</li>
+<li><b>A running macro.</b> Its slot gets a border in the accent color of the theme.</li>
+</ul>
+<p>To change the bar, start the edit mode in one of three ways. Click the edit button (✎) in the toolbar. Click "Edit key bar" in the tray menu. Or press the key at "Key that edits the key bar". The bar gets a dotted border, and your clicks stop in the bar:</p>
+<ol>
+<li>Drag the handle (⠿) on the left to move the bar.</li>
+<li>Drag a slot to put it in another place.</li>
+<li>Right-click a slot and click "Hide slot". A hidden slot shows faded only in the edit mode. Click "Show slot" to bring it back.</li>
+</ol>
+<p>Click the same button or press the same key again to stop the edit mode. Esc does not stop it, because the bar does not take the keyboard. The program remembers the place, the order and the hidden slots.</p>
+
 <h2>The tray</h2>
-<p>The icon in the tray has color when macros are on. It is gray when macros are off. A left click shows a hidden panel and brings it above the other windows. It does the same for a panel that other windows cover. A left click never hides the panel: use the minus button for that. The game keeps the keyboard. The menu has "Macros active", "Open BisonusMacro", "Help" and "Quit". The tooltip shows the global keys as a tree. Each key has its state, for example <i>Snow 2 - F2 - off, Rift is off</i>.</p>
+<p>The icon in the tray has color when macros are on. It is gray when macros are off. A left click shows a hidden panel and brings it above the other windows. It does the same for a panel that other windows cover. A left click never hides the panel: use the minus button for that. The game keeps the keyboard. The menu has "Macros active", "Key bar", "Edit key bar", "Open BisonusMacro", "Help" and "Quit". The tooltip shows the global keys as a tree. Each key has its state, for example <i>Snow 2 - F2 - off, Rift is off</i>.</p>
 <p>"Quit" in the tray and the cross of the frame are the only places that stop the program.</p>
 
 <h2>If the KWin script fails</h2>

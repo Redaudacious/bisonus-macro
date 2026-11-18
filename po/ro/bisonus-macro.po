@@ -1096,3 +1096,33 @@ msgstr "KWin nu dă mouse-ul acum"
 #: src/tastatura.cpp:277
 msgid "the point %1, %2 is outside the screen"
 msgstr "punctul %1, %2 e în afara ecranului"
+
+msgid "Key bar background opacity"
+msgstr "Opacitatea fundalului barei tastelor"
+
+msgid "Key that shows and hides the key bar"
+msgstr "Tasta care arată și ascunde bara tastelor"
+
+msgid "Key that edits the key bar"
+msgstr "Tasta care editează bara tastelor"
+
+msgid "Key bar"
+msgstr "Bara tastelor"
+
+msgid "Edit key bar"
+msgstr "Editează bara tastelor"
+
+msgid "Show or hide the key bar"
+msgstr "Arată sau ascunde bara tastelor"
+
+msgid "Edit the key bar"
+msgstr "Editează bara tastelor"
+
+msgid "Hide slot"
+msgstr "Ascunde slotul"
+
+msgid "Show slot"
+msgstr "Arată slotul"
+
+msgid "No active macro has a key"
+msgstr "Niciun macro activ nu are tastă"

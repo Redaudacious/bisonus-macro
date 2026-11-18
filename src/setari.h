@@ -47,6 +47,14 @@ struct Setari {
     bool transparent = true;   // fundalul translucid; oprit, fundalul panoului e opac
     QString tastaTransparenta; // comută `transparent`; goală implicit
     QString tastaDeasupra;     // comută 📌; goală implicit
+    bool baraVizibila = true;  // comutatorul barei tastelor
+    QString tastaBara;         // comută baraVizibila; goală implicit
+    QString tastaBaraEditare;  // pornește și oprește editarea barei; goală implicit
+    int opacitateBara = 0;     // opacitatea fundalului barei, în procente; sloturile rămân opace
+    QStringList baraOrdine;    // id-urile sloturilor, în ordinea aleasă de om
+    QStringList baraAscunse;   // id-urile sloturilor ascunse
+    std::optional<int> baraX;  // locul barei, citit de la KWin la ieșirea din editare; gol: nepus
+    std::optional<int> baraY;
     QHash<QString, SetariNod> noduri; // cheia e id-ul nodului
     // Tasta și pauza din [General], de la 0.5.0. Au valoare numai cât cheia există și nu se mai scriu: main le pune
     // în pași, prin mutaInPasi (hotărârea 56).
@@ -57,6 +65,8 @@ struct Setari {
     // Șterge din [General] cheile jutsu și pauzaJutsu de la 0.5.0, după ce main le-a pus în pași.
     static void stergeJutsuVechi();
     void scrie() const;
+    // Cele cinci taste fixe, pentru verifica() și intrebaTasta()
+    TasteFixe fixe() const { return {tastaToate, tastaDeasupra, tastaTransparenta, tastaBara, tastaBaraEditare}; }
     bool operator==(const Setari &) const = default;
 };
 
@@ -171,7 +181,8 @@ private:
     void construieste(); // paginile, din m_setari și m_fisier, pe pagina pe care stă omul
     void aplica();
     Setari citesteFormularul() const;
-    // Cazurile 3 și 5. Rândul -1 e tasta pentru toate, -2 tasta lui 📌, -3 tasta transparenței.
+    // Cazurile 3 și 5. Rândul -1 e tasta pentru toate, -2 tasta lui 📌, -3 tasta
+    // transparenței, -4 tasta barei, -5 tasta editării barei.
     void tastaInregistrata(int rand, const QKeySequence &k);
     KKeySequenceWidget *tastaDinRand(int rand) const;
     void dupaEditare();                 // recitește arborele din m_json și reface formularul, cu schimbările nescrise
@@ -207,6 +218,9 @@ private:
     QCheckBox *m_transparent;
     KKeySequenceWidget *m_tastaTransparenta;
     KKeySequenceWidget *m_tastaDeasupra;
+    QSpinBox *m_opacitateBara;
+    KKeySequenceWidget *m_tastaBara;
+    KKeySequenceWidget *m_tastaBaraEditare;
     QTreeWidget *m_arbore;
     QPushButton *m_adaugaCategorie;
     QPushButton *m_adaugaMacro;

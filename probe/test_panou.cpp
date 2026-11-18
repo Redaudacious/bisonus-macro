@@ -94,9 +94,26 @@ private slots:
             locuri << (w ? w->objectName() : QStringLiteral("spatiu")); // spațiul e un stretch, fără widget
         }
         QCOMPARE(locuri, (QStringList{QStringLiteral("strange"), QStringLiteral("comutator"), QStringLiteral("deasupra"),
-                                      QStringLiteral("setari"), QStringLiteral("spatiu"), QStringLiteral("cautare"),
-                                      QStringLiteral("oprire")}));
+                                      QStringLiteral("setari"), QStringLiteral("editareBara"), QStringLiteral("spatiu"),
+                                      QStringLiteral("cautare"), QStringLiteral("oprire")}));
         QCOMPARE(p.findChild<QWidget *>(QStringLiteral("bara"))->height(), 38);
+    }
+    // Bara tastelor: ✎ stă după ⚙, cere editarea și rămâne apăsat cât ține editarea.
+    void editareaBarei()
+    {
+        Panou p;
+        Fisier f;
+        pregateste(p, Setari(), f);
+        auto *b = p.findChild<QToolButton *>(QStringLiteral("editareBara"));
+        QVERIFY(b);
+        QVERIFY(b->isCheckable());
+        QSignalSpy cerut(&p, &Panou::editareBaraCeruta);
+        b->click();
+        QCOMPARE(cerut.count(), 1);
+        p.editareBara(true);
+        QVERIFY(b->isChecked());
+        p.editareBara(false);
+        QVERIFY(!b->isChecked());
     }
     // Cu rama lui KWin, panoul n-are bară de titlu, colț de tras sau mutare proprie (hotărârea 63).
     void faraRama()

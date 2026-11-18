@@ -8,6 +8,7 @@ namespace {
 const QString pesteImplicit = QStringLiteral(R"js(// peste-ferestre.js — scris de BisonusMacro la fiecare pornire și la fiecare schimbare a listei
 const ferestre = ["org.vinegarhq.Sober"];
 const titluri = ["BisonusMacro", "@U@BisonusMacro"]; // titlurile panoului, exacte
+const titluBara = "Keys @B@ BisonusMacro"; // bara tastelor nu ia focusul la apariție
 let ultima = false; // ultima valoare a lui deasupra
 function estePanou(w) {
     return w.resourceClass === "bisonus-macro" && titluri.includes(w.caption);
@@ -41,12 +42,12 @@ workspace.windowActivated.connect(potriveste);
 workspace.windowAdded.connect(w => {
     if (estePanou(w))
         urmareste(w);
-    else if (w.resourceClass === "bisonus-macro" && (w.normalWindow || w.dialog))
+    else if (w.resourceClass === "bisonus-macro" && w.caption !== titluBara && (w.normalWindow || w.dialog))
         workspace.activeWindow = w;
 });
 workspace.windowList().forEach(urmareste);
 potriveste(workspace.activeWindow);
-)js").replace(QLatin1String("@U@"), QLatin1String("\\u2060")); // GCC citește \u2060 dintr-un șir brut ca un singur semn, dar scriptul le are scrise \uXXXX
+)js").replace(QLatin1String("@U@"), QLatin1String("\\u2060")).replace(QLatin1String("@B@"), QLatin1String("\\u00b7")); // GCC citește \u2060 dintr-un șir brut ca un singur semn, dar scriptul le are scrise \uXXXX
 
 const QString aducereSober = QStringLiteral(R"js(// aducere.js — scris de BisonusMacro înaintea unui macro cu țintă
 const clasa = "org.vinegarhq.Sober";
@@ -59,6 +60,18 @@ if (tinta !== null && workspace.activeWindow !== tinta)
     workspace.activeWindow = tinta;
 callDBus("win.bisonus.bisonus-macro", "/BisonusMacro", "win.bisonus.BisonusMacro", "tintaAdusa", cerere, tinta !== null);
 )js");
+
+const QString locBaraMuta = QStringLiteral(R"js(// loc-bara.js — scris de BisonusMacro: trimite locul barei tastelor; cu `muta`, întâi o pune la locul din setări
+const titlu = "Keys @B@ BisonusMacro";
+const muta = true;
+for (const w of workspace.windowList())
+    if (w.resourceClass === "bisonus-macro" && w.caption === titlu) {
+        if (muta)
+            w.frameGeometry = {x: 640, y: 1000, width: w.frameGeometry.width, height: w.frameGeometry.height};
+        callDBus("win.bisonus.bisonus-macro", "/BisonusMacro", "win.bisonus.BisonusMacro", "baraLoc",
+                 Math.round(w.frameGeometry.x), Math.round(w.frameGeometry.y));
+    }
+)js").replace(QLatin1String("@B@"), QLatin1String("\\u00b7"));
 
 const QString ridicare = QStringLiteral(R"js(// ridicare.js — scris de BisonusMacro: ridică panoul peste celelalte ferestre, fără focus
 for (const w of workspace.windowList())
@@ -123,6 +136,19 @@ private slots:
     void aducere()
     {
         QCOMPARE(textAducere(QStringLiteral("org.vinegarhq.Sober"), 7), aducereSober);
+    }
+    // Bara tastelor: loc-bara.js trimite locul barei; cu `muta`, întâi o pune la locul din setări (necunoscuta 2).
+    void locBara()
+    {
+        QCOMPARE(textLocBara(true, 640, 1000), locBaraMuta);
+        QVERIFY(textLocBara(false, 0, 0).contains(QStringLiteral("const muta = false;\n")));
+    }
+    // peste-ferestre.js activează ferestrele noi ale aplicației, dar nu și bara: ea ar lua focusul jocului.
+    void baraNuEActivata()
+    {
+        const QString t = textPesteFerestre({QStringLiteral("org.vinegarhq.Sober")});
+        QVERIFY(t.contains(QStringLiteral("const titluBara = \"Keys \\u00b7 BisonusMacro\";")));
+        QVERIFY(t.contains(QStringLiteral("w.caption !== titluBara")));
     }
     void scrie()
     {

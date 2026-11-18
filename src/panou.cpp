@@ -39,7 +39,7 @@ constexpr int pasNivel = 12;    // un nivel mută rândul spre dreapta
 constexpr int msAnulare = 3000; // hotărârea 22: fără ieșirea cursorului în 3 secunde, macro-ul pregătit se anulează
 constexpr int msSalvare = 500;
 constexpr int latimeCod = 24;      // butonul codului din rând
-constexpr int latimeMinima = 300;  // lățimea barei: panoul nu se îngustează sub ea
+constexpr int latimeMinima = 334;  // lățimea barei de unelte, cu ✎: panoul nu se îngustează sub ea
 constexpr int latimeCautare = 150; // câmpul căutării din bara de unelte
 // ponytail: 100 ms e o margine ca KWin să așeze panoul după grupul titlului întâi; C24 citește locul după arătare
 constexpr int msTitlu = 100;
@@ -166,7 +166,7 @@ Panou::Panou(QWidget *parent)
     tot->setContentsMargins(0, 0, 0, 0);
     tot->setSpacing(0);
 
-    // Bara de unelte (hotărârea 62), ca în System Settings: ▾, ⏻, 📌, ⚙, spațiul, apoi „■ Stop” cât rulează un macro.
+    // Bara de unelte (hotărârea 62), ca în System Settings: ▾, ⏻, 📌, ⚙, ✎, spațiul, apoi „■ Stop” cât rulează un macro.
     m_bara = new QWidget(this);
     m_bara->setObjectName(QStringLiteral("bara"));
     m_bara->setFixedHeight(inaltimeBara);
@@ -181,6 +181,8 @@ Panou::Panou(QWidget *parent)
     m_deasupra->setCheckable(true); // apăsat cât 📌 e pornit
     deasupra(false);
     m_setari = butonUnealta(QStringLiteral("setari"), QStringLiteral("configure"), QString(), m_bara);
+    m_editareBara = butonUnealta(QStringLiteral("editareBara"), QStringLiteral("document-edit"), i18n("Edit the key bar"), m_bara);
+    m_editareBara->setCheckable(true); // apăsat cât ține editarea barei tastelor
     m_oprire = new QPushButton(m_bara);
     m_oprire->setObjectName(QStringLiteral("oprire"));
     m_oprire->setFocusPolicy(Qt::NoFocus);
@@ -189,11 +191,13 @@ Panou::Panou(QWidget *parent)
     connect(m_comutator, &QAbstractButton::clicked, this, &Panou::comutatorCerut); // starea o pune arata()
     connect(m_deasupra, &QAbstractButton::clicked, this, &Panou::deasupraCeruta); // numai clicul omului, nu arata()
     connect(m_setari, &QAbstractButton::clicked, this, &Panou::setariCerute);
+    connect(m_editareBara, &QAbstractButton::clicked, this, &Panou::editareBaraCeruta); // starea o pune main
     connect(m_oprire, &QPushButton::clicked, this, &Panou::oprireCeruta);
     randBara->addWidget(m_strange);
     randBara->addWidget(m_comutator);
     randBara->addWidget(m_deasupra);
     randBara->addWidget(m_setari);
+    randBara->addWidget(m_editareBara); // după ⚙: probele și capturile numără ⚙ ca al patrulea buton
     // Căutarea (hotărârea 66, S): un buton care arată ca un câmp, cu ✕-ul filtrului lângă el
     m_cautare = new QWidget(m_bara);
     m_cautare->setObjectName(QStringLiteral("cautare"));
@@ -500,6 +504,11 @@ void Panou::deasupra(bool da)
     m_deasupra->setProperty("iconita", iconita); // testul citește numele: tema iconițelor poate lipsi
     m_deasupra->setToolTip(da ? i18n("Pinned: the panel stays above all windows")
                               : i18n("Not pinned: the panel stays above the chosen windows"));
+}
+
+void Panou::editareBara(bool da)
+{
+    m_editareBara->setChecked(da);
 }
 
 void Panou::stratPopup(bool da)

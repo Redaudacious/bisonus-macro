@@ -126,6 +126,8 @@ enum Coloana { Nume, Activ, Clic, Tasta, TastaActiva };
 constexpr int randToate = -1;
 constexpr int randDeasupra = -2;
 constexpr int randTransparenta = -3;
+constexpr int randBara = -4;
+constexpr int randBaraEditare = -5;
 constexpr int latimeTasta = 400; // un câmp de tastă nu se întinde cu fereastra (hotărârea 51)
 }
 
@@ -151,6 +153,8 @@ std::optional<qsizetype> intrebaTasta(QWidget *parinte, const Fisier &f, const Q
         const QString nume = alt == indiceToate ? i18n("All macros")
             : alt == indiceDeasupra             ? i18n("Panel on top")
             : alt == indiceTransparenta         ? i18n("Transparent background")
+            : alt == indiceBara                 ? i18n("Key bar")
+            : alt == indiceBaraEditare          ? i18n("Edit key bar")
                                                 : f.noduri[alt].nume;
         QMessageBox intrebare(QMessageBox::Question, i18n("Key taken"), i18n("%1 is used by %2", vazuta, nume),
                               QMessageBox::NoButton, parinte);
@@ -208,6 +212,18 @@ Setari Setari::citeste()
     s.transparent = g.readEntry("transparent", s.transparent);
     s.tastaTransparenta = g.readEntry("tastaTransparenta", QString());
     s.tastaDeasupra = g.readEntry("tastaDeasupra", QString());
+    s.baraVizibila = g.readEntry("baraVizibila", s.baraVizibila);
+    s.tastaBara = g.readEntry("tastaBara", QString());
+    s.tastaBaraEditare = g.readEntry("tastaBaraEditare", QString());
+    s.opacitateBara = g.readEntry("opacitateBara", s.opacitateBara);
+    s.baraOrdine = g.readEntry("baraOrdine", QStringList());
+    s.baraOrdine.removeAll(QString()); // „baraOrdine=” gol
+    s.baraAscunse = g.readEntry("baraAscunse", QStringList());
+    s.baraAscunse.removeAll(QString());
+    if (g.hasKey("baraX") && g.hasKey("baraY")) {
+        s.baraX = g.readEntry("baraX", 0);
+        s.baraY = g.readEntry("baraY", 0);
+    }
     const KConfigGroup grupNod = config()->group(QStringLiteral("Nod"));
     for (const QString &id : grupNod.groupList()) {
         const KConfigGroup n = grupNod.group(id);
@@ -254,6 +270,19 @@ void Setari::scrie() const
     g.writeEntry("transparent", transparent);
     g.writeEntry("tastaTransparenta", tastaTransparenta);
     g.writeEntry("tastaDeasupra", tastaDeasupra);
+    g.writeEntry("baraVizibila", baraVizibila);
+    g.writeEntry("tastaBara", tastaBara);
+    g.writeEntry("tastaBaraEditare", tastaBaraEditare);
+    g.writeEntry("opacitateBara", opacitateBara);
+    g.writeEntry("baraOrdine", baraOrdine);
+    g.writeEntry("baraAscunse", baraAscunse);
+    if (baraX && baraY) {
+        g.writeEntry("baraX", *baraX);
+        g.writeEntry("baraY", *baraY);
+    } else {
+        g.deleteEntry("baraX");
+        g.deleteEntry("baraY");
+    }
     KConfigGroup grupNod = config()->group(QStringLiteral("Nod"));
     for (const QString &id : grupNod.groupList())
         if (!noduri.contains(id))
@@ -558,6 +587,11 @@ void FereastraSetari::construieste()
     m_opacitate->setRange(0, 100);
     m_opacitate->setSuffix(QStringLiteral(" %"));
     m_opacitate->setValue(s.opacitate);
+    m_opacitateBara = new QSpinBox(m_continut); // fundalul barei tastelor; sloturile rămân opace
+    m_opacitateBara->setObjectName(QStringLiteral("opacitateBara"));
+    m_opacitateBara->setRange(0, 100);
+    m_opacitateBara->setSuffix(QStringLiteral(" %"));
+    m_opacitateBara->setValue(s.opacitateBara);
 
     // Ferestrele peste care se vede panoul (hotărârea 33) și fereastra adusă în față înaintea unui macro (hotărârea 46)
     m_ferestre = new QListWidget(m_continut);
@@ -639,6 +673,18 @@ void FereastraSetari::construieste()
     connect(m_tastaDeasupra, &KKeySequenceWidget::keySequenceChanged, this, [this](const QKeySequence &k) {
         tastaInregistrata(randDeasupra, k);
     });
+    m_tastaBara = tastaNoua(s.tastaBara);
+    m_tastaBara->setObjectName(QStringLiteral("tastaBara"));
+    m_tastaVeche.insert(randBara, s.tastaBara);
+    connect(m_tastaBara, &KKeySequenceWidget::keySequenceChanged, this, [this](const QKeySequence &k) {
+        tastaInregistrata(randBara, k);
+    });
+    m_tastaBaraEditare = tastaNoua(s.tastaBaraEditare);
+    m_tastaBaraEditare->setObjectName(QStringLiteral("tastaBaraEditare"));
+    m_tastaVeche.insert(randBaraEditare, s.tastaBaraEditare);
+    connect(m_tastaBaraEditare, &KKeySequenceWidget::keySequenceChanged, this, [this](const QKeySequence &k) {
+        tastaInregistrata(randBaraEditare, k);
+    });
 
     // O pagină cu formular: câmpurile își păstrează lățimea, iar pagina derulează când nu încape.
     auto paginaFormular = [this](QFormLayout *forma) {
@@ -655,6 +701,7 @@ void FereastraSetari::construieste()
     };
     auto *panou = new QFormLayout;
     panou->addRow(i18n("Panel background opacity"), m_opacitate);
+    panou->addRow(i18n("Key bar background opacity"), m_opacitateBara);
     panou->addRow(QString(), m_transparent);
     panou->addRow(i18n("Panel on top of"), m_ferestre);
     panou->addRow(QString(), butoaneFerestre);
@@ -665,6 +712,8 @@ void FereastraSetari::construieste()
     taste->addRow(i18n("Key that stops the running macro"), m_tastaOprire);
     taste->addRow(i18n("Key for 📌"), m_tastaDeasupra);
     taste->addRow(i18n("Key for the transparent background"), m_tastaTransparenta);
+    taste->addRow(i18n("Key that shows and hides the key bar"), m_tastaBara);
+    taste->addRow(i18n("Key that edits the key bar"), m_tastaBaraEditare);
     taste->addRow(i18n("Start pause"), m_pauzaStart);
     auto *general = new QFormLayout;
     general->addRow(i18n("Theme"), m_tema);
@@ -1003,6 +1052,10 @@ KKeySequenceWidget *FereastraSetari::tastaDinRand(int rand) const
         return m_tastaDeasupra;
     if (rand == randTransparenta)
         return m_tastaTransparenta;
+    if (rand == randBara)
+        return m_tastaBara;
+    if (rand == randBaraEditare)
+        return m_tastaBaraEditare;
     return static_cast<KKeySequenceWidget *>(m_arbore->itemWidget(m_randuri[rand], Tasta));
 }
 
@@ -1142,10 +1195,10 @@ void FereastraSetari::tastaInregistrata(int rand, const QKeySequence &k)
     const QString id = rand == randToate ? QString()
         : rand == randDeasupra           ? idDeasupra
         : rand == randTransparenta       ? idTransparenta
+        : rand == randBara               ? idBara
+        : rand == randBaraEditare        ? idBaraEditare
                                          : m_fisier.noduri[rand].id;
-    const std::optional<qsizetype> pierde =
-        intrebaTasta(this, m_fisier, formular.noduri, {formular.tastaToate, formular.tastaDeasupra, formular.tastaTransparenta},
-                     id, k, altaAplicatie);
+    const std::optional<qsizetype> pierde = intrebaTasta(this, m_fisier, formular.noduri, formular.fixe(), id, k, altaAplicatie);
     if (!pierde) {
         puneTasta(tastaDinRand(rand), m_tastaVeche.value(rand));
         m_intreaba = false;
@@ -1155,6 +1208,8 @@ void FereastraSetari::tastaInregistrata(int rand, const QKeySequence &k)
         const int randAlt = *pierde == indiceToate ? randToate
             : *pierde == indiceDeasupra             ? randDeasupra
             : *pierde == indiceTransparenta         ? randTransparenta
+            : *pierde == indiceBara                 ? randBara
+            : *pierde == indiceBaraEditare          ? randBaraEditare
                                                     : int(*pierde);
         puneTasta(tastaDinRand(randAlt), QString());
         m_tastaVeche[randAlt] = QString();
@@ -1193,6 +1248,9 @@ Setari FereastraSetari::citesteFormularul() const
     s.transparent = m_transparent->isChecked();
     s.tastaTransparenta = portabila(m_tastaTransparenta);
     s.tastaDeasupra = portabila(m_tastaDeasupra);
+    s.opacitateBara = m_opacitateBara->value();
+    s.tastaBara = portabila(m_tastaBara);
+    s.tastaBaraEditare = portabila(m_tastaBaraEditare);
     for (qsizetype r = 0; r < m_fisier.noduri.size(); ++r) {
         const Nod &n = m_fisier.noduri[r];
         SetariNod &sn = s.noduri[n.id];
@@ -1262,8 +1320,7 @@ void FereastraTasta::ok()
     m_pierde = -1;
     if (!m_tastaAleasa.isEmpty()) {
         const std::optional<qsizetype> pierde = intrebaTasta(
-            this, m_fisier, m_setari.noduri, {m_setari.tastaToate, m_setari.tastaDeasupra, m_setari.tastaTransparenta}, m_id,
-            k, altaAplicatie);
+            this, m_fisier, m_setari.noduri, m_setari.fixe(), m_id, k, altaAplicatie);
         if (!pierde)
             return; // „Cancel” pe întrebare: fereastra rămâne, iar omul alege altă tastă
         m_pierde = *pierde;
@@ -1282,6 +1339,10 @@ void FereastraTasta::aplica(Setari &s) const
         s.tastaDeasupra.clear();
     else if (m_pierde == indiceTransparenta)
         s.tastaTransparenta.clear();
+    else if (m_pierde == indiceBara)
+        s.tastaBara.clear();
+    else if (m_pierde == indiceBaraEditare)
+        s.tastaBaraEditare.clear();
     else if (m_pierde >= 0)
         s.noduri[m_fisier.noduri[m_pierde].id].tasta.clear();
 }
