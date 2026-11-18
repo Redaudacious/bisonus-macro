@@ -78,7 +78,7 @@ paru -S bisonus-macro
 The command `yay -S bisonus-macro` does the same. You can also install the file from the Releases page:
 
 ```bash
-sudo pacman -U ./bisonus-macro-0.7.1-1-x86_64.pkg.tar.zst
+sudo pacman -U ./bisonus-macro-0.7.2-1-x86_64.pkg.tar.zst
 ```
 
 ## First start
