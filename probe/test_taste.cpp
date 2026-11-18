@@ -34,6 +34,24 @@ private slots:
         QVERIFY(!coduriTasta(QStringLiteral("Snow")));
         QVERIFY(!coduriTasta(QString()));
     }
+    void modificatoriiSinguri()
+    {
+        QCOMPARE(t(QStringLiteral("Shift")), (QList<int>{KEY_LEFTSHIFT}));
+        QCOMPARE(t(QStringLiteral("LShift")), (QList<int>{KEY_LEFTSHIFT}));
+        QCOMPARE(t(QStringLiteral("RShift")), (QList<int>{KEY_RIGHTSHIFT}));
+        QCOMPARE(t(QStringLiteral("Ctrl")), (QList<int>{KEY_LEFTCTRL}));
+        QCOMPARE(t(QStringLiteral("LCtrl")), (QList<int>{KEY_LEFTCTRL}));
+        QCOMPARE(t(QStringLiteral("RCtrl")), (QList<int>{KEY_RIGHTCTRL}));
+        QCOMPARE(t(QStringLiteral("Alt")), (QList<int>{KEY_LEFTALT}));
+        QCOMPARE(t(QStringLiteral("LAlt")), (QList<int>{KEY_LEFTALT}));
+        QCOMPARE(t(QStringLiteral("RAlt")), (QList<int>{KEY_RIGHTALT}));
+        QCOMPARE(t(QStringLiteral("Win")), (QList<int>{KEY_LEFTMETA}));
+        QCOMPARE(t(QStringLiteral("LWin")), (QList<int>{KEY_LEFTMETA}));
+        QCOMPARE(t(QStringLiteral("RWin")), (QList<int>{KEY_RIGHTMETA}));
+        QCOMPARE(t(QStringLiteral("shift")), (QList<int>{KEY_LEFTSHIFT})); // literele mari nu contează
+        QCOMPARE(t(QStringLiteral("RCTRL")), (QList<int>{KEY_RIGHTCTRL}));
+        QCOMPARE(t(QStringLiteral("Shift+[")), (QList<int>{KEY_LEFTSHIFT, KEY_LEFTBRACE})); // combinația de azi merge mai departe
+    }
 };
 
 QTEST_MAIN(TestTaste)

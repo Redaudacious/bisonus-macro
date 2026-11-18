@@ -323,6 +323,22 @@ private slots:
         QVERIFY(compileaza(QStringLiteral("block {\n    click()\n}\n")).eroare.isEmpty()); // blocul oprește numai tastatura
         QVERIFY(comenziLimbaj().contains(QStringLiteral("wheel")));
     }
+    void mouseulRelativ()
+    {
+        const Program p = compileaza(QStringLiteral("mousemoverel(1, 2)\n"));
+        QVERIFY2(p.eroare.isEmpty(), qPrintable(p.eroare));
+        QCOMPARE(p.cod[0].nume, QStringLiteral("mousemoverel"));
+        QCOMPARE(p.cod[0].argumente.size(), 2);
+        QVERIFY(compileaza(QStringLiteral("mousemoverel(1)")).eroare.contains(QStringLiteral("mousemoverel(dx, dy)")));
+        QVERIFY(compileaza(QStringLiteral("mousemoverel(1, 2, 3)")).eroare.contains(QStringLiteral("mousemoverel(dx, dy)")));
+        QVERIFY(comenziLimbaj().contains(QStringLiteral("mousemoverel")));
+    }
+    void modificatoriiSinguri()
+    {
+        const Program p = compileaza(QStringLiteral("key(\"Shift\")\nkeydown(\"LCtrl\")\nkeyup(\"rwin\")\n"));
+        QVERIFY2(p.eroare.isEmpty(), qPrintable(p.eroare));
+        QVERIFY(compileaza(QStringLiteral("key(\"Shiftt\")")).eroare.contains(QStringLiteral("unknown key")));
+    }
 };
 
 QTEST_MAIN(TestLimbaj)

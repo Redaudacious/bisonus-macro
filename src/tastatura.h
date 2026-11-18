@@ -31,6 +31,9 @@ public:
     bool mutaMouse(double x, double y, QString &eroare);       // coordonatele desktopului, în pixeli logici
     bool butonMouse(int buton, bool apasat, QString &eroare); // BTN_LEFT, BTN_RIGHT sau BTN_MIDDLE
     bool rotita(int pasi, QString &eroare);                   // pași de rotiță; pozitiv în jos
+    // Mișcarea relativă, în pixeli logici, față de locul cursorului. Cât un joc ține cursorul, cursorul nu se mișcă,
+    // dar jocul primește mișcarea. EIS n-are accelerație: KWin dă aceeași valoare.
+    bool mutaRelativ(double dx, double dy, QString &eroare);
     // Chemată când KWin închide legătura EIS sau scoate tastatura: nicio tastă nu mai ajunge în joc.
     std::function<void()> laPierdere;
 

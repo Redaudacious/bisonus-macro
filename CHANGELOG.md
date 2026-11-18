@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.1
+
+New:
+
+- The command mousemoverel(dx, dy) moves the cursor from where it is. A game that holds the cursor in the middle of the screen gets the movement and can free the cursor.
+- key, keydown and keyup accept a modifier alone: Shift, Ctrl, Alt and Win, and LShift, RShift, LCtrl, RCtrl, LAlt, RAlt, LWin and RWin for one side.
+
 ## 0.7.0
 
 New:

@@ -78,7 +78,7 @@ paru -S bisonus-macro
 The command `yay -S bisonus-macro` does the same. You can also install the file from the Releases page:
 
 ```bash
-sudo pacman -U ./bisonus-macro-0.7.0-1-x86_64.pkg.tar.zst
+sudo pacman -U ./bisonus-macro-0.7.1-1-x86_64.pkg.tar.zst
 ```
 
 ## First start
@@ -99,7 +99,7 @@ A new install has no macros. Click the gear button (⚙) in the toolbar of the p
 
 ![The editor shows an error and then the corrected script.](docs/media/2-editor.gif)
 
-The macros use a small scripting language. It types keys and also moves the mouse, clicks and turns the wheel with `mousemove`, `click` and `wheel`. The help window of the program has a full page for it, "Scripting language". Open it from the main window.
+The macros use a small scripting language. It types keys and also moves the mouse, clicks and turns the wheel with `mousemove`, `mousemoverel`, `click` and `wheel`. The help window of the program has a full page for it, "Scripting language". Open it from the main window.
 
 ## Stopping a macro
 

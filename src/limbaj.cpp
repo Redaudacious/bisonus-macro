@@ -452,7 +452,8 @@ private:
         static const QHash<QString, Forma> forme{
             {QStringLiteral("key"), {1, 1}},   {QStringLiteral("keydown"), {1, 1}},   {QStringLiteral("keyup"), {1, 1}},
             {QStringLiteral("text"), {1, 1}},  {QStringLiteral("wait"), {1, 1}},      {QStringLiteral("keydelay"), {1, 1}},
-            {QStringLiteral("click"), {0, 2}}, {QStringLiteral("mousemove"), {2, 2}}, {QStringLiteral("wheel"), {1, 1}}};
+            {QStringLiteral("click"), {0, 2}}, {QStringLiteral("mousemove"), {2, 2}}, {QStringLiteral("wheel"), {1, 1}},
+            {QStringLiteral("mousemoverel"), {2, 2}}};
         if (c == QLatin1String("random"))
             throw Greseala{a.rand, a.coloana, i18n("random() gives a number: use it in an expression, like x := random(1, 6)")};
         const auto forma = forme.constFind(c);
@@ -462,6 +463,7 @@ private:
             throw Greseala{a.rand, a.coloana,
                            c == QLatin1String("click")       ? i18n("click() needs no value, a button like click(\"right\"), or a point like click(x, y)")
                            : c == QLatin1String("mousemove") ? i18n("mousemove() needs two values: mousemove(x, y)")
+                           : c == QLatin1String("mousemoverel") ? i18n("mousemoverel() needs two values: mousemoverel(dx, dy)")
                                                              : i18n("%1() needs exactly one value", a.text)};
         if (arg.isEmpty()) {
             const int k = emite(Instructiune::Comanda, a.rand);
@@ -857,6 +859,7 @@ const QStringList &comenziLimbaj()
 {
     static const QStringList c{QStringLiteral("key"), QStringLiteral("keydown"), QStringLiteral("keyup"), QStringLiteral("text"),
                                QStringLiteral("wait"), QStringLiteral("keydelay"), QStringLiteral("random"),
-                               QStringLiteral("click"), QStringLiteral("mousemove"), QStringLiteral("wheel")};
+                               QStringLiteral("click"), QStringLiteral("mousemove"), QStringLiteral("wheel"),
+                               QStringLiteral("mousemoverel")};
     return c;
 }

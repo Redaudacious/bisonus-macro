@@ -3,7 +3,7 @@
 # In the source repository, sha256sums is SKIP: build-arch.sh puts an archive of the working copy next to it.
 # packaging/aur.sh writes the checksum of the GitHub tag archive into the AUR copy.
 pkgname=bisonus-macro
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Keyboard and mouse macros for KDE Plasma 6 on Wayland"
 arch=('x86_64')

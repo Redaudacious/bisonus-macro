@@ -66,6 +66,14 @@ std::optional<QList<int>> coduriCaracter(QChar c)
 
 std::optional<QList<int>> coduriTasta(const QString &nume)
 {
+    // Modificatorii singuri, cu numele din AHK v2. QKeySequence nu citește un modificator fără tastă.
+    static const QHash<QString, int> modificatori{
+        {QStringLiteral("shift"), KEY_LEFTSHIFT}, {QStringLiteral("lshift"), KEY_LEFTSHIFT}, {QStringLiteral("rshift"), KEY_RIGHTSHIFT},
+        {QStringLiteral("ctrl"), KEY_LEFTCTRL},   {QStringLiteral("lctrl"), KEY_LEFTCTRL},   {QStringLiteral("rctrl"), KEY_RIGHTCTRL},
+        {QStringLiteral("alt"), KEY_LEFTALT},     {QStringLiteral("lalt"), KEY_LEFTALT},     {QStringLiteral("ralt"), KEY_RIGHTALT},
+        {QStringLiteral("win"), KEY_LEFTMETA},    {QStringLiteral("lwin"), KEY_LEFTMETA},    {QStringLiteral("rwin"), KEY_RIGHTMETA}};
+    if (const auto it = modificatori.constFind(nume.toLower()); it != modificatori.cend())
+        return QList<int>{*it};
     const QKeySequence secventa = QKeySequence::fromString(nume, QKeySequence::PortableText);
     if (secventa.count() != 1)
         return std::nullopt;

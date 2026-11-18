@@ -295,6 +295,8 @@ int main(int argc, char **argv)
         QString eroare;
         if (comanda == QLatin1String("mousemove")) {
             tastatura.mutaMouse(v[0], v[1], eroare);
+        } else if (comanda == QLatin1String("mousemoverel")) {
+            tastatura.mutaRelativ(v[0], v[1], eroare);
         } else if (comanda == QLatin1String("click")) {
             if (tastatura.butonMouse(int(v[0]), true, eroare)) {
                 usleep(20000);

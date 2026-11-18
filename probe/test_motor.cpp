@@ -186,6 +186,41 @@ private slots:
         QVERIFY(oprit.wait(2000));
         QVERIFY(oprit.first().at(0).toString().contains(QStringLiteral("outside the screen")));
     }
+    void mouseulRelativ()
+    {
+        QList<std::pair<QString, QList<double>>> cereri;
+        Motor motor([](const QList<int> &) {}, [](int, int) {});
+        motor.seteazaMouse([&](const QString &c, const QList<double> &v) {
+            cereri << std::pair{c, v};
+            return QString();
+        });
+        QSignalSpy terminat(&motor, &Motor::terminat);
+        QVERIFY(motor.porneste(macro(QStringLiteral("dx := 6\nmousemoverel(dx, -4)\n"))));
+        QVERIFY(terminat.wait(2000));
+        QCOMPARE(terminat.first().at(1).toBool(), false);
+        using C = std::pair<QString, QList<double>>;
+        QCOMPARE(cereri, (QList<C>{{QStringLiteral("mousemoverel"), {6, -4}}}));
+    }
+    void mouseulRelativCereNumere()
+    {
+        Motor motor([](const QList<int> &) {}, [](int, int) {});
+        motor.seteazaMouse([](const QString &, const QList<double> &) { return QString(); });
+        QSignalSpy oprit(&motor, &Motor::opritCuMotiv);
+        QVERIFY(motor.porneste(macro(QStringLiteral("x := \"a\"\nmousemoverel(x, 1)\n"))));
+        QVERIFY(oprit.wait(2000));
+        QVERIFY2(oprit.first().at(0).toString().contains(QStringLiteral("is not a number")), qPrintable(oprit.first().at(0).toString()));
+    }
+    void modificatorulSingur()
+    {
+        QList<QList<int>> apasate;
+        QList<std::pair<int, int>> miscari;
+        Motor motor([&](const QList<int> &c) { apasate << c; }, [&](int cod, int v) { miscari << std::pair{cod, v}; });
+        QSignalSpy terminat(&motor, &Motor::terminat);
+        QVERIFY(motor.porneste(macro(QStringLiteral("key(\"Shift\")\nkeydown(\"RCtrl\")\nkeyup(\"RCtrl\")\n"))));
+        QVERIFY(terminat.wait(2000));
+        QCOMPARE(apasate, (QList<QList<int>>{{KEY_LEFTSHIFT}}));
+        QCOMPARE(miscari, (QList<std::pair<int, int>>{{KEY_RIGHTCTRL, 1}, {KEY_RIGHTCTRL, 0}}));
+    }
 };
 
 QTEST_MAIN(TestMotor)

@@ -29,9 +29,10 @@ block {
 <tr><td>random(a, b)</td><td>Dă un număr întreg de la a la b. Folosește-l într-o expresie.</td><td>x := random(1, 6)</td></tr>
 <tr><td>click()</td><td>Apasă butonul stâng. click("right") și click("middle") apasă celelalte butoane. click(x, y) mută întâi cursorul.</td><td>click(960, 540)</td></tr>
 <tr><td>mousemove(x, y)</td><td>Mută cursorul în punctul x, y al desktopului.</td><td>mousemove(100, 200)</td></tr>
+<tr><td>mousemoverel(dx, dy)</td><td>Mută cursorul cu dx pixeli la dreapta și cu dy pixeli în jos, față de locul lui. Valorile negative îl mută la stânga și în sus. Unele jocuri țin cursorul în mijlocul ecranului. Atunci cursorul nu se mișcă, dar jocul primește mișcarea și poate elibera cursorul.</td><td>mousemoverel(6, 4)</td></tr>
 <tr><td>wheel(n)</td><td>Învârte rotița n pași. Un n pozitiv o învârte în jos, un n negativ în sus.</td><td>wheel(-3)</td></tr>
 </table>
-<p>Numele tastelor: literele a până la z, cifrele 0 până la 9, F1 până la F12, Return, Space, Tab, Escape, BackSpace, Delete, Insert, Home, End, PgUp, PgDown, Up, Down, Left, Right și semnele de pe tastatura US. Pune Ctrl+, Shift+ sau Alt+ înaintea unei taste pentru o combinație.</p>
+<p>Numele tastelor: literele a până la z, cifrele 0 până la 9, F1 până la F12, Return, Space, Tab, Escape, BackSpace, Delete, Insert, Home, End, PgUp, PgDown, Up, Down, Left, Right și semnele de pe tastatura US. Pune Ctrl+, Shift+ sau Alt+ înaintea unei taste pentru o combinație. Un modificator singur e și el o tastă. Shift, Ctrl, Alt și Win apasă tasta din stânga. LShift, RShift, LCtrl, RCtrl, LAlt, RAlt, LWin și RWin aleg partea.</p>
 
 <h2>Variabilele și valorile</h2>
 <p>O variabilă primește o valoare cu <b>:=</b>. O valoare e un număr sau un text. Un text stă între ghilimele duble.</p>

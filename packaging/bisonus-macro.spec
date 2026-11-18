@@ -1,5 +1,5 @@
 Name:           bisonus-macro
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Keyboard and mouse macros for KDE Plasma 6 on Wayland
 License:        GPL-3.0-or-later
@@ -53,6 +53,9 @@ with Wayland. The keys and the mouse go through the KDE RemoteDesktop portal.
 %{_docdir}/%{name}/
 
 %changelog
+* Sun Nov 15 2026 Rosu Mihai - 0.7.1-1
+- mousemoverel(dx, dy) and the modifiers alone in key, keydown and keyup
+
 * Thu Oct 29 2026 Rosu Mihai - 0.7.0-1
 - Scripting language with an editor, a stop key and an empty first start
 - KDE asks once for keyboard and mouse access (again after the update to 0.7.0)

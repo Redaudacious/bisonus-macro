@@ -29,9 +29,10 @@ block {
 <tr><td>random(a, b)</td><td>Gives a whole number from a to b. Use it in an expression.</td><td>x := random(1, 6)</td></tr>
 <tr><td>click()</td><td>Clicks the left button. click("right") and click("middle") click the other buttons. click(x, y) moves the cursor first.</td><td>click(960, 540)</td></tr>
 <tr><td>mousemove(x, y)</td><td>Moves the cursor to the point x, y of the desktop.</td><td>mousemove(100, 200)</td></tr>
+<tr><td>mousemoverel(dx, dy)</td><td>Moves the cursor dx pixels to the right and dy pixels down from where it is. Negative values move it to the left and up. Some games hold the cursor in the middle of the screen. Then the cursor does not move, but the game gets the movement and can free the cursor.</td><td>mousemoverel(6, 4)</td></tr>
 <tr><td>wheel(n)</td><td>Turns the wheel n steps. A positive n turns down, a negative n turns up.</td><td>wheel(-3)</td></tr>
 </table>
-<p>Key names: the letters a to z, the digits 0 to 9, F1 to F12, Return, Space, Tab, Escape, BackSpace, Delete, Insert, Home, End, PgUp, PgDown, Up, Down, Left, Right, and the signs on the US keyboard. Put Ctrl+, Shift+ or Alt+ before a key for a combination.</p>
+<p>Key names: the letters a to z, the digits 0 to 9, F1 to F12, Return, Space, Tab, Escape, BackSpace, Delete, Insert, Home, End, PgUp, PgDown, Up, Down, Left, Right, and the signs on the US keyboard. Put Ctrl+, Shift+ or Alt+ before a key for a combination. A modifier alone is also a key. Shift, Ctrl, Alt and Win press the left key. LShift, RShift, LCtrl, RCtrl, LAlt, RAlt, LWin and RWin choose the side.</p>
 
 <h2>Variables and values</h2>
 <p>A variable gets a value with <b>:=</b>. A value is a number or a text. A text is between double quotes.</p>

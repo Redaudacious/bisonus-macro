@@ -17,8 +17,9 @@ public:
     bool ruleaza() const;
     // Blocarea tastaturilor fizice. `blocheaza` întoarce gol la reușită, altfel motivul.
     void seteazaBlocarea(std::function<QString()> blocheaza, std::function<void()> deblocheaza);
-    // Mouse-ul (planul 5). `mouse(comanda, valori)` primește „mousemove” cu {x, y}, „click” cu {codul butonului} sau
-    // „wheel” cu {pași} și întoarce gol la reușită, altfel motivul. Fără el, o comandă de mouse oprește macro-ul.
+    // Mouse-ul (planul 5). `mouse(comanda, valori)` primește „mousemove” cu {x, y}, „mousemoverel” cu {dx, dy},
+    // „click” cu {codul butonului} sau „wheel” cu {pași} și întoarce gol la reușită, altfel motivul. Fără el, o comandă
+    // de mouse oprește macro-ul.
     void seteazaMouse(std::function<QString(const QString &, const QList<double> &)> mouse) { m_mouse = std::move(mouse); }
     QHash<QString, Valoare> variabile() const { return m_variabile; } // ale ultimului macro, pentru teste
 

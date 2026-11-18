@@ -176,14 +176,14 @@ void Tastatura::proceseaza()
         ei_device *d = ei_event_get_device(e);
         switch (ei_event_get_type(e)) {
         case EI_EVENT_SEAT_ADDED:
-            ei_seat_bind_capabilities(ei_event_get_seat(e), EI_DEVICE_CAP_KEYBOARD, EI_DEVICE_CAP_POINTER_ABSOLUTE, EI_DEVICE_CAP_BUTTON,
-                                     EI_DEVICE_CAP_SCROLL, nullptr);
+            ei_seat_bind_capabilities(ei_event_get_seat(e), EI_DEVICE_CAP_KEYBOARD, EI_DEVICE_CAP_POINTER, EI_DEVICE_CAP_POINTER_ABSOLUTE,
+                                     EI_DEVICE_CAP_BUTTON, EI_DEVICE_CAP_SCROLL, nullptr);
             break;
         case EI_EVENT_DEVICE_ADDED:
             if (!m_dispozitiv && ei_device_has_capability(d, EI_DEVICE_CAP_KEYBOARD))
                 m_dispozitiv = ei_device_ref(d);
-            else if (ei_device_has_capability(d, EI_DEVICE_CAP_POINTER_ABSOLUTE) || ei_device_has_capability(d, EI_DEVICE_CAP_BUTTON)
-                     || ei_device_has_capability(d, EI_DEVICE_CAP_SCROLL))
+            else if (ei_device_has_capability(d, EI_DEVICE_CAP_POINTER) || ei_device_has_capability(d, EI_DEVICE_CAP_POINTER_ABSOLUTE)
+                     || ei_device_has_capability(d, EI_DEVICE_CAP_BUTTON) || ei_device_has_capability(d, EI_DEVICE_CAP_SCROLL))
                 m_mouse << ei_device_ref(d);
             break;
         case EI_EVENT_DEVICE_RESUMED:
@@ -195,6 +195,8 @@ void Tastatura::proceseaza()
                 ei_device_start_emulating(d, ++m_secventa);
                 if (m_mouseActiv.isEmpty())
                     qInfo("mouse EIS: gata");
+                if (ei_device_has_capability(d, EI_DEVICE_CAP_POINTER))
+                    qInfo("mouse EIS: relativ gata"); // proba din Sober și proba F8 îl așteaptă
                 m_mouseActiv.insert(d);
             }
             break;
@@ -298,6 +300,16 @@ bool Tastatura::rotita(int pasi, QString &eroare)
     if (!d)
         return false;
     ei_device_scroll_discrete(d, 0, pasi * 120); // 120 e un pas al rotiței, după libei.h
+    ei_device_frame(d, ei_now(m_ei));
+    return true;
+}
+
+bool Tastatura::mutaRelativ(double dx, double dy, QString &eroare)
+{
+    ei_device *d = mouseCu(EI_DEVICE_CAP_POINTER, eroare);
+    if (!d)
+        return false;
+    ei_device_pointer_motion(d, dx, dy);
     ei_device_frame(d, ei_now(m_ei));
     return true;
 }

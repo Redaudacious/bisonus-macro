@@ -168,7 +168,8 @@ bool Motor::executa(const Instructiune &i, int &asteapta, QString &eroare)
 
 bool Motor::comanda(const Instructiune &i, int &asteapta, QString &eroare)
 {
-    if (i.nume == QLatin1String("click") || i.nume == QLatin1String("mousemove") || i.nume == QLatin1String("wheel"))
+    if (i.nume == QLatin1String("click") || i.nume == QLatin1String("mousemove") || i.nume == QLatin1String("mousemoverel")
+        || i.nume == QLatin1String("wheel"))
         return mouse(i, asteapta, eroare);
     Valoare v;
     if (!argument(i, v, eroare))
@@ -257,6 +258,12 @@ bool Motor::mouse(const Instructiune &i, int &asteapta, QString &eroare)
         if (!numar(v[0], x) || !numar(v[1], y))
             return false;
         motiv = m_mouse(QStringLiteral("mousemove"), {x, y});
+    }
+    if (i.nume == QLatin1String("mousemoverel")) {
+        double dx = 0, dy = 0;
+        if (!numar(v[0], dx) || !numar(v[1], dy))
+            return false;
+        motiv = m_mouse(QStringLiteral("mousemoverel"), {dx, dy});
     }
     if (motiv.isEmpty() && i.nume == QLatin1String("click")) {
         int buton = BTN_LEFT;

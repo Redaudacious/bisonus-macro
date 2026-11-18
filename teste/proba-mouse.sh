@@ -1,8 +1,9 @@
 #!/bin/bash
 # proba-mouse.sh — criteriul C16. Fereastra de probă stă deschisă, iar un macro `mousemove(X, Y)` și `click()`, pornit cu
 # F7, duce cursorul în mijlocul ei și face un clic stâng. Fereastra tipărește „clic stang”, iar KWin dă cursorul la cel
-# mult 2 px de punct. Un al doilea macro face `click("right")`, iar fereastra tipărește „clic altul”. Aplicația ține
-# tastele sub componenta de probă `proba-mouse`. Proba mișcă cursorul: omul nu atinge mouse-ul cam 15 secunde.
+# mult 2 px de punct. Un al doilea macro face `click("right")`, iar fereastra tipărește „clic altul”. Un al treilea
+# macro, pe F8, face mousemove(X, Y), apoi mousemoverel(40, 30): cursorul trebuie să ajungă la cel mult 8 px de X+40,
+# Y+30. Aplicația ține tastele sub componenta de probă `proba-mouse`. Proba mișcă cursorul: omul nu atinge mouse-ul cam 15 secunde.
 set -u
 cd "$(dirname "$0")/.."
 source teste/componenta.sh
@@ -18,7 +19,7 @@ liber_sau_iesi "probei"
 pgrep -x ydotoold >/dev/null || { echo "✗ ydotoold nu rulează: proba apasă F7 cu ydotool"; exit 1; }
 [ -n "${WAYLAND_DISPLAY:-}" ] || { echo "✗ proba cere sesiunea grafică Wayland"; exit 1; }
 [ -x build/bisonus-macro ] && [ -x build/fereastra-tinta ] || { echo "✗ lipsesc programele din build/: rulează cmake --build build"; exit 1; }
-for t in F7 F11; do
+for t in F7 F8 F11; do
     for _ in $(seq 100); do grep -qP "[=,\t]$t([,\t]|$)" "$HOME/.config/kglobalshortcutsrc" || break; sleep 0.1; done
     grep -qP "[=,\t]$t([,\t]|$)" "$HOME/.config/kglobalshortcutsrc" && { echo "✗ $t nu e liberă în kglobalshortcutsrc"; exit 1; }
 done
@@ -66,12 +67,16 @@ tasta=F7
 
 [Nod][drept]
 tasta=F11
+
+[Nod][relativ]
+tasta=F8
 EOT
 [ -s "$ACORD" ] && printf '\n[Portal]\nrestore_token=%s\n' "$(cat "$ACORD")" >> "$SETARI"
 cat > "$D/config/bisonus-macro/macros.json" <<EOT
 { "sabloane": {}, "arbore": [ { "categorie": "Proba", "id": "proba", "copii": [
     { "macro": "Stang", "id": "stang", "script": "mousemove($X, $Y)\nclick()\n" },
-    { "macro": "Drept", "id": "drept", "script": "click(\"right\")\n" } ] } ] }
+    { "macro": "Drept", "id": "drept", "script": "click(\"right\")\n" },
+    { "macro": "Relativ", "id": "relativ", "script": "mousemove($X, $Y)\nmousemoverel(40, 30)\n" } ] } ] }
 EOT
 
 [ -s "$ACORD" ] || echo "→ KDE arată fereastra de acord pentru tastatură și mouse: acceptă-o"
@@ -79,6 +84,8 @@ LANGUAGE=en BISONUS_COMPONENTA=proba-mouse XDG_CONFIG_HOME="$PWD/$D/config" buil
 APP=$!
 for _ in $(seq $((ASTEPTARE * 10))); do grep -q 'mouse EIS: gata' "$D/aplicatia.log" && break; sleep 0.1; done
 grep -q 'mouse EIS: gata' "$D/aplicatia.log" || { echo "✗ aplicația n-a primit mouse-ul EIS în $ASTEPTARE s: $D/aplicatia.log"; exit 1; }
+for _ in $(seq 100); do grep -q 'mouse EIS: relativ gata' "$D/aplicatia.log" && break; sleep 0.1; done
+grep -q 'mouse EIS: relativ gata' "$D/aplicatia.log" || { echo "✗ KWin n-a dat dispozitivul relativ: $D/aplicatia.log"; exit 1; }
 JETON=$(sed -n 's/^restore_token=//p' "$SETARI")
 [ -n "$JETON" ] && echo "$JETON" > "$ACORD"
 sleep 1.5
@@ -96,3 +103,10 @@ ydotool key 87:1 87:0 >/dev/null # F11: Drept, în același loc
 for _ in $(seq 30); do grep -qx 'clic altul' "$D/tinta.log" && break; sleep 0.1; done
 grep -qx 'clic altul' "$D/tinta.log" || { echo "✗ fereastra n-a primit clicul drept: $D/tinta.log"; exit 1; }
 echo "✓ click(\"right\") a ajuns ca alt buton"
+
+ydotool key 66:1 66:0 >/dev/null # F8: Relativ
+sleep 1
+read -r CX CY <<< "$(intreaba cursor 'function raport(t) { callDBus("win.bisonus.proba", "/BisonusMacro", "win.bisonus.BisonusMacro", "raport", t); } raport("cursor " + Math.round(workspace.cursorPos.x) + " " + Math.round(workspace.cursorPos.y));')"
+[ -n "${CY:-}" ] && [ $(( (CX - X - 40) * (CX - X - 40) + (CY - Y - 30) * (CY - Y - 30) )) -le 64 ] \
+    || { echo "✗ după mousemoverel(40, 30), cursorul e la ${CX:-?},${CY:-?}, nu la $((X + 40)),$((Y + 30))"; exit 1; }
+echo "✓ mousemoverel(40, 30) a mutat cursorul la cel mult 8 px de $((X + 40)),$((Y + 30))"

@@ -325,6 +325,10 @@ msgstr ""
 msgid "mousemove() needs two values: mousemove(x, y)"
 msgstr "mousemove() cere două valori: mousemove(x, y)"
 
+#: src/limbaj.cpp:466
+msgid "mousemoverel() needs two values: mousemoverel(dx, dy)"
+msgstr "mousemoverel() cere două valori: mousemoverel(dx, dy)"
+
 #: src/limbaj.cpp:465
 msgid "%1() needs exactly one value"
 msgstr "%1() cere exact o valoare"
